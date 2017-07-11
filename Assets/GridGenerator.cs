@@ -8,16 +8,16 @@ public class GridGenerator : MonoBehaviour
 {
     public int worldSizeX = 0;
     public int worldSizeY = 0;
-    GameObject tile;
+    GameObject tileType1; //green
+    GameObject tileType2; //yellow
 
 
     void Start()
     {
-        tile = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TestTile.prefab", typeof(GameObject));
-
+        tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TestTile.prefab", typeof(GameObject));
+        tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TestTileYellow.prefab", typeof(GameObject));
         Generator();
     }
-
 
     void Generator()
     {
@@ -27,11 +27,17 @@ public class GridGenerator : MonoBehaviour
             {
                 if ((y % 2) != 0)
                 {
-                    Instantiate(tile, new Vector3(x, y-0.670f, 1), Quaternion.identity);
+                    //green
+                    GameObject newTile = Instantiate(tileType1, new Vector3(x, y/1.5f, 1), Quaternion.identity);
+                    Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
+                    newTile.GetComponent<SpriteRenderer>().color = tileColor;
                 }
                 else
                 {
-                    Instantiate(tile, new Vector3(x+0.5f, y-0.670f, 1), Quaternion.identity);
+                    //yellow
+                    GameObject newTile = Instantiate(tileType2, new Vector3(x+0.5f, y/1.5f, 1), Quaternion.identity);
+                    Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
+                    newTile.GetComponent<SpriteRenderer>().color = tileColor;
                 } 
             }
         }
