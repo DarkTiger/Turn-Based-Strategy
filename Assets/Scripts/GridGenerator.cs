@@ -1,36 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+//using UnityEditor;
+//using UnityEditor.SceneManagement;
 
 
 public class GridGenerator : MonoBehaviour
 {
     public int worldSizeX = 0;
     public int worldSizeY = 0;
-    GameObject tileType1; //grass
-    GameObject tileType2; //desert
-    GameObject tileType3; //forest
-    GameObject tileType4; //lake
-    GameObject tileType5; //mountain
+    public GameObject tileType1; //grass
+    public GameObject tileType2; //desert
+    public GameObject tileType3; //forest
+    public GameObject tileType4; //lake
+    public GameObject tileType5; //mountain
+    public GameObject unit;
     List<GameObject> worldTiles;
-    GameObject pg;
+    
 
 
 
     void Start()
     {
-        tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileGrass.prefab", typeof(GameObject));
-        tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileDesert.prefab", typeof(GameObject));
-        tileType3 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileForest.prefab", typeof(GameObject));
-        tileType4 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileLake.prefab", typeof(GameObject));
-        tileType5 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileMountain.prefab", typeof(GameObject));
-        pg = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Pg.prefab", typeof(GameObject));
+        //tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileGrass.prefab", typeof(GameObject));
+        //tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileDesert.prefab", typeof(GameObject));
+        //tileType3 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileForest.prefab", typeof(GameObject));
+        //tileType4 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileLake.prefab", typeof(GameObject));
+        //tileType5 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileMountain.prefab", typeof(GameObject));
+        //pg = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Pg.prefab", typeof(GameObject));
         worldTiles = new List<GameObject>();
 
         WorldGenerator();
-        AddSomeUnits();
+        //AddSomeUnits();
     }
 
 
@@ -42,7 +44,7 @@ public class GridGenerator : MonoBehaviour
             {
                 GameObject tileTemp = tileType1;
 
-                switch (Random.Range(0, 5))
+                switch (Random.Range(0, 7))
                 {
                     case 1: tileTemp = tileType2; break;
                     case 2: tileTemp = tileType3; break;
@@ -73,7 +75,7 @@ public class GridGenerator : MonoBehaviour
 
             if (Random.Range(1, 20) == 5)
             {
-                GameObject newPG = Instantiate(pg, newPos, Quaternion.identity);
+                GameObject newPG = Instantiate(unit, newPos, Quaternion.identity);
                 newPG.transform.Rotate(new Vector3(0, 0, 7));
             }
         }
@@ -84,7 +86,7 @@ public class GridGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            EditorSceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Main");
         }
     }
 }
