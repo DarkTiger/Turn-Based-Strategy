@@ -9,8 +9,11 @@ public class GridGenerator : MonoBehaviour
 {
     public int worldSizeX = 0;
     public int worldSizeY = 0;
-    GameObject tileType1; //green
-    GameObject tileType2; //yellow
+    GameObject tileType1; //grass
+    GameObject tileType2; //desert
+    GameObject tileType3; //forest
+    GameObject tileType4; //lake
+    GameObject tileType5; //mountain
     List<GameObject> worldTiles;
     GameObject pg;
 
@@ -18,8 +21,11 @@ public class GridGenerator : MonoBehaviour
 
     void Start()
     {
-        tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TestTile.prefab", typeof(GameObject));
-        tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TestTileYellow.prefab", typeof(GameObject));
+        tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileGrass.prefab", typeof(GameObject));
+        tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileDesert.prefab", typeof(GameObject));
+        tileType3 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileForest.prefab", typeof(GameObject));
+        tileType4 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileLake.prefab", typeof(GameObject));
+        tileType5 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileMountain.prefab", typeof(GameObject));
         pg = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Pg.prefab", typeof(GameObject));
         worldTiles = new List<GameObject>();
 
@@ -35,23 +41,32 @@ public class GridGenerator : MonoBehaviour
             for (int x = 0; x < worldSizeX; x++)
             {
                 GameObject tileTemp = tileType1;
+
+                switch (Random.Range(0, 5))
+                {
+                    case 1: tileTemp = tileType2; break;
+                    case 2: tileTemp = tileType3; break;
+                    case 3: tileTemp = tileType4; break;
+                    case 4: tileTemp = tileType5; break;
+                }
+                
                 float xTemp = x;
                 if ((y % 2) == 0)
                 {
                     xTemp += 0.5f;
-                    tileTemp = tileType2;
+                    //tileTemp = tileType2;
                 }
 
                 GameObject newTile = Instantiate(tileTemp, new Vector3(xTemp, y / 1.5f, 1), tileTemp.transform.rotation);
-                Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
-                newTile.GetComponent<SpriteRenderer>().color = tileColor;
+                //Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
+                //newTile.GetComponent<SpriteRenderer>().color = tileColor;
 
                 worldTiles.Add(newTile);
             }
         }
     }
 
-
+    
     void AddSomeUnits()
     {   
         foreach (GameObject tile in worldTiles)
