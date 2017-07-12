@@ -54,13 +54,9 @@ public class GridGenerator : MonoBehaviour
                 if ((y % 2) == 0)
                 {
                     xTemp += 0.5f;
-                    //tileTemp = tileType2;
                 }
 
                 GameObject newTile = Instantiate(tileTemp, new Vector3(xTemp, y / 1.5f, 1), tileTemp.transform.rotation);
-                //Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
-                //newTile.GetComponent<SpriteRenderer>().color = tileColor;
-
                 worldTiles.Add(newTile);
             }
         }
