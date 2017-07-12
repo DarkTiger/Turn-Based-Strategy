@@ -19,26 +19,24 @@ public class GridGenerator : MonoBehaviour
         Generator();
     }
 
+
     void Generator()
     {
         for (int y = 0; y < worldSizeY; y++)
         {
             for (int x = 0; x < worldSizeX; x++)
             {
-                if ((y % 2) != 0)
+                GameObject tileTemp = tileType1;
+                float xTemp = x;
+                if ((y % 2) == 0)
                 {
-                    //green
-                    GameObject newTile = Instantiate(tileType1, new Vector3(x, y/1.5f, 1), Quaternion.identity);
-                    Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
-                    newTile.GetComponent<SpriteRenderer>().color = tileColor;
+                    xTemp += 0.5f;
+                    tileTemp = tileType2;
                 }
-                else
-                {
-                    //yellow
-                    GameObject newTile = Instantiate(tileType2, new Vector3(x+0.5f, y/1.5f, 1), Quaternion.identity);
-                    Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
-                    newTile.GetComponent<SpriteRenderer>().color = tileColor;
-                } 
+
+                GameObject newTile = Instantiate(tileTemp, new Vector3(xTemp, y / 1.5f, 1), Quaternion.identity);
+                Color tileColor = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), 1);
+                newTile.GetComponent<SpriteRenderer>().color = tileColor;
             }
         }
     }
