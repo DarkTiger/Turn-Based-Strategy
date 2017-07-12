@@ -60,7 +60,7 @@ public class GridGenerator : MonoBehaviour
             newPos.y += 0.3f;
             newPos.z = -1;
 
-            if (Random.Range(1, 10) == 4)
+            if (Random.Range(1, 20) == 5)
             {
                 GameObject newPG = Instantiate(pg, newPos, Quaternion.identity);
                 newPG.transform.Rotate(new Vector3(0, 0, 7));
