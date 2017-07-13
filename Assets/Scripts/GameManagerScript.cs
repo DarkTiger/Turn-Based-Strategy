@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerScript : MonoBehaviour {
+public class GameManagerScript : MonoBehaviour
+{ 
+    public int playerIndex;
+    public int turnDuration;
+    public int gameTime;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Start()
+    {
+        
+    }
+
+    private void StartGame()
+    {
+
+    }
+
+    private void OnTurnChanged()
+    {
+
+    }
+
+    private void UpdateTime()
+    {
+
+    }
+
 }

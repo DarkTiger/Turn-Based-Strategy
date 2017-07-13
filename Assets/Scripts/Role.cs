@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Role : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+public class Role : MonoBehaviour
+{
+    public string title;
+    public string desc;
+    List<Ability> abilities;
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
