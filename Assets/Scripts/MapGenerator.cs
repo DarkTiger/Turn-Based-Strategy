@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using UnityEditor;
-//using UnityEditor.SceneManagement;
 
 
-public class GridGenerator : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
     public int worldSizeX = 0;
     public int worldSizeY = 0;
@@ -17,22 +15,15 @@ public class GridGenerator : MonoBehaviour
     public GameObject tileType5; //mountain
     public GameObject unit;
     List<GameObject> worldTiles;
-    
+
 
 
 
     void Start()
     {
-        //tileType1 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileGrass.prefab", typeof(GameObject));
-        //tileType2 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileDesert.prefab", typeof(GameObject));
-        //tileType3 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileForest.prefab", typeof(GameObject));
-        //tileType4 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileLake.prefab", typeof(GameObject));
-        //tileType5 = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/TileMountain.prefab", typeof(GameObject));
-        //pg = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Pg.prefab", typeof(GameObject));
         worldTiles = new List<GameObject>();
 
         WorldGenerator();
-        //AddSomeUnits();
     }
 
 
