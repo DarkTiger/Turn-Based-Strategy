@@ -53,7 +53,7 @@ public class UnitScript : MonoBehaviour
 
     void Move()
     {
-
+        transform.position = Vector3.Lerp(transform.position, movementDestination, 1 * Time.deltaTime);
     }
 
 

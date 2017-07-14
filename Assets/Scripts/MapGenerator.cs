@@ -56,7 +56,7 @@ public class MapGenerator : MonoBehaviour
             if (Random.Range(1, 30) == 5)
             {
                 GameObject newUnit = Instantiate(unit, newPos, Quaternion.identity);
-                newUnit.transform.Rotate(new Vector3(0, 0, 7));
+                newUnit.transform.Rotate(new Vector3(0, 0, 0));
 
                 newUnit.transform.tag = "UnitsP" + playerIndex.ToString();
                 newUnit.GetComponent<UnitScript>().ownerIndex = playerIndex;
