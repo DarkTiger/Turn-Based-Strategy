@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
-    bool isSelected;
+    bool isSelected = false;
+    public bool isInRange = false;
     public int typeIndex = 0; //0 = grass; 1 = desert; 2 = forest; 3 = lake; 4 = mountain
     public Stats stats;
     public UnitScript currentUnit;
@@ -24,12 +25,26 @@ public class TileScript : MonoBehaviour
     void Update()
     {
         Selection();
+        OnInRange();
     }
 
 
     void Selection()
     {
-        if (isSelected)
+        /*if (isSelected)
+        {
+            spriteRenderer.color = selectionColor;
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }*/
+    }
+
+
+    void OnInRange()
+    {
+        if (isInRange)
         {
             spriteRenderer.color = selectionColor;
         }

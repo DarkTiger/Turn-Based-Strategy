@@ -6,7 +6,7 @@ public class UnitScript : MonoBehaviour
 {
     public int ownerIndex;
     Stats stats;
-    bool isSelected = false;
+    public bool isSelected = false;
     bool hasAttacked = false;
     bool hasMoved = false;
     bool isKing = false;
@@ -14,15 +14,18 @@ public class UnitScript : MonoBehaviour
     bool isDead = false;
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
-    public Sprite[] sprites;
+    public Sprite[] spritesP1;
+    public Sprite[] spritesP2;
+    public int currentMoveCount;
     public Vector3 movementDestination;
+    PolygonCollider2D circleCollider;
 
 
-
-
+    
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        circleCollider = transform.GetChild(0).GetComponent<PolygonCollider2D>();
     }
 
 
@@ -85,15 +88,44 @@ public class UnitScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            //Debug.Log("Click");
+
             GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
 
             foreach (GameObject unit in units)
             {
-
-                unit.GetComponent<UnitScript>().isSelected = false;
+                if (unit != gameObject)
+                {
+                    unit.GetComponent<UnitScript>().isSelected = false;
+                }
             }
-
             isSelected = !isSelected;
+
+            circleCollider.enabled = false;
+            circleCollider.enabled = true;
+
+            /*if (isSelected)
+            {
+                circleCollider.enabled = true;
+            }*/
+        }
+    }
+
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Tile")
+        {
+            Debug.Log(isSelected);
+
+            if (isSelected)
+            {
+                other.gameObject.GetComponent<TileScript>().isInRange = true;
+            }
+            else
+            {
+                other.gameObject.GetComponent<TileScript>().isInRange = false;
+            }
         }
     }
 }

@@ -127,7 +127,9 @@ public class MapGenerator : MonoBehaviour
 
     
     void AddUnits(int playerIndex)
-    {   
+    {
+        bool unitCreated = false;
+
         foreach (GameObject tile in worldTiles)
         {
             Vector3 newPos = tile.transform.position;
@@ -136,12 +138,25 @@ public class MapGenerator : MonoBehaviour
 
             if (Random.Range(1, 30) == 5)
             {
-                GameObject newUnit = Instantiate(unit, newPos, Quaternion.identity);
-                newUnit.transform.Rotate(new Vector3(0, 0, 0));
+                if (!unitCreated)
+                {
+                    GameObject newUnit = Instantiate(unit, newPos, Quaternion.identity);
+                    newUnit.transform.Rotate(new Vector3(0, 0, 0));
 
-                newUnit.transform.tag = "UnitsP" + playerIndex.ToString();
-                newUnit.GetComponent<UnitScript>().ownerIndex = playerIndex;
-                newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().sprites[playerIndex - 1];
+                    newUnit.transform.tag = "UnitsP" + playerIndex.ToString();
+                    newUnit.GetComponent<UnitScript>().ownerIndex = playerIndex;
+
+                    if (playerIndex == 1)
+                    {
+                        newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[Random.Range(0, 5)];
+                    }
+                    else
+                    {
+                        newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[Random.Range(0, 5)];
+                    }
+
+                    unitCreated = true;
+                }
             }
         }
     }
