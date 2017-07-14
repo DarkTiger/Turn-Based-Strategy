@@ -103,16 +103,11 @@ public class UnitScript : MonoBehaviour
 
             circleCollider.enabled = false;
             circleCollider.enabled = true;
-
-            /*if (isSelected)
-            {
-                circleCollider.enabled = true;
-            }*/
         }
     }
 
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Tile")
         {
