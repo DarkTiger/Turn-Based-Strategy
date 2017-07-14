@@ -60,8 +60,24 @@ public class TileScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isSelected = true;
+            
+            GameObject[] unitsP1 = GameObject.FindGameObjectsWithTag("UnitsP1");
+            GameObject[] unitsP2 = GameObject.FindGameObjectsWithTag("UnitsP2");
 
+            foreach (GameObject unit in unitsP1)
+            {
+                UnitScript unitScript = unit.GetComponent<UnitScript>();
 
+                if (unitScript.isSelected)
+                {
+                    Vector3 movementDestinationTemp = transform.position;
+                    movementDestinationTemp.y += 0.3f;
+                    movementDestinationTemp.z = -1;
+
+                    unitScript.movementDestination = movementDestinationTemp;
+                }
+            }
+            
         } 
     }
 

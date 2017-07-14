@@ -26,17 +26,19 @@ public class UnitScript : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider = transform.GetChild(0).GetComponent<PolygonCollider2D>();
+        movementDestination = transform.position;
     }
 
 
     void Update()
     {
         Selection();
+        Move();
     }
 
 
     void Selection()
-    {
+    {m
         if (isSelected)
         {
             spriteRenderer.color = selectionColor;
@@ -56,7 +58,10 @@ public class UnitScript : MonoBehaviour
 
     void Move()
     {
-        transform.position = Vector3.Lerp(transform.position, movementDestination, 1 * Time.deltaTime);
+        if (transform.position != movementDestination)
+        {
+            transform.position = Vector3.Lerp(transform.position, movementDestination, 5 * Time.deltaTime);
+        }
     }
 
 
@@ -88,8 +93,6 @@ public class UnitScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("Click");
-
             GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
 
             foreach (GameObject unit in units)
@@ -111,11 +114,11 @@ public class UnitScript : MonoBehaviour
     {
         if (other.tag == "Tile")
         {
-            Debug.Log(isSelected);
-
             if (isSelected)
             {
                 other.gameObject.GetComponent<TileScript>().isInRange = true;
+
+                
             }
             else
             {
