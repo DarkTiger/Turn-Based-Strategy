@@ -12,6 +12,7 @@ public class TileScript : MonoBehaviour
     public Sprite[] sprites;
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
+    GameManagerScript gameManager;
 
 
 
@@ -19,6 +20,7 @@ public class TileScript : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
     }
 
 
@@ -31,6 +33,11 @@ public class TileScript : MonoBehaviour
 
     void Selection()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            isInRange = false;
+        }
+
         /*if (isSelected)
         {
             spriteRenderer.color = selectionColor;
@@ -60,23 +67,9 @@ public class TileScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isSelected = true;
-            
-            GameObject[] unitsP1 = GameObject.FindGameObjectsWithTag("UnitsP1");
-            GameObject[] unitsP2 = GameObject.FindGameObjectsWithTag("UnitsP2");
+                      
 
-            List<GameObject> unitsList = new List<GameObject>();
-
-            for (int i = 0; i < unitsP1.Length; i++)
-            {
-                unitsList.Add(unitsP1[i]);
-            }
-
-            for (int i = 0; i < unitsP2.Length; i++)
-            {
-                unitsList.Add(unitsP2[i]);
-            }
-
-            foreach (GameObject unit in unitsList)
+            foreach (GameObject unit in gameManager.unitsList)
             {
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
@@ -99,11 +92,5 @@ public class TileScript : MonoBehaviour
                 }
             }
         } 
-    }
-
-
-    void OnMouseExit()
-    {
-        isSelected = false;
     }
 }

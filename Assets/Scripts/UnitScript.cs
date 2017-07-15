@@ -46,6 +46,33 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            float mouseX = Input.mousePosition.x;
+            float mouseY = Input.mousePosition.y;
+
+            if ((mouseX > positionInPixels.x - 16) && (mouseX < positionInPixels.x + 32) && (mouseY > positionInPixels.y - 16) && (mouseY < positionInPixels.y + 64))
+            {
+                GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
+
+                foreach (GameObject unit in units)
+                {
+                    if (unit != gameObject)
+                    {
+                        unit.GetComponent<UnitScript>().isSelected = false;
+                    }
+                }
+
+                if (currentMoveCount > 0)
+                {
+                    isSelected = !isSelected;
+                }
+
+                circleColliderGameobject.SetActive(false);
+                circleColliderGameobject.SetActive(true);
+            }
+        }
+
         if (isSelected)
         {
             spriteRenderer.color = selectionColor;
@@ -67,7 +94,7 @@ public class UnitScript : MonoBehaviour
     {
         if (transform.position != movementDestination)
         {
-            transform.position = Vector3.Lerp(transform.position, movementDestination, 5 * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, movementDestination, 10 * Time.deltaTime);
         }
     }
 
@@ -96,39 +123,6 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y;
-
-            if ((mouseX > positionInPixels.x - 16) && (mouseX < positionInPixels.x + 32) && (mouseY > positionInPixels.y - 16) && (mouseY < positionInPixels.y + 64))
-            {
-                GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
-
-                foreach (GameObject unit in units)
-                {
-                    if (unit != gameObject)
-                    {
-                        unit.GetComponent<UnitScript>().isSelected = false;
-                    }
-                }
-
-                if (currentMoveCount > 0)
-                {
-                    isSelected = !isSelected;
-                }
-
-                //circleCollider.enabled = false;
-                //circleCollider.enabled = true;
-                circleColliderGameobject.SetActive(false);
-                circleColliderGameobject.SetActive(true);
-            }
-        }
-    }
-
-
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Tile")
@@ -148,6 +142,15 @@ public class UnitScript : MonoBehaviour
             {
                 other.gameObject.GetComponent<TileScript>().isInRange = false;
             }
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Tile")
+        {
+            other.gameObject.GetComponent<TileScript>().isInRange = false;
         }
     }
 }

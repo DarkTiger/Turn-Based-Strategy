@@ -11,16 +11,19 @@ public class MapGenerator : MonoBehaviour
     public GameObject tile;
     public GameObject unit;
     List<GameObject> worldTiles;
-    
+    GameManagerScript gameManager;
 
 
 
     void Start()
     {
         worldTiles = new List<GameObject>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+
         WorldGenerator();
-        AddUnits(1);
-        AddUnits(2);
+        
+        
+        gameManager.mapCreated = true;
     }
 
 
@@ -124,6 +127,9 @@ public class MapGenerator : MonoBehaviour
                 worldTiles.Add(newTile);
             }
         }
+
+        AddUnits(1);
+        AddUnits(2);
     }
 
     
@@ -148,7 +154,7 @@ public class MapGenerator : MonoBehaviour
 
                     UnitScript newUnitScript = newUnit.GetComponent<UnitScript>();
                     newUnitScript.ownerIndex = playerIndex;
-                    newUnitScript.currentMoveCount = 3; //provvisorio per test
+                    newUnitScript.currentMoveCount = 20; //provvisorio per test
                                 
 
                     if (playerIndex == 1)

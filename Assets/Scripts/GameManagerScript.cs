@@ -7,25 +7,64 @@ public class GameManagerScript : MonoBehaviour
     public int playerIndex;
     public int turnDuration;
     public int gameTime;
+    public List<GameObject> unitsList;
+    public bool mapCreated = false;
+    bool unitsLoadedInList = false;
 
-    private void Start()
+
+
+    void Start()
     {
-        
+        List<GameObject> unitsList = new List<GameObject>();
     }
 
-    private void StartGame()
+
+    void Update()
+    {
+        if (mapCreated)
+        {
+            //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
+            CheckIfUnitsAreLoaded();
+        }
+    }
+
+
+    void CheckIfUnitsAreLoaded()
+    {
+        if (!unitsLoadedInList)
+        {
+            GameObject[] unitsP1 = GameObject.FindGameObjectsWithTag("UnitsP1");
+            GameObject[] unitsP2 = GameObject.FindGameObjectsWithTag("UnitsP2");
+
+            for (int i = 0; i < unitsP1.Length; i++)
+            {
+                unitsList.Add(unitsP1[i]);
+            }
+
+            for (int i = 0; i < unitsP2.Length; i++)
+            {
+                unitsList.Add(unitsP2[i]);
+            }
+
+            unitsLoadedInList = true;
+        }
+    }
+
+
+    void StartGame()
     {
 
     }
 
-    private void OnTurnChanged()
+
+    void OnTurnChanged()
     {
 
     }
 
-    private void UpdateTime()
+
+    void UpdateTime()
     {
 
     }
-
 }
