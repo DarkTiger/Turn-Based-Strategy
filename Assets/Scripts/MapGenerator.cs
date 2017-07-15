@@ -117,9 +117,9 @@ public class MapGenerator : MonoBehaviour
                     xTemp += 1.2f;
                 }
 
-
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
+                newTile.transform.parent = GameObject.Find("Tiles").transform;
 
                 worldTiles.Add(newTile);
             }
@@ -146,6 +146,7 @@ public class MapGenerator : MonoBehaviour
 
                     newUnit.transform.tag = "UnitsP" + playerIndex.ToString();
                     newUnit.GetComponent<UnitScript>().ownerIndex = playerIndex;
+                    newUnit.transform.parent = GameObject.Find("UnitsP" + playerIndex.ToString()).transform;
 
                     if (playerIndex == 1)
                     {
