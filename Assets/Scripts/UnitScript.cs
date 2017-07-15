@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UnitScript : MonoBehaviour
 {
-    public int ownerIndex;
     Stats stats;
+    public int ownerIndex;
     public bool isSelected = false;
     bool hasAttacked = false;
     bool hasMoved = false;
@@ -38,7 +38,7 @@ public class UnitScript : MonoBehaviour
 
 
     void Selection()
-    {m
+    {
         if (isSelected)
         {
             spriteRenderer.color = selectionColor;
