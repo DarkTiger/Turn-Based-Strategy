@@ -7,5 +7,4 @@ public class Role : MonoBehaviour
     public string title;
     public string desc;
     List<Ability> abilities;
-	
 }
