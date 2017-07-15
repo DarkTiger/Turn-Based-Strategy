@@ -24,6 +24,7 @@ public class MapGenerator : MonoBehaviour
     }
 
 
+    //nascondiamo le miserie
     void WorldGenerator()
     {
         for (int y = 0; y < worldSizeY; y++)

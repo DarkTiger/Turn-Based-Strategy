@@ -64,20 +64,40 @@ public class TileScript : MonoBehaviour
             GameObject[] unitsP1 = GameObject.FindGameObjectsWithTag("UnitsP1");
             GameObject[] unitsP2 = GameObject.FindGameObjectsWithTag("UnitsP2");
 
-            foreach (GameObject unit in unitsP1)
+            List<GameObject> unitsList = new List<GameObject>();
+
+            for (int i = 0; i < unitsP1.Length; i++)
+            {
+                unitsList.Add(unitsP1[i]);
+            }
+
+            for (int i = 0; i < unitsP2.Length; i++)
+            {
+                unitsList.Add(unitsP2[i]);
+            }
+
+            foreach (GameObject unit in unitsList)
             {
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
-                if (unitScript.isSelected)
+                if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange )
                 {
+                    GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+                    foreach (GameObject tile in tiles)
+                    {
+                        tile.GetComponent<TileScript>().isInRange = false;
+                    }
+                    
                     Vector3 movementDestinationTemp = transform.position;
                     movementDestinationTemp.y += 0.3f;
                     movementDestinationTemp.z = -1;
 
                     unitScript.movementDestination = movementDestinationTemp;
+                    unitScript.currentMoveCount -= 1;
+
+                    break;
                 }
             }
-            
         } 
     }
 

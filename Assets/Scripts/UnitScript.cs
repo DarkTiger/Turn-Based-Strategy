@@ -102,8 +102,12 @@ public class UnitScript : MonoBehaviour
                     unit.GetComponent<UnitScript>().isSelected = false;
                 }
             }
-            isSelected = !isSelected;
 
+            if (currentMoveCount > 0)
+            {
+                isSelected = !isSelected;
+            }
+            
             circleCollider.enabled = false;
             circleCollider.enabled = true;
         }
@@ -116,9 +120,14 @@ public class UnitScript : MonoBehaviour
         {
             if (isSelected)
             {
-                other.gameObject.GetComponent<TileScript>().isInRange = true;
-
-                
+                if (currentMoveCount > 0)
+                {
+                    other.gameObject.GetComponent<TileScript>().isInRange = true;
+                }
+                else
+                {
+                    isSelected = false;
+                }
             }
             else
             {
