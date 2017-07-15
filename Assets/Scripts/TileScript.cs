@@ -68,19 +68,18 @@ public class TileScript : MonoBehaviour
         {
             isSelected = true;
                       
-
             foreach (GameObject unit in gameManager.unitsList)
             {
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
-                if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange )
+                if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
                 {
                     GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
                     foreach (GameObject tile in tiles)
                     {
                         tile.GetComponent<TileScript>().isInRange = false;
                     }
-                    
+
                     Vector3 movementDestinationTemp = transform.position;
                     movementDestinationTemp.y += 0.3f;
                     movementDestinationTemp.z = -1;
@@ -89,6 +88,10 @@ public class TileScript : MonoBehaviour
                     unitScript.currentMoveCount -= 1;
 
                     break;
+                }
+                else if (!isInRange)
+                {
+                    unitScript.isSelected = false;
                 }
             }
         } 

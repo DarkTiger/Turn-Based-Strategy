@@ -18,6 +18,7 @@ public class UnitScript : MonoBehaviour
     public Sprite[] spritesP2;
     public int currentMoveCount;
     public Vector3 movementDestination;
+    public bool unitIsMoving = false;
     PolygonCollider2D circleCollider;
     GameObject circleColliderGameobject;
     Camera cam;
@@ -38,7 +39,7 @@ public class UnitScript : MonoBehaviour
     void Update()
     {
         Selection();
-        Move();
+        Movement();
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
     }
@@ -90,11 +91,17 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void Move()
+    void Movement()
     {
         if (transform.position != movementDestination)
         {
-            transform.position = Vector3.Lerp(transform.position, movementDestination, 10 * Time.deltaTime);
+            float distance = Vector3.Distance(transform.position, movementDestination);
+            transform.position = Vector3.Lerp(transform.position, movementDestination, 5 / distance * Time.deltaTime);
+            unitIsMoving = true;
+        }
+        else
+        {
+            unitIsMoving = false;
         }
     }
 
@@ -131,7 +138,10 @@ public class UnitScript : MonoBehaviour
             {
                 if (currentMoveCount > 0)
                 {
-                    other.gameObject.GetComponent<TileScript>().isInRange = true;
+                    if (!unitIsMoving)
+                    {
+                        other.gameObject.GetComponent<TileScript>().isInRange = true;
+                    }
                 }
                 else
                 {
