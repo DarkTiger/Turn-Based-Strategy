@@ -143,10 +143,13 @@ public class MapGenerator : MonoBehaviour
                 {
                     GameObject newUnit = Instantiate(unit, newPos, Quaternion.identity);
                     newUnit.transform.Rotate(new Vector3(0, 0, 0));
-
                     newUnit.transform.tag = "UnitsP" + playerIndex.ToString();
-                    newUnit.GetComponent<UnitScript>().ownerIndex = playerIndex;
                     newUnit.transform.parent = GameObject.Find("UnitsP" + playerIndex.ToString()).transform;
+
+                    UnitScript newUnitScript = newUnit.GetComponent<UnitScript>();
+                    newUnitScript.ownerIndex = playerIndex;
+                    newUnitScript.currentMoveCount = 3; //provvisorio per test
+                                
 
                     if (playerIndex == 1)
                     {

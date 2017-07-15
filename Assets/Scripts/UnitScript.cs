@@ -19,14 +19,19 @@ public class UnitScript : MonoBehaviour
     public int currentMoveCount;
     public Vector3 movementDestination;
     PolygonCollider2D circleCollider;
+    GameObject circleColliderGameobject;
+    Camera cam;
+    Vector3 positionInPixels;
 
 
-    
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider = transform.GetChild(0).GetComponent<PolygonCollider2D>();
+        circleColliderGameobject = transform.GetChild(0).gameObject;
         movementDestination = transform.position;
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
 
@@ -34,6 +39,8 @@ public class UnitScript : MonoBehaviour
     {
         Selection();
         Move();
+
+        positionInPixels = cam.WorldToScreenPoint(transform.position);
     }
 
 
@@ -93,28 +100,36 @@ public class UnitScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
+            float mouseX = Input.mousePosition.x;
+            float mouseY = Input.mousePosition.y;
 
-            foreach (GameObject unit in units)
+            if ((mouseX > positionInPixels.x - 16) && (mouseX < positionInPixels.x + 32) && (mouseY > positionInPixels.y - 16) && (mouseY < positionInPixels.y + 64))
             {
-                if (unit != gameObject)
+                GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
+
+                foreach (GameObject unit in units)
                 {
-                    unit.GetComponent<UnitScript>().isSelected = false;
+                    if (unit != gameObject)
+                    {
+                        unit.GetComponent<UnitScript>().isSelected = false;
+                    }
                 }
-            }
 
-            if (currentMoveCount > 0)
-            {
-                isSelected = !isSelected;
+                if (currentMoveCount > 0)
+                {
+                    isSelected = !isSelected;
+                }
+
+                //circleCollider.enabled = false;
+                //circleCollider.enabled = true;
+                circleColliderGameobject.SetActive(false);
+                circleColliderGameobject.SetActive(true);
             }
-            
-            circleCollider.enabled = false;
-            circleCollider.enabled = true;
         }
     }
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Tile")
         {
