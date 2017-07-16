@@ -244,6 +244,8 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < positions.Count; i++)
         {
+            int roleIndex = unitsOrder[unitIndex];
+
             Vector3 newPos = positions[i];
             newPos.y += 0.3f;
             newPos.z = -1;
@@ -255,10 +257,9 @@ public class MapGenerator : MonoBehaviour
 
             UnitScript newUnitScript = newUnit.GetComponent<UnitScript>();
             newUnitScript.ownerIndex = playerIndex;
+            newUnitScript.roleIndex = roleIndex;
             newUnitScript.currentMoveCount = 20; //provvisorio per test
-
-
-            int roleIndex = unitsOrder[unitIndex];
+            
             if (playerIndex == 1)
             {
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
