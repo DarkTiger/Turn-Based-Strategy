@@ -23,6 +23,7 @@ public class UnitScript : MonoBehaviour
     GameObject circleColliderGameobject;
     Camera cam;
     Vector3 positionInPixels;
+    GameManagerScript gameManagerScript;
 
 
 
@@ -33,6 +34,7 @@ public class UnitScript : MonoBehaviour
         circleColliderGameobject = transform.GetChild(0).gameObject;
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
     }
 
 
@@ -42,6 +44,7 @@ public class UnitScript : MonoBehaviour
         Movement();
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
+
     }
 
 

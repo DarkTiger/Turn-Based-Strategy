@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 { 
@@ -10,12 +11,20 @@ public class GameManagerScript : MonoBehaviour
     public List<GameObject> unitsList;
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
+    public Button turnButton;
 
 
 
     void Start()
     {
         List<GameObject> unitsList = new List<GameObject>();
+
+        //Gestione del button che controlla il cambio turno
+        Button btn = turnButton.GetComponent<Button>();
+        btn.onClick.AddListener(OnTurnButtonClick);
+
+        StartGame();
+
     }
 
 
@@ -26,6 +35,7 @@ public class GameManagerScript : MonoBehaviour
             //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
             CheckIfUnitsAreLoaded();
         }
+        
     }
 
 
@@ -53,7 +63,7 @@ public class GameManagerScript : MonoBehaviour
 
     void StartGame()
     {
-
+        playerIndex = 1; //Setta il giocatore di partenza
     }
 
 
@@ -66,5 +76,18 @@ public class GameManagerScript : MonoBehaviour
     void UpdateTime()
     {
 
+    }
+
+    //Gestione turni: switch dell'indice del player attivo
+    public void OnTurnButtonClick()
+    {
+        if (playerIndex == 1)
+        {
+            playerIndex = 2;
+        }
+        else
+        {
+            playerIndex = 1;
+        }
     }
 }
