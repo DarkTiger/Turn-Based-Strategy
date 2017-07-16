@@ -6,6 +6,7 @@ public class UnitScript : MonoBehaviour
 {
     Stats stats;
     public int ownerIndex;
+    public int roleIndex;
     public bool isSelected = false;
     bool hasAttacked = false;
     bool hasMoved = false;
@@ -34,7 +35,7 @@ public class UnitScript : MonoBehaviour
         circleColliderGameobject = transform.GetChild(0).gameObject;
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
 
@@ -61,19 +62,22 @@ public class UnitScript : MonoBehaviour
 
                 foreach (GameObject unit in units)
                 {
-                    if (unit != gameObject)
+                    if (gameManagerScript.playerIndex == ownerIndex)
                     {
-                        unit.GetComponent<UnitScript>().isSelected = false;
+                        if (unit != gameObject)
+                        {
+                            unit.GetComponent<UnitScript>().isSelected = false;
+                        }
+
+                        if (currentMoveCount > 0)
+                        {
+                            isSelected = !isSelected;
+                        }
+
+                        circleColliderGameobject.SetActive(false);
+                        circleColliderGameobject.SetActive(true);
                     }
                 }
-
-                if (currentMoveCount > 0)
-                {
-                    isSelected = !isSelected;
-                }
-
-                circleColliderGameobject.SetActive(false);
-                circleColliderGameobject.SetActive(true);
             }
         }
 
