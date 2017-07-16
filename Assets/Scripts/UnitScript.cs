@@ -25,6 +25,7 @@ public class UnitScript : MonoBehaviour
     Camera cam;
     Vector3 positionInPixels;
     GameManagerScript gameManagerScript;
+    TileScript tileScript;
 
 
 

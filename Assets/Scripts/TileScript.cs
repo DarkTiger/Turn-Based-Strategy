@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileScript : MonoBehaviour
 {
     bool isSelected = false;
+    public bool isTileTaken = false;
     public bool isInRange = false;
     public int typeIndex = 0; //0 = grass; 1 = desert; 2 = forest; 3 = lake; 4 = mountain
     public Stats stats;
@@ -13,6 +14,7 @@ public class TileScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
     GameManagerScript gameManager;
+    MapGenerator mapGenerator;
 
 
 
@@ -21,13 +23,34 @@ public class TileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        //mapGenerator = GameObject.Find("Map").GetComponent<MapGenerator>();
     }
 
 
     void Update()
     {
+        setTileTaken();
         Selection();
         OnInRange();
+    }
+
+
+    void setTileTaken()
+    {
+        //foreach (GameObject worldTile in mapGenerator.worldTiles)
+       // {
+            //foreach (GameObject unitsList in gameManager.unitsList)
+           // {
+              //  if (unitsList.transform.position.x == transform.position.x &&
+                //    (unitsList.transform.position.y + 0.3f) == transform.position.y)
+                //{
+                  //  Debug.Log(unitsList.transform.position.x);
+                   // Debug.Log(transform.position.x);
+                
+                    //isTileTaken = true;
+                //}
+            //}
+       // }
     }
 
 
@@ -89,7 +112,7 @@ public class TileScript : MonoBehaviour
 
                     break;
                 }
-                else if (!isInRange)
+                else if (!isInRange || isTileTaken)
                 {
                     unitScript.isSelected = false;
                 }

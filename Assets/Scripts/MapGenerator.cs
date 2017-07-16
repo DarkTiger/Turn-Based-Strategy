@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     public int worldSizeY = 0;
     public GameObject tile;
     public GameObject unit;
-    List<GameObject> worldTiles;
+    public List<GameObject> worldTiles;
     GameManagerScript gameManager;
 
 
