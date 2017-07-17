@@ -57,7 +57,7 @@ public class UnitScript : MonoBehaviour
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
 
-            if ((mouseX > positionInPixels.x - 16) && (mouseX < positionInPixels.x + 32) && (mouseY > positionInPixels.y - 16) && (mouseY < positionInPixels.y + 64))
+            if ((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 24) && (mouseY < positionInPixels.y + 24))
             {
                 GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
 
@@ -106,10 +106,13 @@ public class UnitScript : MonoBehaviour
             float distance = Vector3.Distance(transform.position, movementDestination);
             transform.position = Vector3.Lerp(transform.position, movementDestination, 5 / distance * Time.deltaTime);
             unitIsMoving = true;
+            circleColliderGameobject.SetActive(false);
         }
         else
         {
             unitIsMoving = false;
+            
+            circleColliderGameobject.SetActive(true);
         }
     }
 
@@ -138,7 +141,7 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Tile")
         {

@@ -29,28 +29,50 @@ public class TileScript : MonoBehaviour
 
     void Update()
     {
-        setTileTaken();
+        SetTileTaken();
         Selection();
         OnInRange();
     }
 
 
-    void setTileTaken()
+    void SetTileTaken()
     {
-        //foreach (GameObject worldTile in mapGenerator.worldTiles)
-       // {
-            //foreach (GameObject unitsList in gameManager.unitsList)
-           // {
-              //  if (unitsList.transform.position.x == transform.position.x &&
+        foreach (GameObject unit in gameManager.unitsList)
+        {
+            Vector3 unitPos = unit.transform.position;
+            unitPos.y -= 0.3f;
+            unitPos.z = 1;
+
+            if (unitPos == transform.position)
+            {
+                isInRange = false;
+                //isTileTaken = true;
+
+                break;
+                //isSelected = true;
+            }
+        }   
+        
+            /*if (unitsList.transform.position.x == transform.position.x) //&& unitsList.transform.position.y + 0.3f == transform.position.y)
+            {
+                //Debug.Log("X occupata");
+                if (unitsList.transform.position.y -0.3f == transform.position.y)
+                {
+                    Debug.Log("Y occupata");
+                }
+            }*/
+               //Debug.Log(unitsList.transform.position.x);  
+            
+              //if (unitsList.transform.position.x == transform.position.x &&
                 //    (unitsList.transform.position.y + 0.3f) == transform.position.y)
                 //{
                   //  Debug.Log(unitsList.transform.position.x);
                    // Debug.Log(transform.position.x);
                 
                     //isTileTaken = true;
-                //}
-            //}
-       // }
+              //}
+           
+       //}
     }
 
 
@@ -64,8 +86,8 @@ public class TileScript : MonoBehaviour
         /*if (isSelected)
         {
             spriteRenderer.color = selectionColor;
-        }
-        else
+        }*/
+        /*else
         {
             spriteRenderer.color = Color.white;
         }*/
@@ -74,7 +96,7 @@ public class TileScript : MonoBehaviour
 
     void OnInRange()
     {
-        if (isInRange)
+        if (isInRange/* && !isTileTaken*/)
         {
             spriteRenderer.color = selectionColor;
         }
@@ -110,9 +132,11 @@ public class TileScript : MonoBehaviour
                     unitScript.movementDestination = movementDestinationTemp;
                     unitScript.currentMoveCount -= 1;
 
+                    //isTileTaken = false;
+
                     break;
                 }
-                else if (!isInRange || isTileTaken)
+                else if (!isInRange/* || isTileTaken*/)
                 {
                     unitScript.isSelected = false;
                 }
