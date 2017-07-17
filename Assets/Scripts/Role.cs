@@ -25,16 +25,45 @@ public class Role : MonoBehaviour
         if (roleIndex == 0)
         {           
             newStats.attackRange = 1;
-            newStats.damage = 34;
-            newStats.attackRange = 1;
-            newStats.damage = 34;
+            newStats.damage = 5;
+            newStats.movementRange = 2;
+            newStats.health = 10;
 
             return newStats;
         }
         else if (roleIndex == 1)
         {
-            newStats.attackRange = 2;
-            newStats.damage = 50;
+            newStats.attackRange = 1;
+            newStats.damage = 7;
+            newStats.movementRange = 3;
+            newStats.health = 4;
+
+            return newStats;
+        }
+        else if (roleIndex == 2)
+        {
+            newStats.attackRange = 1;
+            newStats.damage = 2;
+            newStats.movementRange = 3;
+            newStats.health = 5;
+
+            return newStats;
+        }
+        else if (roleIndex == 3)
+        {
+            newStats.attackRange = 1;
+            newStats.damage = 4;
+            newStats.movementRange = 2;
+            newStats.health = 6;
+
+            return newStats;
+        }
+        else if (roleIndex == 4)
+        {
+            newStats.attackRange = 1;
+            newStats.damage = 3;
+            newStats.movementRange = 2;
+            newStats.health = 5;
 
             return newStats;
         }

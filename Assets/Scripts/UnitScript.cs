@@ -125,7 +125,11 @@ public class UnitScript : MonoBehaviour
         Stats newStats;
         newStats = role.GetUnitRole(roleIndex);
 
+        stats.attackRange = newStats.attackRange;
         stats.damage = newStats.damage;
+        stats.movementRange = newStats.movementRange;
+        stats.health = newStats.health;
+        currentMoveCount = stats.movementRange;
 
         /*if (stats != null)
         {

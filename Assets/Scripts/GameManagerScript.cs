@@ -89,5 +89,11 @@ public class GameManagerScript : MonoBehaviour
         {
             playerIndex = 1;
         }
+
+        foreach (GameObject unit in unitsList)
+        {
+            unit.GetComponent<UnitScript>().currentMoveCount = unit.GetComponent<UnitScript>().stats.movementRange;
+             
+        }
     }
 }
