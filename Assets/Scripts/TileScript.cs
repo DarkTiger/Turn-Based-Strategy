@@ -7,7 +7,7 @@ public class TileScript : MonoBehaviour
     bool isSelected = false;
     public bool isTileTaken = false;
     public bool isInRange = false;
-    public int typeIndex = 0; //0 = grass; 1 = desert; 2 = forest; 3 = lake; 4 = mountain
+    public int typeIndex = 0;
     public Stats stats;
     public UnitScript currentUnit;
     public Sprite[] sprites;
@@ -46,10 +46,13 @@ public class TileScript : MonoBehaviour
             if (unitPos == transform.position)
             {
                 isInRange = false;
-                //isTileTaken = true;
+                isTileTaken = true;
 
-                break;
-                //isSelected = true;
+                currentUnit = unit.GetComponent<UnitScript>();
+            }
+            else
+            {
+                isTileTaken = false;
             }
         }   
         
@@ -96,7 +99,7 @@ public class TileScript : MonoBehaviour
 
     void OnInRange()
     {
-        if (isInRange/* && !isTileTaken*/)
+        if (isInRange)
         {
             spriteRenderer.color = selectionColor;
         }
@@ -115,9 +118,21 @@ public class TileScript : MonoBehaviour
                       
             foreach (GameObject unit in gameManager.unitsList)
             {
+                //Debug.Log("No");
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
-                if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
+                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
+                {
+                    /*Debug.Log("Basta");
+                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
+                    TileScript TileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
+
+                    if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                    {
+                        Debug.Log("BASTA");
+                    }*/
+                }
+                else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
                 {
                     GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
                     foreach (GameObject tile in tiles)

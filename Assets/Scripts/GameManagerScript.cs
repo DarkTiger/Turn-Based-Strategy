@@ -90,10 +90,14 @@ public class GameManagerScript : MonoBehaviour
             playerIndex = 1;
         }
 
+       
+
         foreach (GameObject unit in unitsList)
         {
-            unit.GetComponent<UnitScript>().currentMoveCount = unit.GetComponent<UnitScript>().stats.movementRange;
-             
+            UnitScript unitScript = unit.GetComponent<UnitScript>();
+
+            unitScript.currentMoveCount = unitScript.stats.movementRange;
+            unitScript.hasAttacked = false;
         }
     }
 }

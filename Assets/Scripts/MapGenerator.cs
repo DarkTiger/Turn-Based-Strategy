@@ -188,7 +188,7 @@ public class MapGenerator : MonoBehaviour
                 }
                
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
-                newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
+                newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 7);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
 
                 worldTiles.Add(newTile);

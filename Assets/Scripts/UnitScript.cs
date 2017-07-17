@@ -10,7 +10,7 @@ public class UnitScript : MonoBehaviour
     public int ownerIndex;
     public int roleIndex;
     public bool isSelected = false;
-    bool hasAttacked = false;
+    public bool hasAttacked = false;
     bool hasMoved = false;
     bool isKing = false;
     bool isStunned = false;
@@ -129,13 +129,8 @@ public class UnitScript : MonoBehaviour
         stats.damage = newStats.damage;
         stats.movementRange = newStats.movementRange;
         stats.health = newStats.health;
-        currentMoveCount = stats.movementRange;
 
-        /*if (stats != null)
-        {
-            Debug.Log(stats.damage);
-            Debug.Log("read");
-        }*/
+        currentMoveCount = stats.movementRange;
     }
 
 
@@ -150,16 +145,15 @@ public class UnitScript : MonoBehaviour
         }
         else
         {
-            unitIsMoving = false;
-            
+            unitIsMoving = false;        
             circleColliderGameobject.SetActive(true);
         }
     }
 
 
-    void Attack()
+    public void Attack()
     {
-
+        hasAttacked = true;
     }
 
 
