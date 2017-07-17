@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class UnitScript : MonoBehaviour
 {
-    Stats stats;
+    public Stats stats;
+    public Role role;
+    public UnitStats myStats;
     public int ownerIndex;
     public int roleIndex;
     public bool isSelected = false;
@@ -27,8 +29,6 @@ public class UnitScript : MonoBehaviour
     GameManagerScript gameManagerScript;
     TileScript tileScript;
 
-
-
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -37,6 +37,11 @@ public class UnitScript : MonoBehaviour
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+
+        stats = GetComponent<Stats>();
+        role =  GetComponent<Role>();
+
+        UpdateUnitStat();
     }
 
 
@@ -46,7 +51,6 @@ public class UnitScript : MonoBehaviour
         Movement();
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
-
     }
 
 
@@ -95,7 +99,39 @@ public class UnitScript : MonoBehaviour
 
     public void UpdateUnitStat()
     {
+        Debug.Log(roleIndex);
+        //myStats = new UnitStats();
 
+        /*if (roleIndex == 1)
+        {
+            myStats = (UnitStats)Resources.Load("Assets/Prefabs/Tank.asset");
+        }
+
+        if (roleIndex == 0)
+        {
+            myStats = (UnitStats)Resources.Load("Assets/Prefabs/Ranged.asset");
+        }*/
+
+        /*switch (roleIndex)
+        {
+            case 0: myStats = (UnitStats)Resources.Load("AssetsPrefabs/Tank.asset"); break;
+            case 1: myStats = (UnitStats)Resources.Load("Prefabs/Ranged.asset"); break;
+            case 2: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
+            case 3: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
+            case 4: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
+        }*/
+
+
+        Stats newStats;
+        newStats = role.GetUnitRole(roleIndex);
+
+        stats.damage = newStats.damage;
+
+        /*if (stats != null)
+        {
+            Debug.Log(stats.damage);
+            Debug.Log("read");
+        }*/
     }
 
 

@@ -47,14 +47,57 @@ public class MapGenerator : MonoBehaviour
         for (int i = 4; i >= 0; i--)
         {
             roleOrderP2.Add(roleOrderP1[i]);
-        }       
+        }
+
+        //float xTempEven = 0;//-0.603f;
+        //float xTempOdd = 0;
 
         for (int y = 0; y < worldSizeY; y++)
         {
+            //bool yTempCalculated = false;
+
             for (int x = 0; x < worldSizeX; x++)
             {
                 float offset = 0;
                 float xTemp = x+offset;
+
+
+                /*GameObject newTile;
+                if (!yTempCalculated)
+                {                           
+                    if (y % 2 == 0)
+                    {
+                        if (y != 0)
+                        {
+                            xTempEven += 0.2f;
+                            Debug.Log(xTempEven);
+                            xTemp += xTempEven;
+                        }
+                        else if (y == 0)
+                        {
+                            xTempEven = -0.603f;
+                            Debug.Log(xTempEven);
+                            xTemp += xTempEven;
+                        }
+                    }
+                    else
+                    {
+                        if (y != 1)
+                        {
+                            xTempOdd += 0.2f;
+                            Debug.Log(xTempOdd);
+                            xTemp += xTempOdd;
+                        }
+                        else if (y == 1)
+                        {
+                            xTempOdd += 0f;
+                            Debug.Log(xTempOdd);
+                            xTemp += xTempOdd;
+                        } 
+                    }
+                }
+                yTempCalculated = true;
+                newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);*/
 
                 if (y == 0)
                 {
@@ -82,7 +125,7 @@ public class MapGenerator : MonoBehaviour
                 if (y == 4)
                 {
                     xTemp = x + offset;
-                    xTemp -= 0.2f;
+                    xTemp -= 0.203f;
                 }
 
                 if (y == 5)
@@ -143,34 +186,18 @@ public class MapGenerator : MonoBehaviour
                     xTemp = x + offset;
                     xTemp += 0.8f;
                 }
-
+               
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
 
                 worldTiles.Add(newTile);
-
-                //
-                //int rolesCount = 5;
-                //int role = Random.Range(0, 5);
-
                 
                 if (y == 3)
                 {
                     if (x == 1)
                     {
                         posSpawnP1.Add(newTile.transform.position);
-                        /*bool orderFound = false;
-
-                        while (!orderFound)
-                        {
-                            for (int i = 0; i < orderRemains.Count; i++)
-                            {
-                                int indexRandom = Random.Range(0, orderRemains.Count);
-                                roleOrderP1.Add(indexRandom);
-                                orderRemains.Remove(indexRandom);
-                            }
-                        }*/
                     }
 
                     if (x == 15)
@@ -259,7 +286,9 @@ public class MapGenerator : MonoBehaviour
             newUnitScript.ownerIndex = playerIndex;
             newUnitScript.roleIndex = roleIndex;
             newUnitScript.currentMoveCount = 20; //provvisorio per test
-            
+
+            Debug.Log("create");
+
             if (playerIndex == 1)
             {
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
