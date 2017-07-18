@@ -128,9 +128,16 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    public void Attack()
+    public void GetDamage(UnitScript enemyScript)
     {
-        hasAttacked = true;
+        float attackDistance = Vector2.Distance(transform.position, enemyScript.gameObject.transform.position);
+
+        Debug.Log("Attacco da " + attackDistance + " caselle");
+
+        if (attackDistance <= enemyScript.stats.attackRange)
+        {
+            stats.health -= enemyScript.stats.damage;
+        }
     }
 
 

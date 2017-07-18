@@ -93,7 +93,7 @@ public class TileScript : MonoBehaviour
 
         if (isTileTaken && !isRaycasted)//(isSelected)
         {
-            spriteRenderer.color = selectionColor;
+            //spriteRenderer.color = selectionColor;
         }
         else if (isRaycasted)
         {
@@ -140,8 +140,9 @@ public class TileScript : MonoBehaviour
                         {
                             if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                             {
+                                TileScriptHit.currentUnit.GetDamage(unitScript);
+                                unitScript.hasAttacked = true;
                                 isRaycasted = true;
-                                TileScriptHit.currentUnit.stats.health -= unitScript.gameObject.GetComponent<Stats>().damage;
                             }
                         }
                     }
@@ -161,13 +162,10 @@ public class TileScript : MonoBehaviour
                     unitScript.movementDestination = movementDestinationTemp;
                     unitScript.currentMoveCount -= 1;
 
-                    //isTileTaken = false;
-
                     break;
                 }
-                else if (!isInRange/* || isTileTaken*/)
+                else if (!isInRange)
                 {
-                    //isTileTaken = false;
                     unitScript.isSelected = false;
                 }
             }

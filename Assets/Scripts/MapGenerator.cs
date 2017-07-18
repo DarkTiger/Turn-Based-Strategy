@@ -58,7 +58,7 @@ public class MapGenerator : MonoBehaviour
             for (int x = 0; x < worldSizeX; x++)
             {
                 float offset = 0;
-                float xTemp = x+offset;
+                float xTemp = x + offset;
 
 
                 /*GameObject newTile;
@@ -185,13 +185,20 @@ public class MapGenerator : MonoBehaviour
                     xTemp = x + offset;
                     xTemp += 0.8f;
                 }
-               
+
+                if (y == 15)
+                {
+                    xTemp = x + offset;
+                    xTemp += 1.4f;
+                }
+
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
 
                 worldTiles.Add(newTile);
-                
+
+
                 if (y == 3)
                 {
                     if (x == 1)
