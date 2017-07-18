@@ -15,6 +15,7 @@ public class TileScript : MonoBehaviour
     public Color selectionColor;
     GameManagerScript gameManager;
     MapGenerator mapGenerator;
+    Camera cam;
 
 
 
@@ -24,6 +25,7 @@ public class TileScript : MonoBehaviour
         spriteRenderer.sprite = sprites[typeIndex];
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         //mapGenerator = GameObject.Find("Map").GetComponent<MapGenerator>();
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
 
@@ -88,13 +90,11 @@ public class TileScript : MonoBehaviour
 
             foreach (GameObject unit in gameManager.unitsList)
             {
-                //Debug.Log("No");
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
                 {
-                    Debug.Log("HERE 1");
-                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
+                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));//transform.position);
 
                     if (hit.collider.tag == "Tile")
                     {
@@ -103,9 +103,12 @@ public class TileScript : MonoBehaviour
                             TileScript TileScriptHit = new TileScript();
                             TileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
 
-                            if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                            if (TileScriptHit.currentUnit != null)
                             {
-                                Debug.Log("HERE 2");
+                                if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                                {
+                                    Debug.Log("HERE 2");
+                                }
                             }
                         }
                     }
