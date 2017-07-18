@@ -96,13 +96,17 @@ public class TileScript : MonoBehaviour
                     Debug.Log("HERE 1");
                     RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
 
-                    if (hit.collider.gameObject != gameObject)
+                    if (hit.collider.tag == "Tile")
                     {
-                        TileScript TileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
-
-                        if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                        if (hit.collider.gameObject != gameObject)
                         {
-                            Debug.Log("HERE 2");
+                            TileScript TileScriptHit = new TileScript();
+                            TileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
+
+                            if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                            {
+                                Debug.Log("HERE 2");
+                            }
                         }
                     }
                 }
@@ -113,7 +117,7 @@ public class TileScript : MonoBehaviour
 
         if (isTileTaken)//(isSelected)
         {
-            spriteRenderer.color = selectionColor;
+            //spriteRenderer.color = selectionColor;
         }
         /*else
         {
