@@ -99,7 +99,6 @@ public class UnitScript : MonoBehaviour
 
     public void UpdateUnitStat()
     {
-        Debug.Log(roleIndex);
         //myStats = new UnitStats();
 
         /*if (roleIndex == 1)

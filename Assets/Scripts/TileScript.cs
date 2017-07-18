@@ -9,7 +9,7 @@ public class TileScript : MonoBehaviour
     public bool isInRange = false;
     public int typeIndex = 0;
     public Stats stats;
-    public UnitScript currentUnit;
+    public UnitScript currentUnit = null;
     public Sprite[] sprites;
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
@@ -50,10 +50,11 @@ public class TileScript : MonoBehaviour
 
                 currentUnit = unit.GetComponent<UnitScript>();
             }
-            else
+            /*else
             {
                 isTileTaken = false;
-            }
+                currentUnit = null;
+            }*/
         }   
         
             /*if (unitsList.transform.position.x == transform.position.x) //&& unitsList.transform.position.y + 0.3f == transform.position.y)
@@ -74,7 +75,6 @@ public class TileScript : MonoBehaviour
                 
                     //isTileTaken = true;
               //}
-           
        //}
     }
 
@@ -84,12 +84,37 @@ public class TileScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isInRange = false;
+            currentUnit = null;
+
+            foreach (GameObject unit in gameManager.unitsList)
+            {
+                //Debug.Log("No");
+                UnitScript unitScript = unit.GetComponent<UnitScript>();
+
+                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
+                {
+                    Debug.Log("HERE 1");
+                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
+
+                    if (hit.collider.gameObject != gameObject)
+                    {
+                        TileScript TileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
+
+                        if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                        {
+                            Debug.Log("HERE 2");
+                        }
+                    }
+                }
+            }
+
+            isTileTaken = false;
         }
 
-        /*if (isSelected)
+        if (isTileTaken)//(isSelected)
         {
             spriteRenderer.color = selectionColor;
-        }*/
+        }
         /*else
         {
             spriteRenderer.color = Color.white;
@@ -103,7 +128,7 @@ public class TileScript : MonoBehaviour
         {
             spriteRenderer.color = selectionColor;
         }
-        else
+        else if (!isTileTaken)
         {
             spriteRenderer.color = Color.white;
         }
@@ -115,7 +140,7 @@ public class TileScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isSelected = true;
-                      
+            
             foreach (GameObject unit in gameManager.unitsList)
             {
                 //Debug.Log("No");
@@ -123,13 +148,13 @@ public class TileScript : MonoBehaviour
 
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
                 {
-                    /*Debug.Log("Basta");
+                    /*Debug.Log("HERE 1");
                     RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
                     TileScript TileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
 
                     if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                     {
-                        Debug.Log("BASTA");
+                        Debug.Log("HERE 2");
                     }*/
                 }
                 else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
@@ -153,6 +178,7 @@ public class TileScript : MonoBehaviour
                 }
                 else if (!isInRange/* || isTileTaken*/)
                 {
+                    //isTileTaken = false;
                     unitScript.isSelected = false;
                 }
             }

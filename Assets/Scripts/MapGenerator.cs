@@ -26,7 +26,6 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    //nascondiamo le miserie
     void WorldGenerator()
     {
         List<Vector3> posSpawnP1 = new List<Vector3>();
@@ -188,7 +187,7 @@ public class MapGenerator : MonoBehaviour
                 }
                
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
-                newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 7);
+                newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
 
                 worldTiles.Add(newTile);
@@ -286,8 +285,6 @@ public class MapGenerator : MonoBehaviour
             newUnitScript.ownerIndex = playerIndex;
             newUnitScript.roleIndex = roleIndex;
             newUnitScript.currentMoveCount = 20; //provvisorio per test
-
-            Debug.Log("create");
 
             if (playerIndex == 1)
             {
