@@ -16,6 +16,7 @@ public class TileScript : MonoBehaviour
     GameManagerScript gameManager;
     MapGenerator mapGenerator;
     Camera cam;
+    bool isRaycasted = false;
 
 
 
@@ -87,40 +88,16 @@ public class TileScript : MonoBehaviour
         {
             isInRange = false;
             currentUnit = null;
-
-            foreach (GameObject unit in gameManager.unitsList)
-            {
-                UnitScript unitScript = unit.GetComponent<UnitScript>();
-
-                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));//transform.position);
-
-                    if (hit.collider.tag == "Tile")
-                    {
-                        if (hit.collider.gameObject != gameObject)
-                        {
-                            TileScript TileScriptHit = new TileScript();
-                            TileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
-
-                            if (TileScriptHit.currentUnit != null)
-                            {
-                                if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
-                                {
-                                    Debug.Log("HERE 2");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             isTileTaken = false;
         }
 
-        if (isTileTaken)//(isSelected)
+        if (isTileTaken && !isRaycasted)//(isSelected)
         {
-            //spriteRenderer.color = selectionColor;
+            spriteRenderer.color = selectionColor;
+        }
+        else if (isRaycasted)
+        {
+            spriteRenderer.color = Color.red;
         }
         /*else
         {
@@ -131,11 +108,11 @@ public class TileScript : MonoBehaviour
 
     void OnInRange()
     {
-        if (isInRange)
+        if (isInRange && !isRaycasted)
         {
             spriteRenderer.color = selectionColor;
         }
-        else if (!isTileTaken)
+        else if (!isTileTaken && !isRaycasted)
         {
             spriteRenderer.color = Color.white;
         }
@@ -150,19 +127,24 @@ public class TileScript : MonoBehaviour
             
             foreach (GameObject unit in gameManager.unitsList)
             {
-                //Debug.Log("No");
                 UnitScript unitScript = unit.GetComponent<UnitScript>();
 
-                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken)
+                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
                 {
-                    /*Debug.Log("HERE 1");
-                    RaycastHit2D hit = Physics2D.Raycast(unit.transform.position, transform.position);
+                    RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
                     TileScript TileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
 
-                    if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                    if (hit.collider.tag == "Tile")
                     {
-                        Debug.Log("HERE 2");
-                    }*/
+                        if (unitScript.gameObject != currentUnit.gameObject)
+                        {
+                            if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                            {
+                                isRaycasted = true;
+                                TileScriptHit.currentUnit.stats.health -= unitScript.gameObject.GetComponent<Stats>().damage;
+                            }
+                        }
+                    }
                 }
                 else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
                 {

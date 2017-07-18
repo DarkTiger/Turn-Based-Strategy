@@ -6,7 +6,7 @@ public class UnitScript : MonoBehaviour
 {
     public Stats stats;
     public Role role;
-    public UnitStats myStats;
+    //public UnitStats myStats;
     public int ownerIndex;
     public int roleIndex;
     public bool isSelected = false;
@@ -99,28 +99,6 @@ public class UnitScript : MonoBehaviour
 
     public void UpdateUnitStat()
     {
-        //myStats = new UnitStats();
-
-        /*if (roleIndex == 1)
-        {
-            myStats = (UnitStats)Resources.Load("Assets/Prefabs/Tank.asset");
-        }
-
-        if (roleIndex == 0)
-        {
-            myStats = (UnitStats)Resources.Load("Assets/Prefabs/Ranged.asset");
-        }*/
-
-        /*switch (roleIndex)
-        {
-            case 0: myStats = (UnitStats)Resources.Load("AssetsPrefabs/Tank.asset"); break;
-            case 1: myStats = (UnitStats)Resources.Load("Prefabs/Ranged.asset"); break;
-            case 2: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
-            case 3: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
-            case 4: myStats = (UnitStats)Resources.Load("Prefabs/Tank.asset"); break;
-        }*/
-
-
         Stats newStats;
         newStats = role.GetUnitRole(roleIndex);
 
