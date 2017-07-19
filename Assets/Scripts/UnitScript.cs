@@ -27,25 +27,21 @@ public class UnitScript : MonoBehaviour
     public Sprite[] spritesP1;
     public Sprite[] spritesP2;
 
-
     public int currentMoveCount;            // Gestione del movimento
     public Vector3 movementDestination;
     public bool unitIsMoving = false;
     Vector3 positionInPixels;
 
+    GameObject circleColliderGameobject; // Gestione dei collider circolari
 
-    PolygonCollider2D circleCollider;       // Gestione dei collider circolari
-    GameObject circleColliderGameobject;
-   
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        circleCollider = transform.GetChild(2).GetComponent<PolygonCollider2D>();
-        circleColliderGameobject = transform.GetChild(2).gameObject;
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        circleColliderGameobject = transform.GetChild(0).gameObject;
 
         stats = GetComponent<Stats>();
         role =  GetComponent<Role>();
@@ -109,6 +105,7 @@ public class UnitScript : MonoBehaviour
     public void UpdateUnitStat()
     {
         Stats newStats;
+
         newStats = role.GetUnitRole(roleIndex);
 
         stats.attackRange = newStats.attackRange;
@@ -149,8 +146,10 @@ public class UnitScript : MonoBehaviour
 
             if (stats.health <= 0)
             {
-                gameManagerScript.unitsList.Remove(gameObject);
-                Destroy(gameObject);
+                if (gameManagerScript.unitsList.Remove(gameObject))
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

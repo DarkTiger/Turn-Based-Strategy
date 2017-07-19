@@ -48,55 +48,12 @@ public class MapGenerator : MonoBehaviour
             roleOrderP2.Add(roleOrderP1[i]);
         }
 
-        //float xTempEven = 0;//-0.603f;
-        //float xTempOdd = 0;
-
         for (int y = 0; y < worldSizeY; y++)
         {
-            //bool yTempCalculated = false;
-
             for (int x = 0; x < worldSizeX; x++)
             {
                 float offset = 0;
                 float xTemp = x + offset;
-
-
-                /*GameObject newTile;
-                if (!yTempCalculated)
-                {                           
-                    if (y % 2 == 0)
-                    {
-                        if (y != 0)
-                        {
-                            xTempEven += 0.2f;
-                            Debug.Log(xTempEven);
-                            xTemp += xTempEven;
-                        }
-                        else if (y == 0)
-                        {
-                            xTempEven = -0.603f;
-                            Debug.Log(xTempEven);
-                            xTemp += xTempEven;
-                        }
-                    }
-                    else
-                    {
-                        if (y != 1)
-                        {
-                            xTempOdd += 0.2f;
-                            Debug.Log(xTempOdd);
-                            xTemp += xTempOdd;
-                        }
-                        else if (y == 1)
-                        {
-                            xTempOdd += 0f;
-                            Debug.Log(xTempOdd);
-                            xTemp += xTempOdd;
-                        } 
-                    }
-                }
-                yTempCalculated = true;
-                newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);*/
 
                 if (y == 0)
                 {
@@ -291,7 +248,6 @@ public class MapGenerator : MonoBehaviour
             UnitScript newUnitScript = newUnit.GetComponent<UnitScript>();
             newUnitScript.ownerIndex = playerIndex;
             newUnitScript.roleIndex = roleIndex;
-            newUnitScript.currentMoveCount = 20; //provvisorio per test
 
             if (playerIndex == 1)
             {

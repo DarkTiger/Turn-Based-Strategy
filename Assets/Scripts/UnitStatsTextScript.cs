@@ -10,11 +10,12 @@ public class UnitStatsTextScript : MonoBehaviour
     UnitScript unitScript;
 
 
+
     void Start()
     {
         unitScript = GetComponent<UnitScript>();
-        attackText = transform.GetChild(0).GetComponent<Text>();
-        defenseText = transform.GetChild(1).GetComponent<Text>();
+        attackText = transform.GetChild(3).GetComponent<Text>();
+        defenseText = transform.GetChild(4).GetComponent<Text>();
     }
 
 

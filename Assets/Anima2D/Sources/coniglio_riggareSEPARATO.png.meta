@@ -1,20 +1,19 @@
 fileFormatVersion: 2
-guid: 86ad3b7d40c526947ad1485e5e908f52
-timeCreated: 1500387550
+guid: 675aaa77bdda54549b5c0a4e7086b3f2
+timeCreated: 1500307172
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: coniglio_riggareSEPARATO 1_0
-    21300002: coniglio_riggareSEPARATO 1_1
-    21300004: coniglio_riggareSEPARATO 1_2
-    21300006: coniglio_riggareSEPARATO 1_3
-    21300008: coniglio_riggareSEPARATO 1_4
-    21300010: coniglio_riggareSEPARATO 1_5
-    21300012: coniglio_riggareSEPARATO 1_6
-    21300014: coniglio_riggareSEPARATO 1_7
-    21300016: coniglio_riggareSEPARATO 1_8
-    21300018: coniglio_riggareSEPARATO 1_9
-    21300020: coniglio_riggareSEPARATO 1_10
+    21300000: coniglio_riggareSEPARATO_0
+    21300002: coniglio_riggareSEPARATO_1
+    21300004: coniglio_riggareSEPARATO_2
+    21300006: coniglio_riggareSEPARATO_3
+    21300008: coniglio_riggareSEPARATO_4
+    21300010: coniglio_riggareSEPARATO_5
+    21300012: coniglio_riggareSEPARATO_6
+    21300014: coniglio_riggareSEPARATO_7
+    21300016: coniglio_riggareSEPARATO_8
+    21300018: coniglio_riggareSEPARATO_9
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -97,140 +96,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_0
+      name: coniglio_riggareSEPARATO_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 164
-        width: 35
-        height: 76
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_1
-      rect:
-        serializedVersion: 2
-        x: 86
-        y: 148
-        width: 64
-        height: 105
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_2
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 157
-        width: 48.699997
-        height: 92
+        x: 22.1
+        y: 158.6
+        width: 44.9
+        height: 85.399994
       alignment: 9
-      pivot: {x: 0.49281317, y: 0.010869565}
+      pivot: {x: 0.5211581, y: 0.06323178}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_3
+      name: coniglio_riggareSEPARATO_1
       rect:
         serializedVersion: 2
-        x: 242
-        y: 164
+        x: 80.6
+        y: 144.8
+        width: 75.200005
+        height: 113.999985
+      alignment: 9
+      pivot: {x: 0.4973404, y: 0.028070152}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: coniglio_riggareSEPARATO_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 158
         width: 38
-        height: 88
+        height: 86
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_4
+      name: coniglio_riggareSEPARATO_3
       rect:
         serializedVersion: 2
-        x: 29
-        y: 72
-        width: 53
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_5
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 28
-        width: 50
-        height: 68
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_6
-      rect:
-        serializedVersion: 2
-        x: 154.7
-        y: 11.800003
-        width: 69.3
-        height: 130.67105
+        x: 235.4
+        y: 158.00002
+        width: 48.30002
+        height: 95.999985
       alignment: 9
-      pivot: {x: 0.4877345, y: 0.03979456}
+      pivot: {x: 0.53002065, y: 0.062499847}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_7
+      name: coniglio_riggareSEPARATO_4
       rect:
         serializedVersion: 2
-        x: 225.1
-        y: 11.299997
-        width: 69
-        height: 128.65646
+        x: 21.899998
+        y: 68.70001
+        width: 63.999996
+        height: 74
       alignment: 9
-      pivot: {x: 0.4840579, y: 0.04430405}
+      pivot: {x: 0.5250001, y: 0.04459443}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_8
+      name: coniglio_riggareSEPARATO_5
       rect:
         serializedVersion: 2
-        x: 28
-        y: 8
-        width: 49
-        height: 49
+        x: 93.40127
+        y: 23.065443
+        width: 57.303688
+        height: 75.74196
+      alignment: 9
+      pivot: {x: 0.48162228, y: 0.06514958}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: coniglio_riggareSEPARATO_6
+      rect:
+        serializedVersion: 2
+        x: 153.99998
+        y: 11
+        width: 69.000015
+        height: 131
+      alignment: 9
+      pivot: {x: 0.5000001, y: 0.03816794}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: coniglio_riggareSEPARATO_7
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 18
+        width: 62
+        height: 118
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_9
+      name: coniglio_riggareSEPARATO_8
+      rect:
+        serializedVersion: 2
+        x: 23.548775
+        y: 3
+        width: 57.751236
+        height: 59
+      alignment: 9
+      pivot: {x: 0.5013092, y: 0.084745765}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: coniglio_riggareSEPARATO_9
       rect:
         serializedVersion: 2
         x: 211
-        y: 16
-        width: 17
-        height: 11
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: coniglio_riggareSEPARATO 1_10
-      rect:
-        serializedVersion: 2
-        x: 281
         y: 16
         width: 18
         height: 11
@@ -241,6 +227,6 @@ TextureImporter:
       tessellationDetail: 0
     outline: []
   spritePackingTag: 
-  userData: 98329376280431
+  userData: 98324125345084
   assetBundleName: 
   assetBundleVariant: 

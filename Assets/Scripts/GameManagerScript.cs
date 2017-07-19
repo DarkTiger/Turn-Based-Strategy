@@ -35,7 +35,11 @@ public class GameManagerScript : MonoBehaviour
             //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
             CheckIfUnitsAreLoaded();
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnTurnButtonClick();
+        }
     }
 
 

@@ -7,15 +7,6 @@ public class Role : MonoBehaviour
     public string title;
     public string desc;
     List<Ability> abilities;
-    public UnitStats myStats;
-
-    
-
-
-    void Start()
-    {
-        
-    }
 
 
     public Stats GetUnitRole(int roleIndex)
