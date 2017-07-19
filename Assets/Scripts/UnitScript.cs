@@ -6,28 +6,37 @@ public class UnitScript : MonoBehaviour
 {
     public Stats stats;
     public Role role;
-    //public UnitStats myStats;
-    public int ownerIndex;
-    public int roleIndex;
-    public bool isSelected = false;
-    public bool hasAttacked = false;
-    bool hasMoved = false;
-    bool isKing = false;
+    Camera cam;
+    GameManagerScript gameManagerScript;
+    TileScript tileScript;
+
+    public int ownerIndex = 0;                  // Indica a quale player appartiene l'unità
+    public int roleIndex = 0;                   // Indica la classe dell'unità
+    public bool isSelected = false;         // Segnala l'unità selezionata
+    public bool hasAttacked = false;        // Indica se l'unità ha già attaccato nel proprio turno
+    bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
+    bool isKing = false;                    // Segnala l'unità re
     bool isStunned = false;
     bool isDead = false;
-    SpriteRenderer spriteRenderer;
+
+    public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
+    public int bonusDefense = 0;
+
+    SpriteRenderer spriteRenderer;          // Gestione delle sprite associate alle unità
     public Color selectionColor;
     public Sprite[] spritesP1;
     public Sprite[] spritesP2;
-    public int currentMoveCount;
+
+
+    public int currentMoveCount;            // Gestione del movimento
     public Vector3 movementDestination;
     public bool unitIsMoving = false;
-    PolygonCollider2D circleCollider;
-    GameObject circleColliderGameobject;
-    Camera cam;
     Vector3 positionInPixels;
-    GameManagerScript gameManagerScript;
-    TileScript tileScript;
+
+
+    PolygonCollider2D circleCollider;       // Gestione dei collider circolari
+    GameObject circleColliderGameobject;
+   
 
     void Start()
     {

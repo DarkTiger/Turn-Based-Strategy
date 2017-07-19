@@ -127,4 +127,21 @@ public class TileScript : MonoBehaviour
             }
         } 
     }
+    
+    void SetTileBonus()
+    {
+        if (currentUnit != null)
+        {
+            if (typeIndex == 0 && currentUnit.roleIndex == 0)
+            {
+                currentUnit.bonusDefense = 3;
+            }
+            else if (typeIndex == 1 && currentUnit.roleIndex == 0)
+            {
+                currentUnit.bonusDefense = 3;
+            }
+
+
+        }
+    }
 }
