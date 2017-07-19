@@ -17,7 +17,7 @@ public class UnitScript : MonoBehaviour
     bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
     bool isKing = false;                    // Segnala l'unità re
     bool isStunned = false;
-    bool isDead = false;
+    public bool isDead = false;
 
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
@@ -61,7 +61,7 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isDead)
         {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
@@ -105,9 +105,8 @@ public class UnitScript : MonoBehaviour
     public void UpdateUnitStat()
     {
         Stats newStats;
-
         newStats = role.GetUnitRole(roleIndex);
-
+    
         stats.attackRange = newStats.attackRange;
         stats.damage = newStats.damage;
         stats.movementRange = newStats.movementRange;
@@ -134,7 +133,7 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    public void GetDamage(UnitScript attacker) // Gestione dell'attacco
+    public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
@@ -144,12 +143,30 @@ public class UnitScript : MonoBehaviour
             tempDamage -= bonusDefense;
             stats.health -= tempDamage;
 
+            attacker.hasAttacked = true;
+
             if (stats.health <= 0)
             {
-                if (gameManagerScript.unitsList.Remove(gameObject))
+                /*List<GameObject> newUnitsList = new List<GameObject>();
+
+                foreach (GameObject unit in gameManagerScript.unitsList)
                 {
-                    Destroy(gameObject);
+                    if (unit != gameObject)
+                    {
+                        newUnitsList.Add(unit);
+                    }
                 }
+
+                gameManagerScript.unitsList = newUnitsList;
+                Destroy(gameObject);*/
+
+                isDead = true;
+                spriteRenderer.enabled = false;
+                enabled = false;
+                tile.isTileTaken = false; //gameObject.SetActive(false);
+                gameObject.GetComponent<Canvas>().enabled = false;
+                circleColliderGameobject.SetActive(false);
+
             }
         }
     }

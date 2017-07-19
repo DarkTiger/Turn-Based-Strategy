@@ -39,15 +39,18 @@ public class TileScript : MonoBehaviour
     {
         foreach (GameObject unit in gameManager.unitsList)
         {
-            Vector3 unitPos = unit.transform.position;
-            unitPos.y -= 0.3f;
-            unitPos.z = 1;
-
-            if (unitPos == transform.position)
+            if (!unit.GetComponent<UnitScript>().isDead)
             {
-                isInRange = false;
-                isTileTaken = true;
-                currentUnit = unit.GetComponent<UnitScript>();
+                Vector3 unitPos = unit.transform.position;
+                unitPos.y -= 0.3f;
+                unitPos.z = 1;
+
+                if (unitPos == transform.position)
+                {
+                    isInRange = false;
+                    isTileTaken = true;
+                    currentUnit = unit.GetComponent<UnitScript>();
+                }
             }
         }   
     }
@@ -90,16 +93,15 @@ public class TileScript : MonoBehaviour
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
-                    TileScript TileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
+                    TileScript tileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
 
                     if (hit.collider.tag == "Tile")
                     {
                         if (unitScript.gameObject != currentUnit.gameObject)
                         {
-                            if (TileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                            if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                             {
-                                TileScriptHit.currentUnit.GetDamage(unitScript);
-                                unitScript.hasAttacked = true;
+                                tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
                             }
                         }
                     }

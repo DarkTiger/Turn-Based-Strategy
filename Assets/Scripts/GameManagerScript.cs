@@ -12,6 +12,7 @@ public class GameManagerScript : MonoBehaviour
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
     public Button turnButton;
+    Text turnIndexText;
 
 
 
@@ -22,9 +23,9 @@ public class GameManagerScript : MonoBehaviour
         //Gestione del button che controlla il cambio turno
         Button btn = turnButton.GetComponent<Button>();
         btn.onClick.AddListener(OnTurnButtonClick);
+        turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
 
         StartGame();
-
     }
 
 
@@ -40,6 +41,17 @@ public class GameManagerScript : MonoBehaviour
         {
             OnTurnButtonClick();
         }
+
+        if (playerIndex == 1)
+        {
+            turnIndexText.color = Color.blue;
+        }
+        else
+        {
+            turnIndexText.color = Color.red;
+        }
+
+        turnIndexText.text = "TURNO DEL GIOCATORE: " + playerIndex;
     }
 
 
