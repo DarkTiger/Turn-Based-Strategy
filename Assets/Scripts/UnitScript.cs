@@ -137,13 +137,15 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    public void GetDamage(UnitScript attacker)
+    public void GetDamage(UnitScript attacker) // Gestione dell'attacco
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
         if (attackDistance <= attacker.stats.attackRange)
         {
-            stats.health -= attacker.stats.damage;
+            int tempDamage = attacker.stats.damage + bonusAttack;
+            tempDamage -= bonusDefense;
+            stats.health -= tempDamage;
 
             if (stats.health <= 0)
             {
