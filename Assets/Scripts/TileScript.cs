@@ -31,6 +31,7 @@ public class TileScript : MonoBehaviour
         SetTileTaken();
         Selection();
         OnInRange();
+        SetTileBonus();
     }
 
 
@@ -136,12 +137,28 @@ public class TileScript : MonoBehaviour
             {
                 currentUnit.bonusDefense = 3;
             }
-            else if (typeIndex == 1 && currentUnit.roleIndex == 0)
+            else if (typeIndex == 1 && currentUnit.roleIndex == 4)
+            {
+                currentUnit.bonusAttack = 3;
+            }
+            else if (typeIndex == 3 && currentUnit.roleIndex == 1)
+            {
+                currentUnit.bonusAttack = 1;
+            }
+            else if (typeIndex == 4 && currentUnit.roleIndex == 2)
             {
                 currentUnit.bonusDefense = 3;
             }
-
-
+            else if (typeIndex == 5 && currentUnit.roleIndex == 3)
+            {
+                currentUnit.bonusAttack = 2;
+                currentUnit.bonusDefense = 1;
+            }
+            else
+            {
+                currentUnit.bonusAttack = 0;
+                currentUnit.bonusDefense = 0;
+            }
         }
     }
 }
