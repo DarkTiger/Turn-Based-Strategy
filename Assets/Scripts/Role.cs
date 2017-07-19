@@ -42,7 +42,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 2)
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 3;
             newStats.damage = 2;
             newStats.movementRange = 3;
             newStats.health = 5;

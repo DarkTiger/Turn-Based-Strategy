@@ -15,8 +15,6 @@ public class TileScript : MonoBehaviour
     public Color selectionColor;
     GameManagerScript gameManager;
     MapGenerator mapGenerator;
-    Camera cam;
-    bool isRaycasted = false;
 
 
 
@@ -25,8 +23,6 @@ public class TileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
-        //mapGenerator = GameObject.Find("Map").GetComponent<MapGenerator>();
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
 
@@ -50,35 +46,9 @@ public class TileScript : MonoBehaviour
             {
                 isInRange = false;
                 isTileTaken = true;
-
                 currentUnit = unit.GetComponent<UnitScript>();
             }
-            /*else
-            {
-                isTileTaken = false;
-                currentUnit = null;
-            }*/
         }   
-        
-            /*if (unitsList.transform.position.x == transform.position.x) //&& unitsList.transform.position.y + 0.3f == transform.position.y)
-            {
-                //Debug.Log("X occupata");
-                if (unitsList.transform.position.y -0.3f == transform.position.y)
-                {
-                    Debug.Log("Y occupata");
-                }
-            }*/
-               //Debug.Log(unitsList.transform.position.x);  
-            
-              //if (unitsList.transform.position.x == transform.position.x &&
-                //    (unitsList.transform.position.y + 0.3f) == transform.position.y)
-                //{
-                  //  Debug.Log(unitsList.transform.position.x);
-                   // Debug.Log(transform.position.x);
-                
-                    //isTileTaken = true;
-              //}
-       //}
     }
 
 
@@ -90,29 +60,16 @@ public class TileScript : MonoBehaviour
             currentUnit = null;
             isTileTaken = false;
         }
-
-        if (isTileTaken && !isRaycasted)//(isSelected)
-        {
-            //spriteRenderer.color = selectionColor;
-        }
-        else if (isRaycasted)
-        {
-            spriteRenderer.color = Color.red;
-        }
-        /*else
-        {
-            spriteRenderer.color = Color.white;
-        }*/
     }
 
 
     void OnInRange()
     {
-        if (isInRange && !isRaycasted)
+        if (isInRange)
         {
             spriteRenderer.color = selectionColor;
         }
-        else if (!isTileTaken && !isRaycasted)
+        else if (!isTileTaken)
         {
             spriteRenderer.color = Color.white;
         }
@@ -142,7 +99,6 @@ public class TileScript : MonoBehaviour
                             {
                                 TileScriptHit.currentUnit.GetDamage(unitScript);
                                 unitScript.hasAttacked = true;
-                                isRaycasted = true;
                             }
                         }
                     }

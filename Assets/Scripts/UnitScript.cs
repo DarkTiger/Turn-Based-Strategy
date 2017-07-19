@@ -128,15 +128,19 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    public void GetDamage(UnitScript enemyScript)
+    public void GetDamage(UnitScript attacker)
     {
-        float attackDistance = Vector2.Distance(transform.position, enemyScript.gameObject.transform.position);
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        Debug.Log("Attacco da " + attackDistance + " caselle");
-
-        if (attackDistance <= enemyScript.stats.attackRange)
+        if (attackDistance <= attacker.stats.attackRange)
         {
-            stats.health -= enemyScript.stats.damage;
+            stats.health -= attacker.stats.damage;
+
+            if (stats.health <= 0)
+            {
+                gameManagerScript.unitsList.Remove(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 
