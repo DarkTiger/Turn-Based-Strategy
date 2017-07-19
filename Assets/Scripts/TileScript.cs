@@ -28,8 +28,8 @@ public class TileScript : MonoBehaviour
 
     void Update()
     {
-        SetTileTaken();
         Selection();
+        SetTileTaken();        
         OnInRange();
         SetTileBonus();
     }
@@ -133,23 +133,23 @@ public class TileScript : MonoBehaviour
     {
         if (currentUnit != null)
         {
-            if (typeIndex == 0 && currentUnit.roleIndex == 0)
+            if (typeIndex == 0 && currentUnit.roleIndex == 0) // Tank
             {
                 currentUnit.bonusDefense = 3;
             }
-            else if (typeIndex == 1 && currentUnit.roleIndex == 4)
-            {
-                currentUnit.bonusAttack = 3;
-            }
-            else if (typeIndex == 3 && currentUnit.roleIndex == 1)
+            else if (typeIndex == 1 && currentUnit.roleIndex == 1) // Assassin
             {
                 currentUnit.bonusAttack = 1;
             }
-            else if (typeIndex == 4 && currentUnit.roleIndex == 2)
+            else if (typeIndex == 2 && currentUnit.roleIndex == 2) // Ranged
+            {
+                currentUnit.bonusAttack = 3;
+            }
+            else if (typeIndex == 3 && currentUnit.roleIndex == 3) // Healer
             {
                 currentUnit.bonusDefense = 3;
             }
-            else if (typeIndex == 5 && currentUnit.roleIndex == 3)
+            else if (typeIndex == 4 && currentUnit.roleIndex == 4) // Specialist
             {
                 currentUnit.bonusAttack = 2;
                 currentUnit.bonusDefense = 1;

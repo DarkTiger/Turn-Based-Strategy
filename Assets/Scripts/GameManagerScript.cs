@@ -98,6 +98,7 @@ public class GameManagerScript : MonoBehaviour
 
             unitScript.currentMoveCount = unitScript.stats.movementRange;
             unitScript.hasAttacked = false;
+            unitScript.isSelected = false;
         }
     }
 }

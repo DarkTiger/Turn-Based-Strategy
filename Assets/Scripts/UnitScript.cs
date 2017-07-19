@@ -41,8 +41,8 @@ public class UnitScript : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        circleCollider = transform.GetChild(0).GetComponent<PolygonCollider2D>();
-        circleColliderGameobject = transform.GetChild(0).gameObject;
+        circleCollider = transform.GetChild(2).GetComponent<PolygonCollider2D>();
+        circleColliderGameobject = transform.GetChild(2).gameObject;
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
@@ -83,7 +83,7 @@ public class UnitScript : MonoBehaviour
                             unit.GetComponent<UnitScript>().isSelected = false;
                         }
 
-                        if (currentMoveCount > 0)
+                        if (currentMoveCount > 0 || !hasAttacked)
                         {
                             isSelected = !isSelected;
                         }
@@ -187,7 +187,7 @@ public class UnitScript : MonoBehaviour
                         other.gameObject.GetComponent<TileScript>().isInRange = true;
                     }
                 }
-                else
+                else if (hasAttacked)
                 {
                     isSelected = false;
                 }

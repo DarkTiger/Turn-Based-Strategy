@@ -22,7 +22,7 @@ public class Role : MonoBehaviour
     {
         Stats newStats = new Stats();
 
-        if (roleIndex == 0)
+        if (roleIndex == 0) // Tank
         {           
             newStats.attackRange = 1;
             newStats.damage = 5;
@@ -31,7 +31,7 @@ public class Role : MonoBehaviour
 
             return newStats;
         }
-        else if (roleIndex == 1)
+        else if (roleIndex == 1) // Assassin
         {
             newStats.attackRange = 1;
             newStats.damage = 7;
@@ -40,30 +40,30 @@ public class Role : MonoBehaviour
 
             return newStats;
         }
-        else if (roleIndex == 2)
+        else if (roleIndex == 2) // Ranged
         {
             newStats.attackRange = 3;
-            newStats.damage = 2;
+            newStats.damage = 3;
             newStats.movementRange = 3;
             newStats.health = 5;
 
             return newStats;
         }
-        else if (roleIndex == 3)
+        else if (roleIndex == 3) // Healer
+        {
+            newStats.attackRange = 1;
+            newStats.damage = 2;
+            newStats.movementRange = 2;
+            newStats.health = 5;
+
+            return newStats;
+        }
+        else if (roleIndex == 4) // Specialist
         {
             newStats.attackRange = 1;
             newStats.damage = 4;
             newStats.movementRange = 2;
             newStats.health = 6;
-
-            return newStats;
-        }
-        else if (roleIndex == 4)
-        {
-            newStats.attackRange = 1;
-            newStats.damage = 3;
-            newStats.movementRange = 2;
-            newStats.health = 5;
 
             return newStats;
         }
