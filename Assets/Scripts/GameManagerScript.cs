@@ -44,7 +44,12 @@ public class GameManagerScript : MonoBehaviour
 
         if (playerIndex == 1)
         {
-            turnIndexText.color = Color.blue;
+            Color blueColor = new Color();
+            blueColor.r = 0;
+            blueColor.g = 100;
+            blueColor.b = 255;
+            blueColor.a = 255;
+            turnIndexText.color = blueColor;
         }
         else
         {
