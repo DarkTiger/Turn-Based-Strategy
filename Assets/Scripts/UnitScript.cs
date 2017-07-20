@@ -35,16 +35,17 @@ public class UnitScript : MonoBehaviour
     GameObject circleColliderGameobject; // Gestione dei collider circolari
 
 
+
     void Start()
     {
+        stats = GetComponent<Stats>();
+        role = GetComponent<Role>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
-
-        stats = GetComponent<Stats>();
-        role =  GetComponent<Role>();
 
         UpdateUnitStat();
     }
@@ -106,7 +107,7 @@ public class UnitScript : MonoBehaviour
     {
         Stats newStats;
         newStats = role.GetUnitRole(roleIndex);
-    
+
         stats.attackRange = newStats.attackRange;
         stats.damage = newStats.damage;
         stats.movementRange = newStats.movementRange;
@@ -147,26 +148,7 @@ public class UnitScript : MonoBehaviour
 
             if (stats.health <= 0)
             {
-                /*List<GameObject> newUnitsList = new List<GameObject>();
-
-                foreach (GameObject unit in gameManagerScript.unitsList)
-                {
-                    if (unit != gameObject)
-                    {
-                        newUnitsList.Add(unit);
-                    }
-                }
-
-                gameManagerScript.unitsList = newUnitsList;
-                Destroy(gameObject);*/
-
-                isDead = true;
-                spriteRenderer.enabled = false;
-                enabled = false;
-                tile.isTileTaken = false; //gameObject.SetActive(false);
-                gameObject.GetComponent<Canvas>().enabled = false;
-                circleColliderGameobject.SetActive(false);
-
+                Death(tile);
             }
         }
     }
@@ -178,9 +160,14 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void Death()
+    void Death(TileScript tile)
     {
-
+        isDead = true;
+        spriteRenderer.enabled = false;
+        enabled = false;
+        tile.isTileTaken = false;
+        gameObject.GetComponent<Canvas>().enabled = false;
+        circleColliderGameobject.SetActive(false);
     }
 
 

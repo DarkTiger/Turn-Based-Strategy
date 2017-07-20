@@ -14,7 +14,7 @@ public class Role : MonoBehaviour
         Stats newStats = new Stats();
 
         if (roleIndex == 0) // Tank
-        {           
+        {
             newStats.attackRange = 1;
             newStats.damage = 5;
             newStats.movementRange = 2;
@@ -58,7 +58,9 @@ public class Role : MonoBehaviour
 
             return newStats;
         }
-
-        return null;
+        else
+        {
+            return null;
+        }
     }
 }

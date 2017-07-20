@@ -46,9 +46,9 @@ public class GameManagerScript : MonoBehaviour
         {
             Color blueColor = new Color();
             blueColor.r = 0;
-            blueColor.g = 100;
-            blueColor.b = 255;
-            blueColor.a = 255;
+            blueColor.g = 0.75f;
+            blueColor.b = 1;
+            blueColor.a = 1;
             turnIndexText.color = blueColor;
         }
         else
