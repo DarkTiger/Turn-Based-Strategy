@@ -18,12 +18,14 @@ public class UnitScript : MonoBehaviour
     bool isKing = false;                    // Segnala l'unità re
     bool isStunned = false;
     public bool isDead = false;
+    public bool isKingDead = false;
 
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
     SpriteRenderer spriteRenderer;          // Gestione delle sprite associate alle unità
     public Color selectionColor;
+    public Color kingColor;
     public Sprite[] spritesP1;
     public Sprite[] spritesP2;
 
@@ -47,6 +49,7 @@ public class UnitScript : MonoBehaviour
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
 
+        KingSelection();
         UpdateUnitStat();
     }
 
@@ -94,14 +97,28 @@ public class UnitScript : MonoBehaviour
 
         if (isSelected)
         {
-            spriteRenderer.color = selectionColor;
+            if (isKing)
+            {
+                spriteRenderer.color = kingColor;
+            }
+            else
+            {
+                spriteRenderer.color = selectionColor;
+            }
         }
         else
         {
             spriteRenderer.color = Color.white;
         }
     }
-            
+    
+    public void KingSelection()
+    {
+        if (roleIndex == 0)
+        {
+            isKing = true;
+        }
+    }
 
     public void UpdateUnitStat()
     {
@@ -168,13 +185,18 @@ public class UnitScript : MonoBehaviour
         tile.isTileTaken = false;
         gameObject.GetComponent<Canvas>().enabled = false;
         circleColliderGameobject.SetActive(false);
+
+        if (roleIndex == 0)
+        {
+            //isKingDead = true;  //provvisorio
+        }
     }
 
 
-    void Respawn()
-    {
+    //void Respawn()
+    //{
 
-    }
+    //}
 
 
     void OnTriggerEnter2D(Collider2D other)
