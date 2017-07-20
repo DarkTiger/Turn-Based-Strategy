@@ -20,9 +20,7 @@ public class MapGenerator : MonoBehaviour
         worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
-        WorldGenerator();
-        
-        gameManager.mapCreated = true;
+        WorldGenerator(); 
     }
 
 
@@ -30,23 +28,28 @@ public class MapGenerator : MonoBehaviour
     {
         List<Vector3> posSpawnP1 = new List<Vector3>();
         List<Vector3> posSpawnP2 = new List<Vector3>();
-        List<int> orderRemains = new List<int>() {0,1,2,3,4};
+        List<int> orderRemains = new List<int>() {0,1,2,3,4,5,6};
         List<int> roleOrderP1 = new List<int>();
         List<int> roleOrderP2 = new List<int>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 7; i++)
         {
             int indexRandom;
             do {indexRandom = Random.Range(0, orderRemains.Count);}
             while (orderRemains[indexRandom] == -1);
             roleOrderP1.Add(orderRemains[indexRandom]);
             orderRemains[indexRandom] = -1;
+
+            Debug.Log("PLAYER1: " + orderRemains[indexRandom].ToString());
         }
 
-        for (int i = 4; i >= 0; i--)
+        for (int i = 6; i >= 0; i--)
         {
             roleOrderP2.Add(roleOrderP1[i]);
+            Debug.Log("PLAYER2: " + roleOrderP1[i].ToString());
         }
+
+        
 
         for (int y = 0; y < worldSizeY; y++)
         {
@@ -225,6 +228,8 @@ public class MapGenerator : MonoBehaviour
 
         AddUnits(1, posSpawnP1, roleOrderP1);
         AddUnits(2, posSpawnP2, roleOrderP2);
+
+        gameManager.mapCreated = true;
     }
 
     
@@ -249,6 +254,7 @@ public class MapGenerator : MonoBehaviour
             newUnitScript.ownerIndex = playerIndex;
             newUnitScript.roleIndex = roleIndex;
 
+            //Sprite[] spritesPlayer;
             if (playerIndex == 1)
             {
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
