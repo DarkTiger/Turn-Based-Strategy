@@ -20,8 +20,8 @@ public class MapGenerator : MonoBehaviour
         worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
-        List<int> unitsRolesP1 = new List<int>() { 0, 0, 0, 3, 4, 5, 6 };
-        List<int> unitsRolesP2 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+        List<int> unitsRolesP1 = new List<int>() { 1, 1, 0, 3, 4, 5, 6 };
+        List<int> unitsRolesP2 = new List<int>() { 1, 1, 2, 3, 4, 5, 6 };
 
         WorldGenerator(unitsRolesP1, unitsRolesP2); 
     }

@@ -93,6 +93,14 @@ public class UnitScript : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            foreach (GameObject tile in gameManagerScript.tilesList)
+            {
+                tile.GetComponent<TileScript>().currentUnit = null;
+            }
+        }
+
         if (isSelected & !gameManagerScript.isGameOver)
         {
             if (isKing)

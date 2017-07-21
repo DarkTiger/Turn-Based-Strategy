@@ -137,10 +137,11 @@ public class TileScript : MonoBehaviour
     void SetTileBonus()
     {
         if (currentUnit != null)
-        {
+        {           
             if (typeIndex == 0 && currentUnit.roleIndex == 0) // Tank
             {
                 currentUnit.bonusDefense = 3;
+                
             }
             else if (typeIndex == 1 && currentUnit.roleIndex == 1) // Assassin
             {
@@ -163,6 +164,11 @@ public class TileScript : MonoBehaviour
             {
                 currentUnit.bonusAttack = 0;
                 currentUnit.bonusDefense = 0;
+
+                if (typeIndex == 0)
+                {
+                    Debug.Log(typeIndex + " " + currentUnit.roleIndex);
+                }
             }
         }
     }
