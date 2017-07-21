@@ -56,30 +56,51 @@ public class MapGenerator : MonoBehaviour
         float tileXDiff = 0.2f;
         float yEvenStartPos = -0.6f;
         float yOddStartPos = 0f;
-
+        int currentY = -1;
 
         for (int y = 0; y < worldSizeY; y++)
         {
             for (int x = 0; x < worldSizeX; x++)
             {
                 float xTemp = x;
-
+                //float yEvenStartPos = -0.6f;
+                //float yOddStartPos = 0f;
                 if (y == 0)
                 {
                     xTemp -= 0.6f;
                 }
                 //else
                 //{
-                    /*if (y % 2 == 0)
+                /*if (y != currentY)
+                {
+                    if (y % 2 == 0)
                     {
-                        xTemp -= yEvenStartPos;
-                        yEvenStartPos = 
+                        if (y != 0)
+                        {
+                            xTemp -= yEvenStartPos;
+                            yEvenStartPos += tileXDiff;
+                            
+                        }
+                        else
+                        {
+                            xTemp -= 0.6f;
+                        }
                     }
                     else
                     {
+                        if (y != 1)
+                        {
+                            if (y != currentY)
+                            {
+                                xTemp -= yOddStartPos;
+                                yOddStartPos += tileXDiff;
+                                Debug.Log(yOddStartPos);
+                            }
+                        }
+                    }
 
-                    }*/
-                //}
+                    currentY = y;
+                */
 
                 
 
@@ -179,6 +200,11 @@ public class MapGenerator : MonoBehaviour
 
                 if (y % 2 != 0)
                 {
+                    if (x == worldSizeX - 1)
+                    {
+                        newTile.tag = "P2BaseTile";
+                    }
+
                     if (x == 0)
                     {
                         posSpawnP1.Add(newTile.transform.position);
@@ -186,6 +212,11 @@ public class MapGenerator : MonoBehaviour
                 }
                 else
                 {
+                    if (x == 0)
+                    {
+                        newTile.tag = "P1BaseTile";
+                    }
+
                     if (x == worldSizeX - 1)
                     {
                         posSpawnP2.Add(newTile.transform.position);
