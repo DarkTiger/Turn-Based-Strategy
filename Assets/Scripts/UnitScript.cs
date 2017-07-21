@@ -18,7 +18,7 @@ public class UnitScript : MonoBehaviour
     bool isKing = false;                    // Segnala l'unità re
     bool isStunned = false;
     public bool isDead = false;
-    public bool isKingDead = false;
+    // public bool isKingDead = false;
 
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
@@ -177,7 +177,7 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void Death(TileScript tile)
+    void Death(TileScript tile) // Gestione morte eroi
     {
         isDead = true;
         spriteRenderer.enabled = false;
@@ -186,9 +186,9 @@ public class UnitScript : MonoBehaviour
         gameObject.GetComponent<Canvas>().enabled = false;
         circleColliderGameobject.SetActive(false);
 
-        if (roleIndex == 0)
+        if (isKing) // Gestione morte re e fine del gioco
         {
-            //isKingDead = true;  //provvisorio
+            gameManagerScript.EndGame();
         }
     }
 

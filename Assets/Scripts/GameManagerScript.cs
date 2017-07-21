@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public List<GameObject> unitsList;
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
+    bool isGameOver = false;
     public Button turnButton;
     Text turnIndexText;
 
@@ -102,13 +103,16 @@ public class GameManagerScript : MonoBehaviour
     //Gestione turni: switch dell'indice del player attivo
     public void OnTurnButtonClick()
     {
-        if (playerIndex == 1)
+        if (!isGameOver)
         {
-            playerIndex = 2;
-        }
-        else
-        {
-            playerIndex = 1;
+            if (playerIndex == 1)
+            {
+                playerIndex = 2;
+            }
+            else
+            {
+                playerIndex = 1;
+            }
         }
        
 
@@ -120,5 +124,11 @@ public class GameManagerScript : MonoBehaviour
             unitScript.hasAttacked = false;
             unitScript.isSelected = false;
         }
+    }
+
+    public void EndGame()
+    {
+        isGameOver = true;
+        Debug.Log("The winner is " + playerIndex);
     }
 }
