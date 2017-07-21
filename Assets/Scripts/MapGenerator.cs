@@ -57,52 +57,48 @@ public class MapGenerator : MonoBehaviour
         float yEvenStartPos = -0.6f;
         float yOddStartPos = 0f;
         int currentY = -1;
+        float xTemp;
 
         for (int y = 0; y < worldSizeY; y++)
         {
             for (int x = 0; x < worldSizeX; x++)
             {
-                float xTemp = x;
-                //float yEvenStartPos = -0.6f;
-                //float yOddStartPos = 0f;
+                xTemp = x;
+
+                /*if (y % 2 == 0)
+                {
+                    if (y != 0)
+                    {
+                        
+                    xTemp += yEvenStartPos;
+                    yEvenStartPos = -0.6f;
+                }
+                    else
+                    {
+                        xTemp -= 0.6f;
+                    }
+                }
+                else
+                {
+                    if (y != 1)
+                    {
+                        if (y != currentY)
+                        {
+                            
+                        xTemp += yOddStartPos;
+                        yOddStartPos = 0f;
+                    }
+                    }
+                }
+
+                yEvenStartPos += tileXDiff;
+                yOddStartPos += tileXDiff;*/
+
+
                 if (y == 0)
                 {
                     xTemp -= 0.6f;
                 }
-                //else
-                //{
-                /*if (y != currentY)
-                {
-                    if (y % 2 == 0)
-                    {
-                        if (y != 0)
-                        {
-                            xTemp -= yEvenStartPos;
-                            yEvenStartPos += tileXDiff;
-                            
-                        }
-                        else
-                        {
-                            xTemp -= 0.6f;
-                        }
-                    }
-                    else
-                    {
-                        if (y != 1)
-                        {
-                            if (y != currentY)
-                            {
-                                xTemp -= yOddStartPos;
-                                yOddStartPos += tileXDiff;
-                                Debug.Log(yOddStartPos);
-                            }
-                        }
-                    }
-
-                    currentY = y;
-                */
-
-                
 
                 if (y == 1)
                 {
@@ -193,6 +189,8 @@ public class MapGenerator : MonoBehaviour
                     xTemp += 1.4f;
                 }
 
+
+                //Debug.Log("(" + x.ToString() + ") (" + y.ToString() + ")  " + xTemp.ToString());
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
@@ -223,7 +221,7 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
             }
-        }
+        }      
 
         AddUnits(1, posSpawnP1, roleOrderP1);
         AddUnits(2, posSpawnP2, roleOrderP2);
