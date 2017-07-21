@@ -16,6 +16,8 @@ public class GameManagerScript : MonoBehaviour
     public bool isGameOver = false;
     public Button turnButton;
     Text turnIndexText;
+    Text winnerText;
+    GameObject winnerPanel;
 
 
 
@@ -23,12 +25,16 @@ public class GameManagerScript : MonoBehaviour
     {
         List<GameObject> unitsList = new List<GameObject>();
         List<GameObject> tilesList = new List<GameObject>();
+        winnerPanel = GameObject.Find("WinnerPanel");
+        winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
+
 
         //Gestione del button che controlla il cambio turno
         Button btn = turnButton.GetComponent<Button>();
         btn.onClick.AddListener(OnTurnButtonClick);
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
 
+        winnerPanel.SetActive(false);
         StartGame();
     }
 
@@ -162,5 +168,8 @@ public class GameManagerScript : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("The winner is " + playerIndex);
+
+        winnerText.text = "PLAYER " + playerIndex + " WINS!";
+        winnerPanel.SetActive(true);
     }
 }
