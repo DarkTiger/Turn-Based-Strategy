@@ -45,6 +45,6 @@ public class UnitStatsTextScript : MonoBehaviour
         }
 
         //attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
-        //defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
+        defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
     }
 }
