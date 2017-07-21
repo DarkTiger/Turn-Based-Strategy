@@ -20,21 +20,21 @@ public class MapGenerator : MonoBehaviour
         worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
-        WorldGenerator(); 
+        List<int> unitsRolesP1 = new List<int>() { 0, 0, 0, 3, 4, 5, 6 };
+        List<int> unitsRolesP2 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+
+        WorldGenerator(unitsRolesP1, unitsRolesP2); 
     }
 
 
-    void WorldGenerator()
+    void WorldGenerator(List<int> unitsRolesP1, List<int> unitsRolesP2)
     {
         List<Vector3> posSpawnP1 = new List<Vector3>();
-        List<Vector3> posSpawnP2 = new List<Vector3>();
-        //List<int> orderRemains = new List<int>() {0, 1, 2, 3, 4, 5, 6};
-        List<int> roleOrderP1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
-        List<int> roleOrderP2 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
-
-
+        List<Vector3> posSpawnP2 = new List<Vector3>();     
+       
         /// SISTEMA RANDOM INCROCIATO:
         /// 
+        //List<int> orderRemains = new List<int>() {0, 1, 2, 3, 4, 5, 6};
         /*for (int i = 0; i < 5; i++)
         {
             int indexRandom;
@@ -223,20 +223,20 @@ public class MapGenerator : MonoBehaviour
             }
         }      
 
-        AddUnits(1, posSpawnP1, roleOrderP1);
-        AddUnits(2, posSpawnP2, roleOrderP2);
+        AddUnits(1, posSpawnP1, unitsRolesP1);
+        AddUnits(2, posSpawnP2, unitsRolesP2);
 
         gameManager.mapCreated = true;
     }
 
    
-    void AddUnits(int playerIndex, List<Vector3> positions, List<int> unitsOrder)
+    void AddUnits(int playerIndex, List<Vector3> positions, List<int> unitsRoles)
     {
         int unitIndex = 0;
 
         for (int i = 0; i < positions.Count; i++)
         {
-            int roleIndex = unitsOrder[unitIndex];
+            int roleIndex = unitsRoles[unitIndex];
 
             if (roleIndex > 4)
             {

@@ -26,7 +26,25 @@ public class UnitStatsTextScript : MonoBehaviour
         int bonusDefense = unitScript.bonusDefense;
         int baseHealth = unitScript.stats.health;
 
-        attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
-        defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
+        if (bonusAttack > 0)
+        {
+            attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
+        }
+        else
+        {
+            attackText.text = baseDamage.ToString();
+        }
+
+        if (bonusDefense > 0)
+        {
+            defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
+        }
+        else
+        {
+            defenseText.text = baseHealth.ToString();
+        }
+
+        //attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
+        //defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
     }
 }
