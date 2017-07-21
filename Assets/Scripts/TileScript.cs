@@ -15,14 +15,14 @@ public class TileScript : MonoBehaviour
     public Color selectionColor;
     GameManagerScript gameManager;
     MapGenerator mapGenerator;
-
+    
 
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();        
     }
 
 
@@ -32,6 +32,7 @@ public class TileScript : MonoBehaviour
         SetTileTaken();        
         OnInRange();
         SetTileBonus();
+        SetGameOver();
     }
 
 
@@ -95,7 +96,7 @@ public class TileScript : MonoBehaviour
                     RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
                     TileScript tileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
 
-                    if (hit.collider.tag == "Tile")
+                    if (hit.collider.tag == "Tile" || hit.collider.tag == "P1BaseTile" || hit.collider.tag == "P2BaseTile")
                     {
                         if (unitScript.gameObject != currentUnit.gameObject)
                         {
@@ -108,8 +109,7 @@ public class TileScript : MonoBehaviour
                 }
                 else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
                 {
-                    GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
-                    foreach (GameObject tile in tiles)
+                    foreach (GameObject tile in gameManager.tilesList)
                     {
                         tile.GetComponent<TileScript>().isInRange = false;
                     }
@@ -160,6 +160,20 @@ public class TileScript : MonoBehaviour
             {
                 currentUnit.bonusAttack = 0;
                 currentUnit.bonusDefense = 0;
+            }
+        }
+    }
+
+    void SetGameOver()
+    {
+        if (currentUnit != null && !gameManager.isGameOver)
+        {
+            if (currentUnit.isKing)
+            {
+                if (tag == "P1BaseTile" || tag == "P2BaseTile")
+                {
+                    gameManager.EndGame();
+                }
             }
         }
     }

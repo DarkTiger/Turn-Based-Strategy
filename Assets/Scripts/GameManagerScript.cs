@@ -9,9 +9,11 @@ public class GameManagerScript : MonoBehaviour
     public int turnDuration;
     public int gameTime;
     public List<GameObject> unitsList;
+    public List<GameObject> tilesList;
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
-    bool isGameOver = false;
+    bool tilesLoadedInList = false;
+    public bool isGameOver = false;
     public Button turnButton;
     Text turnIndexText;
 
@@ -20,6 +22,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         List<GameObject> unitsList = new List<GameObject>();
+        List<GameObject> tilesList = new List<GameObject>();
 
         //Gestione del button che controlla il cambio turno
         Button btn = turnButton.GetComponent<Button>();
@@ -36,6 +39,8 @@ public class GameManagerScript : MonoBehaviour
         {
             //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
             CheckIfUnitsAreLoaded();
+            CheckIfTilesAreLoaded();
+
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -76,6 +81,33 @@ public class GameManagerScript : MonoBehaviour
             for (int i = 0; i < unitsP2.Length; i++)
             {
                 unitsList.Add(unitsP2[i]);
+            }
+
+            unitsLoadedInList = true;
+        }
+    }
+
+    void CheckIfTilesAreLoaded()
+    {
+        if (!tilesLoadedInList)
+        {
+            GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+            GameObject[] p1BaseTiles = GameObject.FindGameObjectsWithTag("P1BaseTile");
+            GameObject[] p2BaseTiles = GameObject.FindGameObjectsWithTag("P2BaseTile");
+
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                tilesList.Add(tiles[i]);
+            }
+
+            for (int i = 0; i < p1BaseTiles.Length; i++)
+            {
+                tilesList.Add(p1BaseTiles[i]);
+            }
+
+            for (int i = 0; i < p2BaseTiles.Length; i++)
+            {
+                tilesList.Add(p2BaseTiles[i]);
             }
 
             unitsLoadedInList = true;

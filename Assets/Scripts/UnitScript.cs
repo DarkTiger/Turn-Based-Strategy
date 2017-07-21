@@ -14,12 +14,10 @@ public class UnitScript : MonoBehaviour
     public int roleIndex = 0;                   // Indica la classe dell'unità
     public bool isSelected = false;         // Segnala l'unità selezionata
     public bool hasAttacked = false;        // Indica se l'unità ha già attaccato nel proprio turno
-    bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
-    bool isKing = false;                    // Segnala l'unità re
-    bool isStunned = false;
+    public bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
+    public bool isKing = false;                    // Segnala l'unità re
     public bool isDead = false;
-    // public bool isKingDead = false;
-
+    
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
@@ -201,7 +199,7 @@ public class UnitScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Tile")
+        if (other.tag == "Tile" || other.tag == "P1BaseTile" || other.tag == "P2BaseTile")
         {
             if (isSelected)
             {
@@ -227,7 +225,7 @@ public class UnitScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Tile")
+        if (other.tag == "Tile" || other.tag == "P1BaseTile" || other.tag == "P2BaseTile")
         {
             other.gameObject.GetComponent<TileScript>().isInRange = false;
         }
