@@ -110,7 +110,6 @@ public class GameManagerScript : MonoBehaviour
         {
             playerIndex = 1;
         }
-
        
 
         foreach (GameObject unit in unitsList)

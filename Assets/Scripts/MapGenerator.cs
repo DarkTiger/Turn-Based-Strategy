@@ -28,11 +28,14 @@ public class MapGenerator : MonoBehaviour
     {
         List<Vector3> posSpawnP1 = new List<Vector3>();
         List<Vector3> posSpawnP2 = new List<Vector3>();
-        List<int> orderRemains = new List<int>() {0,1,2,3,4,5,6};
-        List<int> roleOrderP1 = new List<int>();
-        List<int> roleOrderP2 = new List<int>();
+        //List<int> orderRemains = new List<int>() {0, 1, 2, 3, 4, 5, 6};
+        List<int> roleOrderP1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+        List<int> roleOrderP2 = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
 
-        for (int i = 0; i < 7; i++)
+
+        /// SISTEMA RANDOM INCROCIATO:
+        /// 
+        /*for (int i = 0; i < 5; i++)
         {
             int indexRandom;
             do {indexRandom = Random.Range(0, orderRemains.Count);}
@@ -43,53 +46,70 @@ public class MapGenerator : MonoBehaviour
             Debug.Log("PLAYER1: " + orderRemains[indexRandom].ToString());
         }
 
-        for (int i = 6; i >= 0; i--)
+        for (int i = 4; i >= 0; i--)
         {
             roleOrderP2.Add(roleOrderP1[i]);
             Debug.Log("PLAYER2: " + roleOrderP1[i].ToString());
-        }
+        }*/
+        /////////////////////////////////
 
-        
+        float tileXDiff = 0.2f;
+        float yEvenStartPos = -0.6f;
+        float yOddStartPos = 0f;
+
 
         for (int y = 0; y < worldSizeY; y++)
         {
             for (int x = 0; x < worldSizeX; x++)
             {
-                float offset = 0;
-                float xTemp = x + offset;
+                float xTemp = x;
 
                 if (y == 0)
                 {
-                    xTemp -= 0.603f;
+                    xTemp -= 0.6f;
                 }
+                //else
+                //{
+                    /*if (y % 2 == 0)
+                    {
+                        xTemp -= yEvenStartPos;
+                        yEvenStartPos = 
+                    }
+                    else
+                    {
+
+                    }*/
+                //}
+
+                
 
                 if (y == 1)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.0f;
                 }
 
                 if (y == 2)
                 {
-                    xTemp = x + offset;
-                    xTemp -= 0.403f;
+                    xTemp = x;
+                    xTemp -= 0.4f;
                 }
 
                 if (y == 3)
                 {
-                    xTemp = x + offset;
-                    xTemp += 0.203f;
+                    xTemp = x;
+                    xTemp += 0.2f;
                 }
 
                 if (y == 4)
                 {
-                    xTemp = x + offset;
-                    xTemp -= 0.203f;
+                    xTemp = x;
+                    xTemp -= 0.2f;
                 }
 
                 if (y == 5)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.4f;
                 }
 
@@ -100,125 +120,73 @@ public class MapGenerator : MonoBehaviour
 
                 if (y == 7)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.6f;
                 }
 
                 if (y == 8)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.2f;
                 }
 
                 if (y == 9)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.8f;
                 }
 
                 if (y == 10)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.4f;
                 }
 
                 if (y == 11)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 1f;
                 }
 
                 if (y == 12)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.6f;
                 }
 
                 if (y == 13)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 1.2f;
                 }
 
                 if (y == 14)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 0.8f;
                 }
 
                 if (y == 15)
                 {
-                    xTemp = x + offset;
+                    xTemp = x;
                     xTemp += 1.4f;
                 }
 
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
-
                 worldTiles.Add(newTile);
 
-
-                if (y == 3)
+                if (y % 2 != 0)
                 {
-                    if (x == 1)
+                    if (x == 0)
                     {
                         posSpawnP1.Add(newTile.transform.position);
-                    }
-
-                    if (x == 15)
-                    {
-                        posSpawnP2.Add(newTile.transform.position);
                     }
                 }
-
-                if (y == 5)
+                else
                 {
-                    if (x == 1)
-                    {
-                        posSpawnP1.Add(newTile.transform.position);
-                    }
-
-                    if (x == 15)
-                    {
-                        posSpawnP2.Add(newTile.transform.position);
-                    }
-                }
-
-                if (y == 7)
-                {
-                    if (x == 1)
-                    {
-                        posSpawnP1.Add(newTile.transform.position);
-                    }
-
-                    if (x == 15)
-                    {
-                        posSpawnP2.Add(newTile.transform.position);
-                    }
-                }
-
-                if (y == 9)
-                {
-                    if (x == 1)
-                    {
-                        posSpawnP1.Add(newTile.transform.position);
-                    }
-
-                    if (x == 15)
-                    {
-                        posSpawnP2.Add(newTile.transform.position);
-                    }
-                }
-
-                if (y == 11)
-                {
-                    if (x == 1)
-                    {
-                        posSpawnP1.Add(newTile.transform.position);
-                    }
-
-                    if (x == 15)
+                    if (x == worldSizeX - 1)
                     {
                         posSpawnP2.Add(newTile.transform.position);
                     }
@@ -232,7 +200,7 @@ public class MapGenerator : MonoBehaviour
         gameManager.mapCreated = true;
     }
 
-    
+   
     void AddUnits(int playerIndex, List<Vector3> positions, List<int> unitsOrder)
     {
         int unitIndex = 0;
@@ -240,6 +208,11 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < positions.Count; i++)
         {
             int roleIndex = unitsOrder[unitIndex];
+
+            if (roleIndex > 4)
+            {
+                roleIndex = 4;
+            }
 
             Vector3 newPos = positions[i];
             newPos.y += 0.3f;
@@ -254,7 +227,6 @@ public class MapGenerator : MonoBehaviour
             newUnitScript.ownerIndex = playerIndex;
             newUnitScript.roleIndex = roleIndex;
 
-            //Sprite[] spritesPlayer;
             if (playerIndex == 1)
             {
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
