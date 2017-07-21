@@ -70,20 +70,23 @@ public class TileScript : MonoBehaviour
 
     void OnInRange()
     {
-        if (isInRange)
+        if (!gameManager.isGameOver)
         {
-            spriteRenderer.color = selectionColor;
-        }
-        else if (!isTileTaken)
-        {
-            spriteRenderer.color = Color.white;
+            if (isInRange)
+            {
+                spriteRenderer.color = selectionColor;
+            }
+            else if (!isTileTaken)
+            {
+                spriteRenderer.color = Color.white;
+            }
         }
     }
 
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !gameManager.isGameOver)
         {
             isSelected = true;
             
@@ -170,7 +173,7 @@ public class TileScript : MonoBehaviour
         {
             if (currentUnit.isKing)
             {
-                if (tag == "P1BaseTile" || tag == "P2BaseTile")
+                if ((tag == "P1BaseTile" && currentUnit.ownerIndex == 2) || (tag == "P2BaseTile" && currentUnit.ownerIndex == 1))
                 {
                     gameManager.EndGame();
                 }

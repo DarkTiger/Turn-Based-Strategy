@@ -93,7 +93,7 @@ public class UnitScript : MonoBehaviour
             }
         }
 
-        if (isSelected)
+        if (isSelected & !gameManagerScript.isGameOver)
         {
             if (isKing)
             {
