@@ -93,14 +93,6 @@ public class UnitScript : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            foreach (GameObject tile in gameManagerScript.tilesList)
-            {
-                tile.GetComponent<TileScript>().currentUnit = null;
-            }
-        }
-
         if (isSelected & !gameManagerScript.isGameOver)
         {
             if (isKing)
@@ -149,6 +141,7 @@ public class UnitScript : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, movementDestination, 5 / distance * Time.deltaTime);
             unitIsMoving = true;
             circleColliderGameobject.SetActive(false);
+            ForceUnitNull();
         }
         else
         {
@@ -237,6 +230,17 @@ public class UnitScript : MonoBehaviour
         if (other.tag == "Tile" || other.tag == "P1BaseTile" || other.tag == "P2BaseTile")
         {
             other.gameObject.GetComponent<TileScript>().isInRange = false;
+        }
+    }
+
+    void ForceUnitNull()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            foreach (GameObject tile in gameManagerScript.tilesList)
+            {
+                tile.GetComponent<TileScript>().currentUnit = null;
+            }
         }
     }
 }
