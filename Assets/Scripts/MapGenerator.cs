@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class MapGenerator : MonoBehaviour
 {
+    GameManagerScript gameManager;
+
     public int worldSizeX = 0;
     public int worldSizeY = 0;
     public GameObject tile;
     public GameObject unit;
     public List<GameObject> worldTiles;
-    GameManagerScript gameManager;
-
-
+  
 
     void Start()
     {

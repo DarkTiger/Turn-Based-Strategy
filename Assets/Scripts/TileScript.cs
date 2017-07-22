@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
-    bool isSelected = false;
-    public bool isTileTaken = false;
-    public bool isInRange = false;
-    public int typeIndex = 0;
-    public Stats stats;
+    public Stats stats;             
     public UnitScript currentUnit = null;
-    public Sprite[] sprites;
-    SpriteRenderer spriteRenderer;
-    public Color selectionColor;
     GameManagerScript gameManager;
     MapGenerator mapGenerator;
+
+    bool isSelected = false;            // Selezione tile
+    public bool isTileTaken = false;    // Indica se la tile è occupata
+    public bool isInRange = false;      // Indica se la tile è in range
+    public int typeIndex = 0;           // Tipo di tile (foresta, montagna...)
+    
+    public Sprite[] sprites;            // Gestione sprite
+    SpriteRenderer spriteRenderer;
+    public Color selectionColor;
+    
     
 
 

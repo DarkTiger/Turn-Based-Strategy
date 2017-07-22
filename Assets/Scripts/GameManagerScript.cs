@@ -5,16 +5,20 @@ using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 { 
-    public int playerIndex;
-    public int turnDuration;
+    public int playerIndex;                 // Indica a quale giocatore appartiene l'unità
+
+    public int turnDuration;                // Gestione del tempo
     public int gameTime;
-    public List<GameObject> unitsList;
+
+    public List<GameObject> unitsList;      // Variabili di gestione unità
     public List<GameObject> tilesList;
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
     bool tilesLoadedInList = false;
-    public bool isGameOver = false;
-    public Button turnButton;
+
+    public bool isGameOver = false;         // Gestione del game over
+
+    public Button turnButton;               // UI
     Text turnIndexText;
     Text winnerText;
     GameObject winnerPanel;
