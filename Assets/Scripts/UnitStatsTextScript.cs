@@ -9,8 +9,7 @@ public class UnitStatsTextScript : MonoBehaviour
     Text defenseText;
     UnitScript unitScript;
 
-
-
+    
     void Start()
     {
         unitScript = GetComponent<UnitScript>();
@@ -43,8 +42,5 @@ public class UnitStatsTextScript : MonoBehaviour
         {
             defenseText.text = baseHealth.ToString();
         }
-
-        //attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
-        defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
     }
 }

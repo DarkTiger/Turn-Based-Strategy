@@ -41,9 +41,9 @@ public class TileScript : MonoBehaviour
 
     void SetTileTaken()
     {
-        foreach (GameObject unit in gameManager.unitsList)
+        foreach (UnitScript unit in gameManager.unitScriptList)
         {
-            if (!unit.GetComponent<UnitScript>().isDead)
+            if (!unit.isDead)
             {
                 Vector3 unitPos = unit.transform.position;
                 unitPos.y -= 0.3f;
@@ -53,7 +53,7 @@ public class TileScript : MonoBehaviour
                 {
                     isInRange = false;
                     isTileTaken = true;
-                    currentUnit = unit.GetComponent<UnitScript>();
+                    currentUnit = unit;
                 }
             }
         }   
@@ -93,10 +93,8 @@ public class TileScript : MonoBehaviour
         {
             isSelected = true;
             
-            foreach (GameObject unit in gameManager.unitsList)
+            foreach (UnitScript unitScript in gameManager.unitScriptList)
             {
-                UnitScript unitScript = unit.GetComponent<UnitScript>();
-
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
@@ -115,9 +113,9 @@ public class TileScript : MonoBehaviour
                 }
                 else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
                 {
-                    foreach (GameObject tile in gameManager.tilesList)
+                    foreach (TileScript tile in gameManager.tileScriptList)
                     {
-                        tile.GetComponent<TileScript>().isInRange = false;
+                        tile.isInRange = false;
                     }
 
                     Vector3 movementDestinationTemp = transform.position;

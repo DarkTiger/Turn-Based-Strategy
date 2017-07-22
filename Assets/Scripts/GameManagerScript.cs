@@ -12,6 +12,8 @@ public class GameManagerScript : MonoBehaviour
 
     public List<GameObject> unitsList;      // Variabili di gestione unità
     public List<GameObject> tilesList;
+    public List<UnitScript> unitScriptList;
+    public List<TileScript> tileScriptList;
     public bool mapCreated = false;
     bool unitsLoadedInList = false;
     bool tilesLoadedInList = false;
@@ -27,11 +29,13 @@ public class GameManagerScript : MonoBehaviour
 
     void Start()
     {
-        List<GameObject> unitsList = new List<GameObject>();
-        List<GameObject> tilesList = new List<GameObject>();
+        unitsList = new List<GameObject>();
+        tilesList = new List<GameObject>();
+        unitScriptList = new List<UnitScript>();
+        tileScriptList = new List<TileScript>();
+
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
-
 
         //Gestione del button che controlla il cambio turno
         Button btn = turnButton.GetComponent<Button>();
@@ -50,7 +54,6 @@ public class GameManagerScript : MonoBehaviour
             //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
             CheckIfUnitsAreLoaded();
             CheckIfTilesAreLoaded();
-
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -93,6 +96,11 @@ public class GameManagerScript : MonoBehaviour
                 unitsList.Add(unitsP2[i]);
             }
 
+            foreach (GameObject unit in unitsList)
+            {
+                unitScriptList.Add(unit.GetComponent<UnitScript>());
+            }
+
             unitsLoadedInList = true;
         }
     }
@@ -120,7 +128,12 @@ public class GameManagerScript : MonoBehaviour
                 tilesList.Add(p2BaseTiles[i]);
             }
 
-            unitsLoadedInList = true;
+            foreach (GameObject tile in tilesList)
+            {
+                tileScriptList.Add(tile.GetComponent<TileScript>());
+            }
+
+            tilesLoadedInList = true;
         }
     }
 

@@ -32,8 +32,22 @@ public class MapGenerator : MonoBehaviour
         List<Vector3> posSpawnP1 = new List<Vector3>();
         List<Vector3> posSpawnP2 = new List<Vector3>();
 
-        unitsRolesP1[6] = -1;
-        unitsRolesP2[6] = -1;
+        int roleP1Temp3 = unitsRolesP1[3];
+        int roleP1Temp4 = unitsRolesP1[4];
+        int roleP1Temp5 = unitsRolesP1[5];
+        int roleP2Temp3 = unitsRolesP2[3];
+        int roleP2Temp4 = unitsRolesP2[4];
+        int roleP2Temp5 = unitsRolesP2[5];
+
+        unitsRolesP1[3] = -1;
+        unitsRolesP1[4] = roleP1Temp3;
+        unitsRolesP1[5] = roleP1Temp4;
+        unitsRolesP1[6] = roleP1Temp5;
+
+        unitsRolesP2[3] = -1;
+        unitsRolesP2[4] = roleP2Temp3;
+        unitsRolesP2[5] = roleP2Temp4;
+        unitsRolesP2[6] = roleP2Temp5;
 
         /// SISTEMA RANDOM INCROCIATO:
         /// 
@@ -272,7 +286,7 @@ public class MapGenerator : MonoBehaviour
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
             }
 
-            if (i == positions.Count - 1)
+            if (i == 3)
             {
                 newUnitScript.isKing = true;
             }

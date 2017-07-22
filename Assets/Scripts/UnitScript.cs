@@ -237,9 +237,9 @@ public class UnitScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            foreach (GameObject tile in gameManagerScript.tilesList)
+            foreach (TileScript tile in gameManagerScript.tileScriptList)
             {
-                tile.GetComponent<TileScript>().currentUnit = null;
+                tile.currentUnit = null;
             }
         }
     }
