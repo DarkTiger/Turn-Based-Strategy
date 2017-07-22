@@ -120,10 +120,11 @@ public class UnitScript : MonoBehaviour
     
     public void KingSelection()
     {
-        if (roleIndex == 0)
+        //ASSEGNATO IN MAP GENERATOR
+        /*if (roleIndex == 0)
         {
             isKing = true;
-        }
+        }*/
     }
 
     public void UpdateUnitStat()

@@ -123,7 +123,7 @@ public class GameManagerScript : MonoBehaviour
 
     void StartGame()
     {
-        playerIndex = 1; //Setta il giocatore di partenza
+        playerIndex = Random.Range(1,2); //Setta il giocatore di partenza
     }
 
 

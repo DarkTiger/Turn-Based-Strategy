@@ -20,18 +20,21 @@ public class MapGenerator : MonoBehaviour
         worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
-        List<int> unitsRolesP1 = new List<int>() { 1, 1, 0, 3, 4, 5, 6 };
-        List<int> unitsRolesP2 = new List<int>() { 1, 1, 2, 3, 4, 5, 6 };
+        //List<int> unitsRolesP1 = new List<int>() { 1, 1, 0, 3, 4, 5, 6 };
+        //List<int> unitsRolesP2 = new List<int>() { 1, 1, 2, 3, 4, 5, 6 };
 
-        WorldGenerator(unitsRolesP1, unitsRolesP2); 
+        //WorldGenerator(unitsRolesP1, unitsRolesP2); 
     }
 
 
-    void WorldGenerator(List<int> unitsRolesP1, List<int> unitsRolesP2)
+    public void CreateMap(List<int> unitsRolesP1, List<int> unitsRolesP2)
     {
         List<Vector3> posSpawnP1 = new List<Vector3>();
-        List<Vector3> posSpawnP2 = new List<Vector3>();     
-       
+        List<Vector3> posSpawnP2 = new List<Vector3>();
+
+        unitsRolesP1[6] = -1;
+        unitsRolesP2[6] = -1;
+
         /// SISTEMA RANDOM INCROCIATO:
         /// 
         //List<int> orderRemains = new List<int>() {0, 1, 2, 3, 4, 5, 6};
@@ -238,7 +241,11 @@ public class MapGenerator : MonoBehaviour
         {
             int roleIndex = unitsRoles[unitIndex];
 
-            if (roleIndex > 4)
+            if (roleIndex == -1)
+            {
+                roleIndex = 0;
+            }
+            else if (roleIndex > 4)
             {
                 roleIndex = 4;
             }
@@ -263,6 +270,11 @@ public class MapGenerator : MonoBehaviour
             else
             {
                 newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
+            }
+
+            if (i == positions.Count - 1)
+            {
+                newUnitScript.isKing = true;
             }
 
             unitIndex += 1;
