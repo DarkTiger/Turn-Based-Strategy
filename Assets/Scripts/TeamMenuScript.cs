@@ -85,48 +85,67 @@ public class TeamMenuScript : MonoBehaviour
     }
 
 
+    public void OnRoleButtonClicked(int roleIndex)
+    {
+        for (int i = 0; i < teamRolesP1.Count; i++)
+        {
+            if (teamRolesP1[i] == -1)
+            {
+                teamRolesP1[i] = roleIndex;
+                break;
+            }
+        }
+
+        OnListsChange();
+    }
+
+
     void OnListsChange()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 6; i++)
         {
             if (i == 0)
             {
-
+                SetSlotRole(btnTextSlotP1_1, teamRolesP1[i]);
             }
             else if (i == 1)
             {
-
+                SetSlotRole(btnTextSlotP1_2, teamRolesP1[i]);
             }
             else if (i == 2)
             {
-
+                SetSlotRole(btnTextSlotP1_3, teamRolesP1[i]);
             }
             else if (i == 3)
             {
-
+                SetSlotRole(btnTextSlotP1_4, teamRolesP1[i]);
             }
             else if (i == 4)
             {
-
+                SetSlotRole(btnTextSlotP1_5, teamRolesP1[i]);
             }
             else if (i == 5)
             {
-
+                SetSlotRole(btnTextSlotP1_6, teamRolesP1[i]);
             }
-            else if (i == 6)
+            /*else if (i == 6)
             {
+                SetSlotRole(btnTextSlotP1_7, teamRolesP1[i]);
+            }*/
+        }
+    }
 
-            }
-            else
-            {
-
-            }
-
-            switch (teamRolesP1[i])
-            {
-                //case -1: btnSlotP1_1.transform.GetChild(0).GetComponent<Text>().text == break;
-            }
-
+    void SetSlotRole(Text slotText, int roleIndex)
+    {
+        switch (roleIndex)
+        {
+            case 0: slotText.text = "TANK"; break;
+            case 1: slotText.text = "ASSASSIN"; break;
+            case 2: slotText.text = "RANGED"; break;
+            case 3: slotText.text = "HEALER"; break;
+            case 4: slotText.text = "SPECIALIST 1"; break;
+            case 5: slotText.text = "SPECIALIST 2"; break;
+            case -1: slotText.text = "NOT ASSIGNED"; break;
         }
     }
 }

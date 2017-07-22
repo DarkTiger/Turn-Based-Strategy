@@ -164,11 +164,6 @@ public class TileScript : MonoBehaviour
             {
                 currentUnit.bonusAttack = 0;
                 currentUnit.bonusDefense = 0;
-
-                if (typeIndex == 0)
-                {
-                    Debug.Log(typeIndex + " " + currentUnit.roleIndex);
-                }
             }
         }
     }
