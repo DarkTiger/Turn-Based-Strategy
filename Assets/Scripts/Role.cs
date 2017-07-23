@@ -35,7 +35,7 @@ public class Role : MonoBehaviour
         {
             newStats.attackRange = 3;
             newStats.damage = 3;
-            newStats.movementRange = 3;
+            newStats.movementRange = 2;
             newStats.health = 5;
 
             return newStats;
@@ -44,7 +44,7 @@ public class Role : MonoBehaviour
         {
             newStats.attackRange = 1;
             newStats.damage = 2;
-            newStats.movementRange = 2;
+            newStats.movementRange = 3;
             newStats.health = 5;
 
             return newStats;

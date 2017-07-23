@@ -161,7 +161,7 @@ public class UnitScript : MonoBehaviour
             tempDamage -= bonusDefense;
             stats.health -= tempDamage;
 
-            attacker.hasAttacked = true;
+            attacker.hasAttacked = true;            
 
             if (stats.health <= 0)
             {
