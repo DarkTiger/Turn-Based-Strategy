@@ -19,6 +19,13 @@ public class TeamMenuScript : MonoBehaviour
     Text btnTextSlotP1_5;
     Text btnTextSlotP1_6;
 
+    Image btnSpriteSlotP1_1;
+    Image btnSpriteSlotP1_2;
+    Image btnSpriteSlotP1_3;
+    Image btnSpriteSlotP1_4;
+    Image btnSpriteSlotP1_5;
+    Image btnSpriteSlotP1_6;
+
     Text btnTextSlotP2_1;
     Text btnTextSlotP2_2;
     Text btnTextSlotP2_3;
@@ -26,32 +33,57 @@ public class TeamMenuScript : MonoBehaviour
     Text btnTextSlotP2_5;
     Text btnTextSlotP2_6;
 
+    Image btnSpriteSlotP2_1;
+    Image btnSpriteSlotP2_2;
+    Image btnSpriteSlotP2_3;
+    Image btnSpriteSlotP2_4;
+    Image btnSpriteSlotP2_5;
+    Image btnSpriteSlotP2_6;
+
     Button btnStartGame;
     Text btnStartGameText;
     public Text currentPlayerText;
+
+    public Sprite[] roleSpritesP1;
+    public Sprite[] roleSpritesP2;
 
     public Button[] roleTypesButtons;
     public Button[] p1SlotButtons;
     public Button[] p2SlotButtons;
     Text[] p1SlotsText;
     Text[] p2SlotsText;
+    
 
 
     void Start ()
     {
-        btnTextSlotP1_1 = p1SlotButtons[0].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP1_2 = p1SlotButtons[1].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP1_3 = p1SlotButtons[2].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP1_4 = p1SlotButtons[3].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP1_5 = p1SlotButtons[4].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP1_6 = p1SlotButtons[5].transform.GetChild(0).GetComponent<Text>();
+        btnTextSlotP1_1 = p1SlotButtons[0].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP1_2 = p1SlotButtons[1].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP1_3 = p1SlotButtons[2].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP1_4 = p1SlotButtons[3].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP1_5 = p1SlotButtons[4].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP1_6 = p1SlotButtons[5].transform.GetChild(1).GetComponent<Text>();
 
-        btnTextSlotP2_1 = p2SlotButtons[0].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP2_2 = p2SlotButtons[1].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP2_3 = p2SlotButtons[2].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP2_4 = p2SlotButtons[3].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP2_5 = p2SlotButtons[4].transform.GetChild(0).GetComponent<Text>();
-        btnTextSlotP2_6 = p2SlotButtons[5].transform.GetChild(0).GetComponent<Text>();
+        btnSpriteSlotP1_1 = p1SlotButtons[0].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP1_2 = p1SlotButtons[1].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP1_3 = p1SlotButtons[2].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP1_4 = p1SlotButtons[3].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP1_5 = p1SlotButtons[4].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP1_6 = p1SlotButtons[5].transform.GetChild(0).GetComponent<Image>();
+
+        btnTextSlotP2_1 = p2SlotButtons[0].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP2_2 = p2SlotButtons[1].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP2_3 = p2SlotButtons[2].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP2_4 = p2SlotButtons[3].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP2_5 = p2SlotButtons[4].transform.GetChild(1).GetComponent<Text>();
+        btnTextSlotP2_6 = p2SlotButtons[5].transform.GetChild(1).GetComponent<Text>();
+
+        btnSpriteSlotP2_1 = p2SlotButtons[0].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP2_2 = p2SlotButtons[1].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP2_3 = p2SlotButtons[2].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP2_4 = p2SlotButtons[3].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP2_5 = p2SlotButtons[4].transform.GetChild(0).GetComponent<Image>();
+        btnSpriteSlotP2_6 = p2SlotButtons[5].transform.GetChild(0).GetComponent<Image>();
 
         btnStartGame = GameObject.Find("StartGameButton").GetComponent<Button>();
         btnStartGameText = btnStartGame.transform.GetChild(0).GetComponent<Text>();
@@ -146,66 +178,66 @@ public class TeamMenuScript : MonoBehaviour
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_1, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_1, teamRolesP1[i], btnSpriteSlotP1_1, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_1, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_1, teamRolesP2[i], btnSpriteSlotP2_1, 2);
                 }   
             }
             else if (i == 1)
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_2, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_2, teamRolesP1[i], btnSpriteSlotP1_2, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_2, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_2, teamRolesP2[i], btnSpriteSlotP2_2, 2);
                 }
             }
             else if (i == 2)
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_3, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_3, teamRolesP1[i], btnSpriteSlotP1_3, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_3, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_3, teamRolesP2[i], btnSpriteSlotP2_3, 2);
                 }
             }
             else if (i == 3)
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_4, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_4, teamRolesP1[i], btnSpriteSlotP1_4, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_4, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_4, teamRolesP2[i], btnSpriteSlotP2_4, 2);
                 }
             }
             else if (i == 4)
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_5, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_5, teamRolesP1[i], btnSpriteSlotP1_5, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_5, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_5, teamRolesP2[i], btnSpriteSlotP2_5, 2);
                 }
             }
             else if (i == 5)
             {
                 if (currentPlayer == 1)
                 {
-                    SetSlotRole(btnTextSlotP1_6, teamRolesP1[i]);
+                    SetSlotRole(btnTextSlotP1_6, teamRolesP1[i], btnSpriteSlotP1_6, 1);
                 }
                 else
                 {
-                    SetSlotRole(btnTextSlotP2_6, teamRolesP2[i]);
+                    SetSlotRole(btnTextSlotP2_6, teamRolesP2[i], btnSpriteSlotP2_6, 2);
                 }
             }
         }
@@ -235,17 +267,31 @@ public class TeamMenuScript : MonoBehaviour
     }
 
 
-    void SetSlotRole(Text slotText, int roleIndex)
+    void SetSlotRole(Text slotText, int roleIndex, Image slotSprite, int playerIndex)
     {
+        int spriteIndex = roleIndex;
+
+        Sprite[] roleSprites = roleSpritesP1;
+
+        if (playerIndex == 2)
+        {
+            roleSprites = roleSpritesP2;
+        }
+
+        if (roleIndex == -1)
+        {
+            spriteIndex = 6;
+        }
+
         switch (roleIndex)
         {
-            case 0: slotText.text = "TANK"; slotText.color = Color.green; break;
-            case 1: slotText.text = "ASSASSIN"; slotText.color = Color.green; break;
-            case 2: slotText.text = "RANGED"; slotText.color = Color.green; break;
-            case 3: slotText.text = "HEALER"; slotText.color = Color.green; break;
-            case 4: slotText.text = "SPECIALIST 1"; slotText.color = Color.green; break;
-            case 5: slotText.text = "SPECIALIST 2"; slotText.color = Color.green; break;
-            case -1: slotText.text = "NOT ASSIGNED"; slotText.color = Color.red; break;
+            case 0: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[0]; break;
+            case 1: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[1]; break;
+            case 2: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[2]; break;
+            case 3: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[3]; break;
+            case 4: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[4]; break;
+            case 5: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[5]; break;
+            case -1: slotText.text = "NOT ASSIGNED"; slotText.color = Color.red; slotSprite.sprite = roleSprites[6]; break;
         }
     }
 
@@ -355,7 +401,17 @@ public class TeamMenuScript : MonoBehaviour
         }
         else
         {
-            GameObject.Find("Map").GetComponent<MapGenerator>().CreateMap(teamRolesP1, teamRolesP2);
+            List<int> teamRolesP1Inverted = new List<int>();
+            List<int> teamRolesP2Inverted = new List<int>();
+
+            for (int i = 0; i < teamRolesP1.Count; i++)
+            {
+                teamRolesP1Inverted.Add(teamRolesP1[6 - i]);
+                teamRolesP2Inverted.Add(teamRolesP2[6 - i]);
+            }
+            
+
+            GameObject.Find("Map").GetComponent<MapGenerator>().CreateMap(teamRolesP1Inverted, teamRolesP2Inverted);
             gameObject.SetActive(false);
         }
     }

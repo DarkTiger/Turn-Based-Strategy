@@ -121,15 +121,19 @@ public class UnitScript : MonoBehaviour
 
     public void UpdateUnitStat()
     {
-        Stats newStats;
-        newStats = role.GetUnitRole(roleIndex);
+        try  //RISOLTA QUESTA PALLA
+        {
+            Stats newStats;
+            newStats = role.GetUnitRole(roleIndex);
 
-        stats.attackRange = newStats.attackRange;
-        stats.damage = newStats.damage;
-        stats.movementRange = newStats.movementRange;
-        stats.health = newStats.health;
+            stats.attackRange = newStats.attackRange;
+            stats.damage = newStats.damage;
+            stats.movementRange = newStats.movementRange;
+            stats.health = newStats.health;
 
-        currentMoveCount = stats.movementRange;
+            currentMoveCount = stats.movementRange;
+        }
+        catch (System.Exception) { }
     }
 
 
@@ -161,7 +165,7 @@ public class UnitScript : MonoBehaviour
             tempDamage -= bonusDefense;
             stats.health -= tempDamage;
 
-            attacker.hasAttacked = true;            
+            attacker.hasAttacked = true;
 
             if (stats.health <= 0)
             {

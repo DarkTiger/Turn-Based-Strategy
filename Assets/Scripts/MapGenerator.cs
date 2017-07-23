@@ -32,22 +32,22 @@ public class MapGenerator : MonoBehaviour
         List<Vector3> posSpawnP1 = new List<Vector3>();
         List<Vector3> posSpawnP2 = new List<Vector3>();
 
+        int roleP1Temp1 = unitsRolesP1[1];
+        int roleP1Temp2 = unitsRolesP1[2];
         int roleP1Temp3 = unitsRolesP1[3];
-        int roleP1Temp4 = unitsRolesP1[4];
-        int roleP1Temp5 = unitsRolesP1[5];
+        int roleP2Temp1 = unitsRolesP2[1];
+        int roleP2Temp2 = unitsRolesP2[2];
         int roleP2Temp3 = unitsRolesP2[3];
-        int roleP2Temp4 = unitsRolesP2[4];
-        int roleP2Temp5 = unitsRolesP2[5];
 
         unitsRolesP1[3] = -1;
-        unitsRolesP1[4] = roleP1Temp3;
-        unitsRolesP1[5] = roleP1Temp4;
-        unitsRolesP1[6] = roleP1Temp5;
+        unitsRolesP1[0] = roleP1Temp1;
+        unitsRolesP1[1] = roleP1Temp2;
+        unitsRolesP1[2] = roleP1Temp3;
 
         unitsRolesP2[3] = -1;
-        unitsRolesP2[4] = roleP2Temp3;
-        unitsRolesP2[5] = roleP2Temp4;
-        unitsRolesP2[6] = roleP2Temp5;
+        unitsRolesP2[0] = roleP2Temp1;
+        unitsRolesP2[1] = roleP2Temp2;
+        unitsRolesP2[2] = roleP2Temp3;
 
         /// SISTEMA RANDOM INCROCIATO:
         /// 
@@ -207,7 +207,6 @@ public class MapGenerator : MonoBehaviour
                 }
 
 
-                //Debug.Log("(" + x.ToString() + ") (" + y.ToString() + ")  " + xTemp.ToString());
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
@@ -259,9 +258,9 @@ public class MapGenerator : MonoBehaviour
             {
                 roleIndex = 0;
             }
-            else if (roleIndex > 4)
+            else if (roleIndex > 5)
             {
-                roleIndex = 4;
+                roleIndex = 5;
             }
 
             Vector3 newPos = positions[i];
@@ -279,16 +278,27 @@ public class MapGenerator : MonoBehaviour
 
             if (playerIndex == 1)
             {
-                newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
+                if (i != 3)
+                {
+                    newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
+                }
+                else
+                {
+                    newUnitScript.isKing = true;
+                    newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[6];
+                }
             }
             else
             {
-                newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
-            }
-
-            if (i == 3)
-            {
-                newUnitScript.isKing = true;
+                if (i != 3)
+                {
+                    newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
+                }
+                else
+                {
+                    newUnitScript.isKing = true;
+                    newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[6];
+                }
             }
 
             unitIndex += 1;
