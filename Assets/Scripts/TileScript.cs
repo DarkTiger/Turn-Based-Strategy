@@ -100,12 +100,18 @@ public class TileScript : MonoBehaviour
                     RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
                     TileScript tileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
 
+                    Debug.Log(hit.collider.tag);
+
                     if (hit.collider.tag == "Tile" || hit.collider.tag == "P1BaseTile" || hit.collider.tag == "P2BaseTile")
                     {
                         if (unitScript.gameObject != currentUnit.gameObject)
                         {
+                            Debug.Log("unitScript.gameObject != currentUnit.gameObject");
+
                             if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                             {
+                                Debug.Log("tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex");
+
                                 tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
                             }
                         }
