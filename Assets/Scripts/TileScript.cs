@@ -113,7 +113,9 @@ public class TileScript : MonoBehaviour
                         {
                             tileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
 
-                            if (tileScriptHit.currentUnit != null)
+                            Debug.Log(tileScriptHit.currentUnit);
+
+                            if (tileScriptHit.currentUnit != null) // Controllo sull'unità
                             {
                                 if (unitScript.gameObject != currentUnit.gameObject)
                                 {
@@ -131,22 +133,33 @@ public class TileScript : MonoBehaviour
                                         {
                                            if (unitScript.roleIndex == 4)
                                             {
-                                                tileScriptHit.currentUnit.AbilityStun(unitScript);
+                                                tileScriptHit.currentUnit.GetAbilityStunned(unitScript);
                                             }
-                                           else if (unitScript.roleIndex == 5)
-                                            {
-                                                Debug.Log("Entralalala");
-                                                tileScriptHit.currentUnit.AbilityBlock(unitScript, tileScriptHit);
-                                                activationTurnIndex = gameManager.turnIndex;
-                                            }
+                                        
                                         }
                                         else // Alleato
                                         {
                                             if (unitScript.roleIndex == 3)
                                             {
-                                                tileScriptHit.currentUnit.AbilityCure(unitScript);
+                                                tileScriptHit.currentUnit.GetAbilityCured(unitScript);
                                             }
                                         }
+                                    }
+                                }
+                            }
+                            else // Controllo sulla tile
+                            {
+                                Debug.Log("Entra nell'else");
+
+                                if (Input.GetMouseButtonDown(1))
+                                {
+                                    Debug.Log("Prende il mouse");
+
+                                    if (unitScript.roleIndex == 5)
+                                    {
+                                        Debug.Log("Entralalala");
+                                        tileScriptHit.AbilityBlock(unitScript, tileScriptHit);
+                                        activationTurnIndex = gameManager.turnIndex;
                                     }
                                 }
                             }
@@ -228,5 +241,18 @@ public class TileScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Abilità Specialist 2
+    public void AbilityBlock(UnitScript attacker, TileScript tile)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        if (attackDistance <= 1)
+        {
+            tile.isTileTaken = true;
+        }
+        attacker.hasAttacked = true;
+        attacker.currentMoveCount = 0;
     }
 }

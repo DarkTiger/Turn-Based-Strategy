@@ -255,7 +255,7 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Healer
-    public void AbilityCure(UnitScript attacker)
+    public void GetAbilityCured(UnitScript attacker)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
@@ -278,26 +278,13 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Specialist
-    public void AbilityStun(UnitScript attacker)
+    public void GetAbilityStunned(UnitScript attacker)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
         if (attackDistance <= 1)
         {
             isStunned = true;
-        }
-        attacker.hasAttacked = true;
-        attacker.currentMoveCount = 0;
-    }
-
-    // Abilità Specialist 2
-    public void AbilityBlock(UnitScript attacker, TileScript tile)
-    {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
-
-        if (attackDistance <= 1)
-        {
-            tile.isTileTaken = true;
         }
         attacker.hasAttacked = true;
         attacker.currentMoveCount = 0;
