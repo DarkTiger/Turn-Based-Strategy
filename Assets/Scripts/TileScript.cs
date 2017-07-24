@@ -97,22 +97,28 @@ public class TileScript : MonoBehaviour
             {
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(currentUnit.transform.position, unitScript.gameObject.transform.position);
-                    TileScript tileScriptHit = hit.transform.gameObject.GetComponent<TileScript>();
+                    ContactFilter2D filter = new ContactFilter2D();
 
-                    Debug.Log(hit.collider.tag);
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(currentUnit.transform.position, unitScript.gameObject.transform.position);
 
-                    if (hit.collider.tag == "Tile" || hit.collider.tag == "P1BaseTile" || hit.collider.tag == "P2BaseTile")
+                    foreach (RaycastHit2D hit in hits)
                     {
-                        if (unitScript.gameObject != currentUnit.gameObject)
+                        TileScript tileScriptHit = null;
+
+                        if (hit.collider.tag == "Tile" || hit.collider.tag == "P1BaseTile" || hit.collider.tag == "P2BaseTile")
                         {
-                            Debug.Log("unitScript.gameObject != currentUnit.gameObject");
+                            tileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
 
-                            if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                            if (tileScriptHit.currentUnit != null)
                             {
-                                Debug.Log("tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex");
-
-                                tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
+                                if (unitScript.gameObject != currentUnit.gameObject)
+                                {
+                                    if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                                    {
+                                        tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
@@ -163,6 +169,11 @@ public class TileScript : MonoBehaviour
                 currentUnit.bonusDefense = 3;
             }
             else if (typeIndex == 4 && currentUnit.roleIndex == 4) // Specialist
+            {
+                currentUnit.bonusAttack = 2;
+                currentUnit.bonusDefense = 1;
+            }
+            else if (typeIndex == 4 && currentUnit.roleIndex == 5) // Specialist
             {
                 currentUnit.bonusAttack = 2;
                 currentUnit.bonusDefense = 1;
