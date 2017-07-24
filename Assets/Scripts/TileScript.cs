@@ -89,7 +89,7 @@ public class TileScript : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && !gameManager.isGameOver)
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !gameManager.isGameOver)
         {
             isSelected = true;
             
@@ -97,8 +97,6 @@ public class TileScript : MonoBehaviour
             {
                 if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
                 {
-                    ContactFilter2D filter = new ContactFilter2D();
-
                     RaycastHit2D[] hits = Physics2D.RaycastAll(currentUnit.transform.position, unitScript.gameObject.transform.position);
 
                     foreach (RaycastHit2D hit in hits)
@@ -113,10 +111,27 @@ public class TileScript : MonoBehaviour
                             {
                                 if (unitScript.gameObject != currentUnit.gameObject)
                                 {
-                                    if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                                    if (Input.GetMouseButtonDown(0))
                                     {
-                                        tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
-                                        break;
+                                        if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
+                                        {
+                                            tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
+                                            break;
+                                        }
+                                    }
+                                    else if (Input.GetMouseButtonDown(1))
+                                    {
+                                        if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
+                                        {
+                                           
+                                        }
+                                        else // Alleato
+                                        {
+                                            if (currentUnit.roleIndex == 3)
+                                            {
+                                                tileScriptHit.currentUnit.AbilityCure(unitScript);
+                                            }
+                                        }
                                     }
                                 }
                             }

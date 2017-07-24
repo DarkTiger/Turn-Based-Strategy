@@ -162,15 +162,19 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= attacker.stats.attackRange)
         {
             int tempDamage = attacker.stats.damage + bonusAttack;
-            tempDamage -= bonusDefense;
-            stats.health -= tempDamage;
 
-            attacker.hasAttacked = true;
-
-            if (stats.health <= 0)
+            if (tempDamage > bonusDefense)
             {
-                Death(tile);
+                tempDamage -= bonusDefense;
+                stats.health -= tempDamage;                            
+
+                if (stats.health <= 0)
+                {
+                    Death(tile);
+                }   
             }
+            attacker.hasAttacked = true;
+            attacker.currentMoveCount = 0;
         }
     }
 
@@ -245,6 +249,20 @@ public class UnitScript : MonoBehaviour
             {
                 tile.currentUnit = null;
             }
+        }
+    }
+
+    // Abilità Healer
+    public void AbilityCure(UnitScript attacker)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        if (attackDistance <= attacker.stats.abilityRange)
+        {
+            stats.health += 5;
+
+            attacker.hasAttacked = true;
+            attacker.currentMoveCount = 0;
         }
     }
 }
