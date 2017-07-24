@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
+
 
 public class UnitScript : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class UnitScript : MonoBehaviour
     GameManagerScript gameManagerScript;
     TileScript tileScript;
 
-    public int ownerIndex = 0;                  // Indica a quale player appartiene l'unità
+    public int ownerIndex = 1;                  // Indica a quale player appartiene l'unità
     public int roleIndex = 0;                   // Indica la classe dell'unità
     public bool isSelected = false;         // Segnala l'unità selezionata
     public bool hasAttacked = false;        // Indica se l'unità ha già attaccato nel proprio turno
@@ -34,7 +36,7 @@ public class UnitScript : MonoBehaviour
     Vector3 positionInPixels;
 
     GameObject circleColliderGameobject; // Gestione dei collider circolari
-
+    Outline outlineScript;
 
 
     void Start()
@@ -47,6 +49,15 @@ public class UnitScript : MonoBehaviour
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
+        outlineScript = GetComponent<Outline>();
+
+        try
+        {
+            outlineScript.color = ownerIndex - 1;
+        }
+        catch (System.Exception) { };
+        
+        
 
         KingSelection();
         UpdateUnitStat();
