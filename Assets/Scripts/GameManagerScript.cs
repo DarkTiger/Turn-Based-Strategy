@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManagerScript : MonoBehaviour
 { 
     public int playerIndex;                 // Indica a quale giocatore appartiene l'unità
+    public int turnIndex = 1;
 
     public int turnDuration;                // Gestione del tempo
     public int gameTime;
@@ -158,8 +159,30 @@ public class GameManagerScript : MonoBehaviour
     //Gestione turni: switch dell'indice del player attivo
     public void OnTurnButtonClick()
     {
+        foreach (UnitScript unit in unitScriptList)
+        {
+            if (unit.ownerIndex == playerIndex)
+            {
+                unit.isStunned = false;
+            }
+        }
+
+        foreach (TileScript tile in tileScriptList)
+        {
+            if (tile.activationTurnIndex != -1)
+            {
+                if (tile.activationTurnIndex <= turnIndex + 2)
+                {
+                    tile.isTileTaken = false;
+                    tile.activationTurnIndex = -1;
+                }
+            }
+        }
+
         if (!isGameOver)
         {
+            turnIndex++;
+
             if (playerIndex == 1)
             {
                 playerIndex = 2;

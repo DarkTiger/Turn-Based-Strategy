@@ -17,6 +17,8 @@ public class TileScript : MonoBehaviour
     public Sprite[] sprites;            // Gestione sprite
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
+
+    public int activationTurnIndex = -1;
     
     
 
@@ -66,7 +68,11 @@ public class TileScript : MonoBehaviour
         {
             isInRange = false;
             currentUnit = null;
-            isTileTaken = false;
+
+            if (activationTurnIndex == -1)
+            {
+                isTileTaken = false;
+            }
         }
     }
 
@@ -123,7 +129,16 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
-                                           
+                                           if (unitScript.roleIndex == 4)
+                                            {
+                                                tileScriptHit.currentUnit.AbilityStun(unitScript);
+                                            }
+                                           else if (unitScript.roleIndex == 5)
+                                            {
+                                                Debug.Log("Entralalala");
+                                                tileScriptHit.currentUnit.AbilityBlock(unitScript, tileScriptHit);
+                                                activationTurnIndex = gameManager.turnIndex;
+                                            }
                                         }
                                         else // Alleato
                                         {
@@ -138,7 +153,7 @@ public class TileScript : MonoBehaviour
                         }
                     }
                 }
-                else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange)
+                else if (unitScript.isSelected && unitScript.currentMoveCount > 0 && isInRange && !Input.GetMouseButtonDown(1))
                 {
                     foreach (TileScript tile in gameManager.tileScriptList)
                     {

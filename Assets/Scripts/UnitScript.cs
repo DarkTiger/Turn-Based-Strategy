@@ -17,6 +17,7 @@ public class UnitScript : MonoBehaviour
     public bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
     public bool isKing = false;                    // Segnala l'unità re
     public bool isDead = false;
+    public bool isStunned = false;
     
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
@@ -63,7 +64,7 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
-        if (Input.GetMouseButtonDown(0) && !isDead)
+        if (Input.GetMouseButtonDown(0) && !isDead && !isStunned)
         {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
@@ -274,5 +275,31 @@ public class UnitScript : MonoBehaviour
             attacker.hasAttacked = true;
             attacker.currentMoveCount = 0;
         }
+    }
+
+    // Abilità Specialist
+    public void AbilityStun(UnitScript attacker)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        if (attackDistance <= 1)
+        {
+            isStunned = true;
+        }
+        attacker.hasAttacked = true;
+        attacker.currentMoveCount = 0;
+    }
+
+    // Abilità Specialist 2
+    public void AbilityBlock(UnitScript attacker, TileScript tile)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        if (attackDistance <= 1)
+        {
+            tile.isTileTaken = true;
+        }
+        attacker.hasAttacked = true;
+        attacker.currentMoveCount = 0;
     }
 }
