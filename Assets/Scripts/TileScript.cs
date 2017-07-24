@@ -127,7 +127,7 @@ public class TileScript : MonoBehaviour
                                         }
                                         else // Alleato
                                         {
-                                            if (currentUnit.roleIndex == 3)
+                                            if (unitScript.roleIndex == 3)
                                             {
                                                 tileScriptHit.currentUnit.AbilityCure(unitScript);
                                             }

@@ -8,5 +8,5 @@ public class Stats : MonoBehaviour
     public int movementRange;
     public int damage;
     public int attackRange;
-    public int abilityRange;
+    public int maxHealth;
 }

@@ -19,7 +19,7 @@ public class Role : MonoBehaviour
             newStats.damage = 5;
             newStats.movementRange = 2;
             newStats.health = 10;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 10;
 
             return newStats;
         }
@@ -29,7 +29,7 @@ public class Role : MonoBehaviour
             newStats.damage = 7;
             newStats.movementRange = 3;
             newStats.health = 4;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 4;
 
             return newStats;
         }
@@ -39,7 +39,7 @@ public class Role : MonoBehaviour
             newStats.damage = 3;
             newStats.movementRange = 2;
             newStats.health = 5;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 5;
 
             return newStats;
         }
@@ -49,7 +49,7 @@ public class Role : MonoBehaviour
             newStats.damage = 2;
             newStats.movementRange = 3;
             newStats.health = 5;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 5;
 
             return newStats;
         }
@@ -59,7 +59,7 @@ public class Role : MonoBehaviour
             newStats.damage = 4;
             newStats.movementRange = 2;
             newStats.health = 6;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 6;
 
             return newStats;
         }
@@ -69,7 +69,7 @@ public class Role : MonoBehaviour
             newStats.damage = 4;
             newStats.movementRange = 2;
             newStats.health = 6;
-            newStats.abilityRange = 1;
+            newStats.maxHealth = 6;
 
             return newStats;
         }

@@ -130,6 +130,7 @@ public class UnitScript : MonoBehaviour
             stats.damage = newStats.damage;
             stats.movementRange = newStats.movementRange;
             stats.health = newStats.health;
+            stats.maxHealth = newStats.maxHealth;
 
             currentMoveCount = stats.movementRange;
         }
@@ -243,7 +244,7 @@ public class UnitScript : MonoBehaviour
 
     void ForceUnitNull()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             foreach (TileScript tile in gameManagerScript.tileScriptList)
             {
@@ -257,9 +258,18 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        if (attackDistance <= attacker.stats.abilityRange)
+        if (attackDistance <= 1)
         {
-            stats.health += 5;
+            int tempHealth = stats.health + 5;
+
+            if (tempHealth > stats.maxHealth)
+            {
+                stats.health = stats.maxHealth;
+            }
+            else
+            {
+                stats.health += 5;
+            }
 
             attacker.hasAttacked = true;
             attacker.currentMoveCount = 0;
