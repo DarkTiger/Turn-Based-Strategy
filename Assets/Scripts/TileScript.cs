@@ -101,7 +101,7 @@ public class TileScript : MonoBehaviour
             
             foreach (UnitScript unitScript in gameManager.unitScriptList)
             {
-                if (unitScript.isSelected && !unitScript.hasAttacked && isTileTaken && currentUnit != null)
+                if (unitScript.isSelected && !unitScript.hasAttacked && currentUnit != null && isTileTaken)
                 {
                     RaycastHit2D[] hits = Physics2D.RaycastAll(currentUnit.transform.position, unitScript.gameObject.transform.position);
 
@@ -113,7 +113,7 @@ public class TileScript : MonoBehaviour
                         {
                             tileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
 
-                            Debug.Log(tileScriptHit.currentUnit);
+                            Debug.Log("Testo");
 
                             if (tileScriptHit.currentUnit != null) // Controllo sull'unità
                             {
@@ -147,7 +147,7 @@ public class TileScript : MonoBehaviour
                                     }
                                 }
                             }
-                            else // Controllo sulla tile
+                            /*else // Controllo sulla tile
                             {
                                 Debug.Log("Entra nell'else");
 
@@ -162,7 +162,7 @@ public class TileScript : MonoBehaviour
                                         activationTurnIndex = gameManager.turnIndex;
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
