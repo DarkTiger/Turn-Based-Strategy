@@ -196,11 +196,13 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        if (!attacker.isInvulnerable)
+        if (!isInvulnerable)
         {
             if (attackDistance <= attacker.stats.attackRange)
             {
-                int tempDamage = attacker.stats.damage + bonusAttack;
+                int tempDamage = attacker.stats.damage + attacker.bonusAttack;
+
+                Debug.Log(tempDamage);
 
                 if (tempDamage > bonusDefense)
                 {

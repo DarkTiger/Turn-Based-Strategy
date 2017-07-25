@@ -170,7 +170,10 @@ public class GameManagerScript : MonoBehaviour
         {
             if (unit.ownerIndex == playerIndex)
             {
-                unit.isStunned = false;
+                unit.isStunned = false;                
+            }
+            else
+            {
                 unit.isInvulnerable = false;
             }
         }
