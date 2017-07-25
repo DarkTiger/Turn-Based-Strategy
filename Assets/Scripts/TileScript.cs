@@ -129,17 +129,13 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
-                                           if (unitScript.roleIndex == 4) // Abilità healer
+                                           if (unitScript.roleIndex == 4)
                                             {
                                                 tileScriptHit.currentUnit.AbilityStun(unitScript);
                                             }
-                                            else if(unitScript.roleIndex == 1) // Abilità assassin
-                                            {                                                
-                                                currentUnit.AbilityInvisibility(unitScript);                                                
-                                            }
                                         }
                                         else // Alleato
-                                        {
+                                        {                                            
                                             if (unitScript.roleIndex == 3)
                                             {
                                                 tileScriptHit.currentUnit.AbilityCure(unitScript);
@@ -147,23 +143,17 @@ public class TileScript : MonoBehaviour
                                         }
                                     }
                                 }
-                            }
-                            /*else // Controllo sulla tile
-                            {
-                                Debug.Log("Entra nell'else");
-
-                                if (Input.GetMouseButtonDown(1))
+                                else
                                 {
-                                    Debug.Log("Prende il mouse");
-
-                                    if (unitScript.roleIndex == 5)
-                                    {
-                                        Debug.Log("Entralalala");
-                                        tileScriptHit.AbilityBlock(unitScript, tileScriptHit);
-                                        activationTurnIndex = gameManager.turnIndex;
+                                    if (Input.GetMouseButtonDown(1))
+                                    {                                        
+                                        if (unitScript.roleIndex == 1) // Abilità assassin
+                                        {                                            
+                                            currentUnit.AbilityInvisibility(unitScript);
+                                        }
                                     }
                                 }
-                            }*/
+                            }                           
                         }
                     }
                 }
