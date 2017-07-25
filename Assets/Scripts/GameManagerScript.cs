@@ -13,23 +13,29 @@ public class GameManagerScript : MonoBehaviour
     public int turnDuration;                // Gestione del tempo
     public int gameTime;
 
+    [HideInInspector]
     public List<GameObject> unitsList;      // Variabili di gestione unità
+    [HideInInspector]
     public List<GameObject> tilesList;
+    [HideInInspector]
     public List<UnitScript> unitScriptList;
+    [HideInInspector]
     public List<TileScript> tileScriptList;
+    [HideInInspector]
+    public UnitScript currentSelectedUnit;
+    [HideInInspector]
     public bool mapCreated = false;
+    [HideInInspector]
+    public bool isGameOver = false;         // Gestione del game over
+
     bool unitsLoadedInList = false;
     bool tilesLoadedInList = false;
 
-    public bool isGameOver = false;         // Gestione del game over
-
-    public Button turnButton;               // UI
     Text turnIndexText;
     Text winnerText;
     Text movementCountText;
     GameObject winnerPanel;
-    public UnitScript currentSelectedUnit;
-
+    
 
 
     void Start()
@@ -42,9 +48,6 @@ public class GameManagerScript : MonoBehaviour
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
 
-        //Gestione del button che controlla il cambio turno
-        Button btn = turnButton.GetComponent<Button>();
-        btn.onClick.AddListener(OnTurnButtonClick);
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
 
@@ -82,6 +85,10 @@ public class GameManagerScript : MonoBehaviour
         if (currentSelectedUnit != null)
         {
             movementCountText.text = "MOVES: " + currentSelectedUnit.currentMoveCount.ToString();
+        }
+        else
+        {
+            movementCountText.text = "MOVES: 0";
         }
     }
 
