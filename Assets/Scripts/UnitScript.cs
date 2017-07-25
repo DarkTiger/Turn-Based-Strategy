@@ -39,6 +39,7 @@ public class UnitScript : MonoBehaviour
     Outline outlineScript;
 
 
+
     void Start()
     {
         stats = GetComponent<Stats>();
@@ -56,8 +57,7 @@ public class UnitScript : MonoBehaviour
             outlineScript.color = ownerIndex - 1;
         }
         catch (System.Exception) { };
-        
-        
+                
 
         KingSelection();
         UpdateUnitStat();
@@ -120,16 +120,28 @@ public class UnitScript : MonoBehaviour
         {
             spriteRenderer.color = Color.white;
         }
+
+
+        try
+        {
+            if (gameManagerScript.playerIndex == ownerIndex)
+            {
+                outlineScript.enabled = true;
+            }
+            else
+            {
+                outlineScript.enabled = false;
+            }
+        }
+        catch (System.Exception) { }
     }
+
     
     public void KingSelection()
     {
-        //ASSEGNATO IN MAP GENERATOR
-        /*if (roleIndex == 0)
-        {
-            isKing = true;
-        }*/
+        //ASSEGNATO IN MAP GENERATOR/
     }
+
 
     public void UpdateUnitStat()
     {
