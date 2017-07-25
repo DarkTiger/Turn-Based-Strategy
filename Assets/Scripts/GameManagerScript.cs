@@ -175,27 +175,32 @@ public class GameManagerScript : MonoBehaviour
     {
         foreach (UnitScript unit in unitScriptList)
         {
+            unit.currentMoveCount = unit.stats.movementRange;
+
             if (unit.ownerIndex == playerIndex)
             {
-                unit.isStunned = false;                
+                unit.isStunned = false;
+                
+
             }
             else
             {
                 unit.isInvulnerable = false;
-            }
-        }
+                unit.isReady = false;
 
-        /*foreach (TileScript tile in tileScriptList)
-        {
-            if (tile.activationTurnIndex != -1)
-            {
-                if (tile.activationTurnIndex <= turnIndex + 2)
+                if (unit.isCrippled)
                 {
-                    tile.isTileTaken = false;
-                    tile.activationTurnIndex = -1;
+                    unit.currentMoveCount = 1;
                 }
+
+                unit.isCrippled = false;
+                unit.isAbilityInCooldown = false;
             }
-        }*/
+
+            unit.hasAttacked = false;
+            unit.isAbilityUsed = false;
+            unit.isSelected = false;
+        }
 
         if (!isGameOver)
         {
@@ -212,14 +217,6 @@ public class GameManagerScript : MonoBehaviour
         }
        
 
-        foreach (GameObject unit in unitsList)
-        {
-            UnitScript unitScript = unit.GetComponent<UnitScript>();
-
-            unitScript.currentMoveCount = unitScript.stats.movementRange;
-            unitScript.hasAttacked = false;
-            unitScript.isSelected = false;
-        }
     }
 
 

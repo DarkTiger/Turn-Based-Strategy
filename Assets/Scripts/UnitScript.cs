@@ -19,9 +19,13 @@ public class UnitScript : MonoBehaviour
     public bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
     public bool isKing = false;                    // Segnala l'unità re
     public bool isDead = false;
+    public bool isAbilityUsed = false;
+    public bool isAbilityInCooldown = false;
 
     public bool isStunned = false;
     public bool isInvulnerable = false;
+    public bool isReady = false;
+    public bool isCrippled = false;
     
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
@@ -207,10 +211,21 @@ public class UnitScript : MonoBehaviour
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
 
+                    if (isReady)
+                    {
+                        attacker.stats.health -= 3;
+
+                        if (attacker.stats.health <= 0)
+                        {
+                            attacker.Death();
+                        }
+                    }
+
                     if (stats.health <= 0)
                     {
-                        Death(tile);
+                        Death();
                     }
+
                 }
                 attacker.hasAttacked = true;
                 attacker.currentMoveCount = 0;
@@ -225,12 +240,11 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void Death(TileScript tile) // Gestione morte eroi
+    void Death() // Gestione morte eroi
     {
         isDead = true;
         spriteRenderer.enabled = false;
         enabled = false;
-        tile.isTileTaken = false;
         gameObject.GetComponent<Canvas>().enabled = false;
         circleColliderGameobject.SetActive(false);
 
@@ -309,8 +323,9 @@ public class UnitScript : MonoBehaviour
             {
                 stats.health += 5;
             }
-
-            attacker.hasAttacked = true;
+            
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
         }
     }
@@ -324,7 +339,8 @@ public class UnitScript : MonoBehaviour
         {
             isStunned = true;
         }
-        attacker.hasAttacked = true;
+        attacker.isAbilityUsed = true;
+        attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
     }
 
@@ -333,7 +349,8 @@ public class UnitScript : MonoBehaviour
     {
         attacker.isInvulnerable = true;
 
-        attacker.hasAttacked = true;
+        attacker.isAbilityUsed = true;
+        attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
     }
 
@@ -347,10 +364,36 @@ public class UnitScript : MonoBehaviour
             Vector3 temp = movementDestination;
 
             movementDestination = attacker.movementDestination;
-            attacker.movementDestination = temp;         
-                        
-            attacker.hasAttacked = true;
+            attacker.movementDestination = temp;
+
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
         }
+    }
+    
+    // Abilità Tank
+    public void AbilityRetaliation(UnitScript attacker)
+    {
+        attacker.isReady = true;
+
+        attacker.isAbilityUsed = true;
+        attacker.isAbilityInCooldown = true;
+        attacker.currentMoveCount = 0;
+    }
+
+    // Abilità Ranged
+    public void AbilityCripple(UnitScript attacker)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        if (attackDistance <= 3)
+        {
+            isCrippled = true;
+            // currentMoveCount = 1;
+        }
+        attacker.isAbilityUsed = true;
+        attacker.isAbilityInCooldown = true;
+        attacker.currentMoveCount = 0;
     }
 }

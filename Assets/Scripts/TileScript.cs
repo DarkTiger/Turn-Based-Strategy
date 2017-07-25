@@ -58,7 +58,13 @@ public class TileScript : MonoBehaviour
                     currentUnit = unit;
                 }
             }
-        }   
+        }
+        
+        if (currentUnit != null && currentUnit.isDead)
+        {
+            isTileTaken = false;
+            currentUnit = null;
+        }
     }
 
 
@@ -101,7 +107,7 @@ public class TileScript : MonoBehaviour
             
             foreach (UnitScript unitScript in gameManager.unitScriptList)
             {
-                if (unitScript.isSelected && !unitScript.hasAttacked && currentUnit != null && isTileTaken)
+                if (unitScript.isSelected && !unitScript.hasAttacked && !unitScript.isAbilityUsed && currentUnit != null && isTileTaken)
                 {
                     RaycastHit2D[] hits = Physics2D.RaycastAll(currentUnit.transform.position, unitScript.gameObject.transform.position);
 
@@ -127,21 +133,25 @@ public class TileScript : MonoBehaviour
                                     }
                                     else if (Input.GetMouseButtonDown(1))
                                     {
-                                        if (unitScript.roleIndex == 5)
+                                        if (unitScript.roleIndex == 5 && !unitScript.isAbilityInCooldown)
                                         {
                                             tileScriptHit.currentUnit.AbilitySwap(unitScript);
                                         }
 
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
-                                           if (unitScript.roleIndex == 4)
+                                           if (unitScript.roleIndex == 4 && !unitScript.isAbilityInCooldown)
                                             {
                                                 tileScriptHit.currentUnit.AbilityStun(unitScript);
+                                            }
+                                           else if (unitScript.roleIndex == 2 && !unitScript.isAbilityInCooldown)
+                                            {
+                                                tileScriptHit.currentUnit.AbilityCripple(unitScript);
                                             }
                                         }
                                         else // Alleato
                                         {                                            
-                                            if (unitScript.roleIndex == 3)
+                                            if (unitScript.roleIndex == 3 && !unitScript.isAbilityInCooldown)
                                             {
                                                 tileScriptHit.currentUnit.AbilityCure(unitScript);
                                             }
@@ -152,9 +162,13 @@ public class TileScript : MonoBehaviour
                                 {
                                     if (Input.GetMouseButtonDown(1))
                                     {                                        
-                                        if (unitScript.roleIndex == 1) // Abilità assassin
+                                        if (unitScript.roleIndex == 1 && !unitScript.isAbilityInCooldown)
                                         {                                            
                                             currentUnit.AbilityInvisibility(unitScript);
+                                        }
+                                        else if (unitScript.roleIndex == 0 && !unitScript.isAbilityInCooldown)
+                                        {
+                                            currentUnit.AbilityRetaliation(unitScript);
                                         }
                                     }
                                 }
