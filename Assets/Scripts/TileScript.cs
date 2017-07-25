@@ -64,7 +64,7 @@ public class TileScript : MonoBehaviour
 
     void Selection()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             isInRange = false;
             currentUnit = null;
@@ -127,6 +127,11 @@ public class TileScript : MonoBehaviour
                                     }
                                     else if (Input.GetMouseButtonDown(1))
                                     {
+                                        if (unitScript.roleIndex == 5)
+                                        {
+                                            tileScriptHit.currentUnit.AbilitySwap(unitScript);
+                                        }
+
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
                                            if (unitScript.roleIndex == 4)

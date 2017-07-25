@@ -202,8 +202,6 @@ public class UnitScript : MonoBehaviour
             {
                 int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
-                Debug.Log(tempDamage);
-
                 if (tempDamage > bonusDefense)
                 {
                     tempDamage -= bonusDefense;
@@ -337,5 +335,22 @@ public class UnitScript : MonoBehaviour
 
         attacker.hasAttacked = true;
         attacker.currentMoveCount = 0;
+    }
+
+    // Abilità Specialist 2
+    public void AbilitySwap(UnitScript attacker)
+    {
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+                
+        if (attackDistance <= 1)
+        {            
+            Vector3 temp = movementDestination;
+
+            movementDestination = attacker.movementDestination;
+            attacker.movementDestination = temp;         
+                        
+            attacker.hasAttacked = true;
+            attacker.currentMoveCount = 0;
+        }
     }
 }
