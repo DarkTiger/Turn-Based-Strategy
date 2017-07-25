@@ -19,7 +19,9 @@ public class UnitScript : MonoBehaviour
     public bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
     public bool isKing = false;                    // Segnala l'unità re
     public bool isDead = false;
+
     public bool isStunned = false;
+    public bool isInvulnerable = false;
     
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;

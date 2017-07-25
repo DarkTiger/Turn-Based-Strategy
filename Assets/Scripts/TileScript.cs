@@ -243,7 +243,7 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    // Abilità Specialist 2
+    /* Abilità Specialist 2
     public void AbilityBlock(UnitScript attacker, TileScript tile)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
@@ -254,5 +254,5 @@ public class TileScript : MonoBehaviour
         }
         attacker.hasAttacked = true;
         attacker.currentMoveCount = 0;
-    }
+    }*/
 }

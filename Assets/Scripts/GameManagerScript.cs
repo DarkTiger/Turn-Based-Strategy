@@ -164,10 +164,11 @@ public class GameManagerScript : MonoBehaviour
             if (unit.ownerIndex == playerIndex)
             {
                 unit.isStunned = false;
+                unit.isInvulnerable = false;
             }
         }
 
-        foreach (TileScript tile in tileScriptList)
+        /*foreach (TileScript tile in tileScriptList)
         {
             if (tile.activationTurnIndex != -1)
             {
@@ -177,7 +178,7 @@ public class GameManagerScript : MonoBehaviour
                     tile.activationTurnIndex = -1;
                 }
             }
-        }
+        }*/
 
         if (!isGameOver)
         {
