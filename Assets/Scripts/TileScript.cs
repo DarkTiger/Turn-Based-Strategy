@@ -113,8 +113,6 @@ public class TileScript : MonoBehaviour
                         {
                             tileScriptHit = hit.collider.gameObject.GetComponent<TileScript>();
 
-                            Debug.Log("Testo");
-
                             if (tileScriptHit.currentUnit != null) // Controllo sull'unità
                             {
                                 if (unitScript.gameObject != currentUnit.gameObject)
@@ -131,17 +129,20 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
-                                           if (unitScript.roleIndex == 4)
+                                           if (unitScript.roleIndex == 4) // Abilità healer
                                             {
-                                                tileScriptHit.currentUnit.GetAbilityStunned(unitScript);
+                                                tileScriptHit.currentUnit.AbilityStun(unitScript);
                                             }
-                                        
+                                            else if(unitScript.roleIndex == 1) // Abilità assassin
+                                            {                                                
+                                                currentUnit.AbilityInvisibility(unitScript);                                                
+                                            }
                                         }
                                         else // Alleato
                                         {
                                             if (unitScript.roleIndex == 3)
                                             {
-                                                tileScriptHit.currentUnit.GetAbilityCured(unitScript);
+                                                tileScriptHit.currentUnit.AbilityCure(unitScript);
                                             }
                                         }
                                     }

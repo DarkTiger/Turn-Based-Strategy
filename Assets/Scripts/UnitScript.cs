@@ -98,6 +98,15 @@ public class UnitScript : MonoBehaviour
                         if (currentMoveCount > 0 || !hasAttacked)
                         {
                             isSelected = !isSelected;
+
+                            if (isSelected)
+                            {
+                                gameManagerScript.currentSelectedUnit = GetComponent<UnitScript>();
+                            }
+                            else
+                            {
+                                gameManagerScript.currentSelectedUnit = null;
+                            }
                         }
 
                         circleColliderGameobject.SetActive(false);
@@ -108,7 +117,7 @@ public class UnitScript : MonoBehaviour
         }
 
         if (isSelected & !gameManagerScript.isGameOver)
-        {
+        {            
             if (isKing)
             {
                 spriteRenderer.color = kingColor;
@@ -120,6 +129,7 @@ public class UnitScript : MonoBehaviour
         }
         else
         {
+
             spriteRenderer.color = Color.white;
         }
 
@@ -186,22 +196,25 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        if (attackDistance <= attacker.stats.attackRange)
+        if (!attacker.isInvulnerable)
         {
-            int tempDamage = attacker.stats.damage + bonusAttack;
-
-            if (tempDamage > bonusDefense)
+            if (attackDistance <= attacker.stats.attackRange)
             {
-                tempDamage -= bonusDefense;
-                stats.health -= tempDamage;                            
+                int tempDamage = attacker.stats.damage + bonusAttack;
 
-                if (stats.health <= 0)
+                if (tempDamage > bonusDefense)
                 {
-                    Death(tile);
-                }   
+                    tempDamage -= bonusDefense;
+                    stats.health -= tempDamage;
+
+                    if (stats.health <= 0)
+                    {
+                        Death(tile);
+                    }
+                }
+                attacker.hasAttacked = true;
+                attacker.currentMoveCount = 0;
             }
-            attacker.hasAttacked = true;
-            attacker.currentMoveCount = 0;
         }
     }
 
@@ -280,7 +293,7 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Healer
-    public void GetAbilityCured(UnitScript attacker)
+    public void AbilityCure(UnitScript attacker)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
@@ -303,7 +316,7 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Specialist
-    public void GetAbilityStunned(UnitScript attacker)
+    public void AbilityStun(UnitScript attacker)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
@@ -311,6 +324,15 @@ public class UnitScript : MonoBehaviour
         {
             isStunned = true;
         }
+        attacker.hasAttacked = true;
+        attacker.currentMoveCount = 0;
+    }
+
+    // Abilità Assassin
+    public void AbilityInvisibility(UnitScript attacker)
+    {
+        attacker.isInvulnerable = true;
+
         attacker.hasAttacked = true;
         attacker.currentMoveCount = 0;
     }
