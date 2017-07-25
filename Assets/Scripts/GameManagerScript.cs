@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameManagerScript : MonoBehaviour
 { 
@@ -24,7 +26,9 @@ public class GameManagerScript : MonoBehaviour
     public Button turnButton;               // UI
     Text turnIndexText;
     Text winnerText;
+    Text movementCountText;
     GameObject winnerPanel;
+    public UnitScript currentSelectedUnit;
 
 
 
@@ -34,7 +38,7 @@ public class GameManagerScript : MonoBehaviour
         tilesList = new List<GameObject>();
         unitScriptList = new List<UnitScript>();
         tileScriptList = new List<TileScript>();
-
+                
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
 
@@ -42,6 +46,7 @@ public class GameManagerScript : MonoBehaviour
         Button btn = turnButton.GetComponent<Button>();
         btn.onClick.AddListener(OnTurnButtonClick);
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
+        movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
 
         winnerPanel.SetActive(false);
         StartGame();
@@ -64,11 +69,7 @@ public class GameManagerScript : MonoBehaviour
 
         if (playerIndex == 1)
         {
-            Color blueColor = new Color();
-            blueColor.r = 0;
-            blueColor.g = 0.75f;
-            blueColor.b = 1;
-            blueColor.a = 1;
+            Color blueColor = new Color(0, 0.75f, 1, 1);
             turnIndexText.color = blueColor;
         }
         else
@@ -76,7 +77,12 @@ public class GameManagerScript : MonoBehaviour
             turnIndexText.color = Color.red;
         }
 
-        turnIndexText.text = "TURNO DEL GIOCATORE: " + playerIndex;
+        turnIndexText.text = "TURN PLAYER: " + playerIndex;
+
+        if (currentSelectedUnit != null)
+        {
+            movementCountText.text = "MOVES: " + currentSelectedUnit.currentMoveCount.ToString();
+        }
     }
 
 
@@ -105,6 +111,7 @@ public class GameManagerScript : MonoBehaviour
             unitsLoadedInList = true;
         }
     }
+
 
     void CheckIfTilesAreLoaded()
     {
@@ -141,7 +148,7 @@ public class GameManagerScript : MonoBehaviour
 
     void StartGame()
     {
-        playerIndex = Random.Range(1,2); //Setta il giocatore di partenza
+        playerIndex = Random.Range(1,3); //Setta il giocatore di partenza randomico
     }
 
 
@@ -205,6 +212,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+
     public void EndGame()
     {
         isGameOver = true;
@@ -212,5 +220,11 @@ public class GameManagerScript : MonoBehaviour
 
         winnerText.text = "PLAYER " + playerIndex + " WINS!";
         winnerPanel.SetActive(true);
+    }
+
+
+    public void OnMenuButtonClicked()
+    {
+        SceneManager.LoadScene("Main");
     }
 }
