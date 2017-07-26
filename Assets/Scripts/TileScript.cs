@@ -192,10 +192,10 @@ public class TileScript : MonoBehaviour
 
                     break;
                 }
-                else if (!isInRange)
+                /*else if (!isInRange)
                 {
                     unitScript.isSelected = false;
-                }
+                }*/
             }
         } 
     }

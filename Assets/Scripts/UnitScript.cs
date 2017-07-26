@@ -25,7 +25,7 @@ public class UnitScript : MonoBehaviour
 
     public bool isStunned = false;
     public bool isInvulnerable = false;
-    public bool isReady = false;
+    public bool isReady = false;                // Contrattacco
     public bool isCrippled = false;
     
     public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
