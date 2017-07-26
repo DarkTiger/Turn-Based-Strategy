@@ -6,12 +6,12 @@ public class Role : MonoBehaviour
 {
     public string title;
     public string desc;
-    List<Ability> abilities;
 
 
     public Stats GetUnitRole(int roleIndex)
     {
         Stats newStats = new Stats();
+        
 
         if (roleIndex == 0) // Tank
         {
@@ -72,6 +72,65 @@ public class Role : MonoBehaviour
             newStats.maxHealth = 6;
 
             return newStats;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    public Ability GetUnitAbility(int roleIndex)
+    {
+        Ability ability = new Ability();
+
+        if (roleIndex == 0) // Tank
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Counter Attack";
+            ability.desc = "";
+
+            return ability;
+        }
+        else if (roleIndex == 1) // Assassin
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Invisibility";
+            ability.desc = "";
+
+            return ability;
+        }
+        else if (roleIndex == 2) // Ranged
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Cripple";
+            ability.desc = "";
+
+            return ability;
+        }
+        else if (roleIndex == 3) // Healer
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Heal";
+            ability.desc = "";
+
+            return ability;
+        }
+        else if (roleIndex == 4) // Specialist
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Stun";
+            ability.desc = "";
+
+            return ability;
+        }
+        else if (roleIndex == 5) // Specialist 2
+        {
+            ability.classIndex = roleIndex;
+            ability.title = "Swap";
+            ability.desc = "";
+
+            return ability;
         }
         else
         {

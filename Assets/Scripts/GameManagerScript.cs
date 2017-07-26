@@ -35,6 +35,7 @@ public class GameManagerScript : MonoBehaviour
     Text turnIndexText;
     Text winnerText;
     Text movementCountText;
+    Text abilityText;
     GameObject winnerPanel;
     
 
@@ -51,6 +52,7 @@ public class GameManagerScript : MonoBehaviour
 
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
+        abilityText = GameObject.Find("CurrentAbilityText").GetComponent<Text>();
 
         winnerPanel.SetActive(false);
         StartGame();
@@ -83,13 +85,27 @@ public class GameManagerScript : MonoBehaviour
 
         turnIndexText.text = "TURN PLAYER: " + playerIndex;
 
+
+
         if (currentSelectedUnit != null)
         {
             movementCountText.text = "MOVES: " + currentSelectedUnit.currentMoveCount.ToString();
+
+            if (currentSelectedUnit.isAbilityInCooldown)
+            {
+                abilityText.color = Color.yellow;
+            }
+            else
+            {
+                abilityText.color = Color.green;
+            }
+
+            abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
         }
         else
         {
             movementCountText.text = "MOVES: 0";
+            abilityText.text = "ABILITY: (NOPE)";
         }
 
         TacticalMode();
@@ -158,7 +174,7 @@ public class GameManagerScript : MonoBehaviour
 
     void StartGame()
     {
-        playerIndex = Random.Range(1,3); //Setta il giocatore di partenza randomico
+        playerIndex = Random.Range(1, 3); //Setta il giocatore di partenza randomico
     }
 
 
@@ -216,6 +232,8 @@ public class GameManagerScript : MonoBehaviour
                 playerIndex = 1;
             }
         }
+
+        currentSelectedUnit = null;
     }
 
 

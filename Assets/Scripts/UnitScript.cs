@@ -8,6 +8,7 @@ public class UnitScript : MonoBehaviour
 {
     public Stats stats;
     public Role role;
+    public Ability ability;
     Camera cam;
     GameManagerScript gameManagerScript;
     TileScript tileScript;
@@ -63,7 +64,6 @@ public class UnitScript : MonoBehaviour
             outlineScript.color = ownerIndex - 1;
         }
         catch (System.Exception) { };
-                
 
         KingSelection();
         UpdateUnitStat();
@@ -171,8 +171,9 @@ public class UnitScript : MonoBehaviour
             stats.movementRange = newStats.movementRange;
             stats.health = newStats.health;
             stats.maxHealth = newStats.maxHealth;
-
             currentMoveCount = stats.movementRange;
+
+            ability = role.GetUnitAbility(roleIndex);
         }
         catch (System.Exception) { }
     }

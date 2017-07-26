@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability : MonoBehaviour
+public class Ability
 {
-    public int value;
+    public int classIndex;
     public string title;
     public string desc;
-
 }
