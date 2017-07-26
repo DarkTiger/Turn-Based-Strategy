@@ -36,6 +36,7 @@ public class GameManagerScript : MonoBehaviour
     Text winnerText;
     Text movementCountText;
     Text abilityText;
+    Text attackText;
     GameObject winnerPanel;
     
 
@@ -53,6 +54,7 @@ public class GameManagerScript : MonoBehaviour
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
         abilityText = GameObject.Find("CurrentAbilityText").GetComponent<Text>();
+        attackText = GameObject.Find("CurrentAttackText").GetComponent<Text>();
 
         winnerPanel.SetActive(false);
         StartGame();
@@ -100,12 +102,26 @@ public class GameManagerScript : MonoBehaviour
                 abilityText.color = Color.green;
             }
 
+            if (currentSelectedUnit.hasAttacked)
+            {
+                attackText.color = Color.yellow;
+            }
+            else
+            {
+                attackText.color = Color.green;
+            }
+
+            attackText.text = "ATTACKED: " + currentSelectedUnit.hasAttacked.ToString();
             abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
         }
         else
         {
+            movementCountText.color = Color.white;
             movementCountText.text = "MOVES: 0";
+            abilityText.color = Color.white;
             abilityText.text = "ABILITY: (NOPE)";
+            attackText.color = Color.white;
+            attackText.text = "ATTACKED: FALSE";
         }
 
         TacticalMode();
