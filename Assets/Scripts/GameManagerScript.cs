@@ -121,7 +121,7 @@ public class GameManagerScript : MonoBehaviour
             abilityText.color = Color.white;
             abilityText.text = "ABILITY: (NOPE)";
             attackText.color = Color.white;
-            attackText.text = "ATTACKED: FALSE";
+            attackText.text = "ATTACKED: false";
         }
 
         TacticalMode();
@@ -260,7 +260,10 @@ public class GameManagerScript : MonoBehaviour
 
             foreach (UnitScript unit in unitScriptList)
             {
-                unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
+                if (!unit.isDead)
+                {
+                    unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
+                }
             }
         }
     }
