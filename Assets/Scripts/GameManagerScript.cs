@@ -211,7 +211,6 @@ public class GameManagerScript : MonoBehaviour
                 }
 
                 unit.isCrippled = false;
-                unit.isAbilityInCooldown = false;
             }
 
             unit.hasAttacked = false;

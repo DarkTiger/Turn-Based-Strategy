@@ -45,6 +45,9 @@ public class UnitScript : MonoBehaviour
     GameObject circleColliderGameobject; // Gestione dei collider circolari
     Outline outlineScript;
 
+    public int tempTurn;
+        
+
 
 
     void Start()
@@ -74,6 +77,7 @@ public class UnitScript : MonoBehaviour
     {
         Selection();
         Movement();
+        CheckCooldown();
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
     }
@@ -311,6 +315,7 @@ public class UnitScript : MonoBehaviour
     public void AbilityCure(UnitScript attacker)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        
 
         if (attackDistance <= 1)
         {
@@ -328,6 +333,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
+            tempTurn = gameManagerScript.turnIndex;
         }
     }
 
@@ -343,6 +349,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
+        tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Assassin
@@ -353,6 +360,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
+        tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Specialist 2
@@ -370,6 +378,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
+            tempTurn = gameManagerScript.turnIndex;
         }
     }
     
@@ -381,6 +390,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
+        tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Ranged
@@ -396,5 +406,14 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
+        tempTurn = gameManagerScript.turnIndex;
+    }
+
+    public void CheckCooldown()
+    {        
+        if (gameManagerScript.turnIndex == tempTurn + 4)
+        {
+            isAbilityInCooldown = false;
+        }
     }
 }
