@@ -30,6 +30,7 @@ public class GameManagerScript : MonoBehaviour
 
     bool unitsLoadedInList = false;
     bool tilesLoadedInList = false;
+    bool tacticalModeEnabled = false;
 
     Text turnIndexText;
     Text winnerText;
@@ -90,6 +91,8 @@ public class GameManagerScript : MonoBehaviour
         {
             movementCountText.text = "MOVES: 0";
         }
+
+        TacticalMode();
     }
 
 
@@ -180,8 +183,6 @@ public class GameManagerScript : MonoBehaviour
             if (unit.ownerIndex == playerIndex)
             {
                 unit.isStunned = false;
-                
-
             }
             else
             {
@@ -215,8 +216,20 @@ public class GameManagerScript : MonoBehaviour
                 playerIndex = 1;
             }
         }
-       
+    }
 
+
+    void TacticalMode()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            tacticalModeEnabled = !tacticalModeEnabled;
+
+            foreach (UnitScript unit in unitScriptList)
+            {
+                unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
+            }
+        }
     }
 
 

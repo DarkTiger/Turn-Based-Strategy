@@ -212,6 +212,7 @@ public class TileScript : MonoBehaviour
             else if (typeIndex == 1 && currentUnit.roleIndex == 1) // Assassin
             {
                 currentUnit.bonusAttack = 1;
+                currentUnit.bonusDefense = 2;
             }
             else if (typeIndex == 2 && currentUnit.roleIndex == 2) // Ranged
             {
