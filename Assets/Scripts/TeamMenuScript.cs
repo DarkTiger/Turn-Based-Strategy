@@ -50,8 +50,7 @@ public class TeamMenuScript : MonoBehaviour
     public Button[] roleTypesButtons;
     public Button[] p1SlotButtons;
     public Button[] p2SlotButtons;
-    Text[] p1SlotsText;
-    Text[] p2SlotsText;
+
     
 
 
@@ -144,11 +143,11 @@ public class TeamMenuScript : MonoBehaviour
     {
         if (currentPlayer == 1)
         {
-            teamRolesP1[slotNumber - 1] = -1;
+            teamRolesP1[slotNumber - 1] = 6; //KING
         }
         else
         {
-            teamRolesP2[slotNumber - 1] = -1;
+            teamRolesP2[slotNumber - 1] = 6; //KING
         }
 
         OnListsChange();

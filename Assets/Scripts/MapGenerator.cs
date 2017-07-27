@@ -19,11 +19,6 @@ public class MapGenerator : MonoBehaviour
     {
         worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
-
-        //List<int> unitsRolesP1 = new List<int>() { 1, 1, 0, 3, 4, 5, 6 };
-        //List<int> unitsRolesP2 = new List<int>() { 1, 1, 2, 3, 4, 5, 6 };
-
-        //WorldGenerator(unitsRolesP1, unitsRolesP2); 
     }
 
 
@@ -39,12 +34,12 @@ public class MapGenerator : MonoBehaviour
         int roleP2Temp2 = unitsRolesP2[2];
         int roleP2Temp3 = unitsRolesP2[3];
 
-        unitsRolesP1[3] = -1;
+        unitsRolesP1[3] = 6; //KING
         unitsRolesP1[0] = roleP1Temp1;
         unitsRolesP1[1] = roleP1Temp2;
         unitsRolesP1[2] = roleP1Temp3;
 
-        unitsRolesP2[3] = -1;
+        unitsRolesP2[3] = 6; //KING
         unitsRolesP2[0] = roleP2Temp1;
         unitsRolesP2[1] = roleP2Temp2;
         unitsRolesP2[2] = roleP2Temp3;
@@ -258,15 +253,6 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < positions.Count; i++)
         {
             int roleIndex = unitsRoles[unitIndex];
-
-            if (roleIndex == -1)
-            {
-                roleIndex = 0;
-            }
-            else if (roleIndex > 5)
-            {
-                roleIndex = 5;
-            }
 
             Vector3 newPos = positions[i];
             newPos.y += 0.3f;

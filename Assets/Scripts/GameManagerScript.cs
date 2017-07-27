@@ -116,7 +116,16 @@ public class GameManagerScript : MonoBehaviour
             }
 
             attackText.text = "ATTACKED: " + currentSelectedUnit.hasAttacked.ToString();
-            abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
+
+            if (currentSelectedUnit.ability != null)
+            {
+                abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
+            }
+            else
+            {
+                abilityText.color = Color.white;
+                abilityText.text = "ABILITY: (NOPE)";
+            }
         }
         else
         {
