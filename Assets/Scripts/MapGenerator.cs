@@ -212,16 +212,21 @@ public class MapGenerator : MonoBehaviour
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
                 worldTiles.Add(newTile);
 
-                if (y % 2 != 0)
+                if ((y % 2 != 0) || (y == 6 && x == 2))
                 {
                     if (x == worldSizeX - 1)
                     {
                         newTile.tag = "P2BaseTile";
                     }
 
-                    if (x == 0)
+                    if ((y == 6 && x == 2) || (x == 0 && y != 6))
                     {
-                        posSpawnP1.Add(newTile.transform.position);
+                        posSpawnP1.Add(newTile.transform.position);   
+                    }
+
+                    if (y == 5 && x == worldSizeX - 3)
+                    {
+                        posSpawnP2.Add(newTile.transform.position);
                     }
                 }
                 else
@@ -229,7 +234,7 @@ public class MapGenerator : MonoBehaviour
                     if (x == 0)
                     {
                         newTile.tag = "P1BaseTile";
-                    }
+                    }                   
 
                     if (x == worldSizeX - 1)
                     {

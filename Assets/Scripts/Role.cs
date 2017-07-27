@@ -11,9 +11,18 @@ public class Role : MonoBehaviour
     public Stats GetUnitRole(int roleIndex)
     {
         Stats newStats = new Stats();
-        
 
-        if (roleIndex == 0) // Tank
+        if (roleIndex == -1)
+        {
+            newStats.attackRange = 1;
+            newStats.damage = 5;
+            newStats.movementRange = 2;
+            newStats.health = 13;
+            newStats.maxHealth = 13;
+
+            return newStats;
+        }
+        else if (roleIndex == 0) // Tank
         {
             newStats.attackRange = 1;
             newStats.damage = 5;
@@ -26,7 +35,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 1) // Assassin
         {
             newStats.attackRange = 1;
-            newStats.damage = 7;
+            newStats.damage = 6;
             newStats.movementRange = 3;
             newStats.health = 4;
             newStats.maxHealth = 4;
