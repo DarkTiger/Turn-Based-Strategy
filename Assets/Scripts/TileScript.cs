@@ -15,6 +15,7 @@ public class TileScript : MonoBehaviour
     public int typeIndex = 0;           // Tipo di tile (foresta, montagna...)
     
     public Sprite[] sprites;            // Gestione sprite
+    public Sprite[] movementPreviewSprites; // Sprite movimento
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
 
@@ -89,11 +90,13 @@ public class TileScript : MonoBehaviour
         {
             if (isInRange)
             {
-                spriteRenderer.color = selectionColor;
+                spriteRenderer.sprite = movementPreviewSprites[typeIndex];
+                //spriteRenderer.color = selectionColor;
             }
             else if (!isTileTaken)
             {
-                spriteRenderer.color = Color.white;
+                spriteRenderer.sprite = sprites[typeIndex]; 
+                //spriteRenderer.color = Color.white;
             }
         }
     }
