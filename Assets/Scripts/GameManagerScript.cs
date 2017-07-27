@@ -234,6 +234,11 @@ public class GameManagerScript : MonoBehaviour
             unit.isSelected = false;
         }
 
+        foreach (TileScript tile in tileScriptList)
+        {
+            tile.isInRange = false;
+        }
+
         if (!isGameOver)
         {
             turnIndex++;

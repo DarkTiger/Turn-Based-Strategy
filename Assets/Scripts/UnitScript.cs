@@ -347,11 +347,11 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= 1)
         {
             isStunned = true;
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
+            attacker.currentMoveCount = 0;
+            tempTurn = gameManagerScript.turnIndex;
         }
-        attacker.isAbilityUsed = true;
-        attacker.isAbilityInCooldown = true;
-        attacker.currentMoveCount = 0;
-        tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Assassin
@@ -406,11 +406,12 @@ public class UnitScript : MonoBehaviour
         {
             isCrippled = true;
             // currentMoveCount = 1;
+
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
+            attacker.currentMoveCount = 0;
+            tempTurn = gameManagerScript.turnIndex;
         }
-        attacker.isAbilityUsed = true;
-        attacker.isAbilityInCooldown = true;
-        attacker.currentMoveCount = 0;
-        tempTurn = gameManagerScript.turnIndex;
     }
 
     public void CheckCooldown()
