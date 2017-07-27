@@ -343,7 +343,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
-            tempTurn = gameManagerScript.turnIndex;
+            attacker.tempTurn = gameManagerScript.turnIndex;
         }
     }
 
@@ -358,7 +358,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
-            tempTurn = gameManagerScript.turnIndex;
+            attacker.tempTurn = gameManagerScript.turnIndex;
         }
     }
 
@@ -370,7 +370,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
-        tempTurn = gameManagerScript.turnIndex;
+        attacker.tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Specialist 2
@@ -402,7 +402,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
-        tempTurn = gameManagerScript.turnIndex;
+        attacker.tempTurn = gameManagerScript.turnIndex;
     }
 
     // Abilità Ranged
@@ -418,7 +418,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
-            tempTurn = gameManagerScript.turnIndex;
+            attacker.tempTurn = gameManagerScript.turnIndex;
         }
     }
 
