@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using cakeslice;
+using Outline = cakeslice.Outline;
+using UnityEngine.UI;
 
 
 public class UnitScript : MonoBehaviour
@@ -46,7 +47,7 @@ public class UnitScript : MonoBehaviour
     Outline outlineScript;
 
     public int tempTurn = 0;
-        
+    Image cooldownImage;
 
 
 
@@ -61,6 +62,7 @@ public class UnitScript : MonoBehaviour
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
         outlineScript = GetComponent<Outline>();
+        cooldownImage = transform.GetChild(5).GetComponent<Image>();
 
         try
         {
@@ -413,15 +415,12 @@ public class UnitScript : MonoBehaviour
 
     public void CheckCooldown()
     {
-        if (isSelected)
-        {
-            Debug.Log("tempTurn: " + tempTurn.ToString() + "  turnIndex: " + gameManagerScript.turnIndex.ToString());
-        }
-
         if (gameManagerScript.turnIndex == tempTurn + 4)
         {
             isAbilityInCooldown = false;
             tempTurn = 0;
         }
+
+        cooldownImage.enabled = isAbilityInCooldown;
     }
 }
