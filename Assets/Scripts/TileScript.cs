@@ -135,7 +135,7 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (unitScript.roleIndex == 5 && !unitScript.isAbilityInCooldown)
                                         {
-                                            tileScriptHit.currentUnit.AbilitySwap(unitScript);
+                                            tileScriptHit.currentUnit.AbilitySwap(unitScript, tileScriptHit, GetComponent<TileScript>());
                                         }
 
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario

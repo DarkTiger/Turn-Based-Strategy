@@ -45,7 +45,7 @@ public class UnitScript : MonoBehaviour
     GameObject circleColliderGameobject; // Gestione dei collider circolari
     Outline outlineScript;
 
-    public int tempTurn;
+    public int tempTurn = 0;
         
 
 
@@ -364,21 +364,23 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Specialist 2
-    public void AbilitySwap(UnitScript attacker)
+    public void AbilitySwap(UnitScript attacker, TileScript targetTile, TileScript attackerTile)
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
                 
         if (attackDistance <= 1)
         {            
             Vector3 temp = movementDestination;
-
             movementDestination = attacker.movementDestination;
             attacker.movementDestination = temp;
+
+            targetTile.currentUnit = attackerTile.currentUnit;
+            attackerTile.currentUnit = GetComponent<UnitScript>();
 
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
-            tempTurn = gameManagerScript.turnIndex;
+            attacker.tempTurn = gameManagerScript.turnIndex;
         }
     }
     
@@ -410,10 +412,16 @@ public class UnitScript : MonoBehaviour
     }
 
     public void CheckCooldown()
-    {        
+    {
+        if (isSelected)
+        {
+            Debug.Log("tempTurn: " + tempTurn.ToString() + "  turnIndex: " + gameManagerScript.turnIndex.ToString());
+        }
+
         if (gameManagerScript.turnIndex == tempTurn + 4)
         {
             isAbilityInCooldown = false;
+            tempTurn = 0;
         }
     }
 }
