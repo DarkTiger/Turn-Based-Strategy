@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     bool unitsLoadedInList = false;
     bool tilesLoadedInList = false;
     bool tacticalModeEnabled = false;
+    bool helpModeEnabled = false;
 
     Text turnIndexText;
     Text winnerText;
@@ -38,6 +39,7 @@ public class GameManagerScript : MonoBehaviour
     Text abilityText;
     Text attackText;
     GameObject winnerPanel;
+    GameObject helpPanel;
     
 
 
@@ -50,6 +52,8 @@ public class GameManagerScript : MonoBehaviour
                 
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
+        helpPanel = GameObject.Find("HelpPanel");
+        helpPanel.SetActive(false);
 
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
@@ -271,6 +275,13 @@ public class GameManagerScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void HelpScreen()
+    {
+            helpPanel.SetActive(!helpModeEnabled);
+
+            helpModeEnabled = !helpModeEnabled;
     }
 
 
