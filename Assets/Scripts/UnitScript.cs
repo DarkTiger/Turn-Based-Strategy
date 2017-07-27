@@ -33,7 +33,8 @@ public class UnitScript : MonoBehaviour
     public int bonusDefense = 0;
 
     SpriteRenderer spriteRenderer;          // Gestione delle sprite associate alle unità
-    public Color selectionColor;
+    public Color selectionColorP1;
+    public Color selectionColorP2;
     public Color kingColor;
     public Sprite[] spritesP1;
     public Sprite[] spritesP2;
@@ -128,14 +129,21 @@ public class UnitScript : MonoBehaviour
 
         if (isSelected & !gameManagerScript.isGameOver)
         {            
-            if (isKing)
+            /*if (isKing)
             {
                 spriteRenderer.color = kingColor;
             }
             else
-            {
-                spriteRenderer.color = selectionColor;
-            }
+            {*/
+                if (ownerIndex == 1)
+                {
+                    spriteRenderer.color = selectionColorP1;
+                }
+                else
+                {
+                    spriteRenderer.color = selectionColorP2;
+                }  
+            //}
         }
         else
         {
