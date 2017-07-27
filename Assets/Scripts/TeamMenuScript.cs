@@ -143,11 +143,11 @@ public class TeamMenuScript : MonoBehaviour
     {
         if (currentPlayer == 1)
         {
-            teamRolesP1[slotNumber - 1] = 6; //KING
+            teamRolesP1[slotNumber - 1] = -1;
         }
         else
         {
-            teamRolesP2[slotNumber - 1] = 6; //KING
+            teamRolesP2[slotNumber - 1] = -1; 
         }
 
         OnListsChange();

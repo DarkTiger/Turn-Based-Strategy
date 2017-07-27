@@ -65,10 +65,10 @@ public class Role : MonoBehaviour
         else if (roleIndex == 5) // Specialist 2
         {
             newStats.attackRange = 1;
-            newStats.damage = 4;
+            newStats.damage = 3;
             newStats.movementRange = 2;
-            newStats.health = 6;
-            newStats.maxHealth = 6;
+            newStats.health = 7;
+            newStats.maxHealth = 7;
 
             return newStats;
         }
