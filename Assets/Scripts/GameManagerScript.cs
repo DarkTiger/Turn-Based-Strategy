@@ -294,13 +294,30 @@ public class GameManagerScript : MonoBehaviour
             helpModeEnabled = !helpModeEnabled;
     }
 
-
+    // Finale che si attiva quando un re raggiunge la fine della scacchiera
     public void EndGame()
     {
         isGameOver = true;
-        Debug.Log("The winner is " + playerIndex);
 
-        winnerText.text = "PLAYER " + playerIndex + " WINS!";
+        winnerText.text = "PLAYER "  + playerIndex.ToString() + " WINS!";
+        winnerPanel.SetActive(true);
+    }
+
+    // Finale che si attiva quando muore il re del player 2
+    public void EndGamePlayer1()
+    {
+        isGameOver = true;
+
+        winnerText.text = "PLAYER 1 WINS!";
+        winnerPanel.SetActive(true);
+    }
+
+    // Finale che si attiva quando muore il re del player 1
+    public void EndGamePlayer2()
+    {
+        isGameOver = true;
+
+        winnerText.text = "PLAYER 2 WINS!";
         winnerPanel.SetActive(true);
     }
 

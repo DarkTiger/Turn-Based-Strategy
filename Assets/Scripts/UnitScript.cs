@@ -265,7 +265,14 @@ public class UnitScript : MonoBehaviour
 
         if (isKing) // Gestione morte re e fine del gioco
         {
-            gameManagerScript.EndGame();
+            if (ownerIndex == 1)
+            {
+                gameManagerScript.EndGamePlayer2();
+            }
+            else
+            {
+                gameManagerScript.EndGamePlayer1();
+            }
         }
     }
 
