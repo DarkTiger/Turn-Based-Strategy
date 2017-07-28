@@ -104,7 +104,7 @@ public class TileScript : MonoBehaviour
 
     void OnMouseOver()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !gameManager.isGameOver)
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.A))) && !gameManager.isGameOver)
         {
             isSelected = true;
             
@@ -126,7 +126,7 @@ public class TileScript : MonoBehaviour
                             {
                                 if (unitScript.gameObject != currentUnit.gameObject)
                                 {
-                                    if (Input.GetMouseButtonDown(0))
+                                    if ((Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.A)))
                                     {
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                                         {
