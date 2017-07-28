@@ -66,7 +66,7 @@ public class Role : MonoBehaviour
         {
             newStats.attackRange = 1;
             newStats.damage = 3;
-            newStats.movementRange = 2;
+            newStats.movementRange = 3;
             newStats.health = 7;
             newStats.maxHealth = 7;
 

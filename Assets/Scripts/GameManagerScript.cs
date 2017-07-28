@@ -250,6 +250,7 @@ public class GameManagerScript : MonoBehaviour
         foreach (TileScript tile in tileScriptList)
         {
             tile.isInRange = false;
+            tile.isTileTaken = false;
         }
 
         if (!isGameOver)
