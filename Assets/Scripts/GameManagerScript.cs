@@ -39,9 +39,13 @@ public class GameManagerScript : MonoBehaviour
     Text abilityText;
     Text attackText;
 
+    public Sprite[] hideImages;
+    Image hideButtonImage;
+
     GameObject winnerPanel;
     GameObject helpPanel;
-    GameObject rematchPanel; 
+    GameObject rematchPanel;
+
 
 
     void Start()
@@ -62,6 +66,7 @@ public class GameManagerScript : MonoBehaviour
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
         abilityText = GameObject.Find("CurrentAbilityText").GetComponent<Text>();
         attackText = GameObject.Find("CurrentAttackText").GetComponent<Text>();
+        hideButtonImage = GameObject.Find("HideButtonImage").GetComponent<Image>();
 
         winnerPanel.SetActive(false);
         StartGame();
@@ -140,7 +145,10 @@ public class GameManagerScript : MonoBehaviour
             attackText.text = "ATTACKED: false";
         }
 
-        TacticalMode();
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            TacticalMode();
+        }
     }
 
 
@@ -274,18 +282,24 @@ public class GameManagerScript : MonoBehaviour
     }
 
 
-    void TacticalMode()
+    public void TacticalMode()
     {
-        if (Input.GetKeyUp(KeyCode.H))
-        {
-            tacticalModeEnabled = !tacticalModeEnabled;
+        tacticalModeEnabled = !tacticalModeEnabled;
 
-            foreach (UnitScript unit in unitScriptList)
+        if (tacticalModeEnabled)
+        {
+            hideButtonImage.sprite = hideImages[1];
+        }
+        else
+        {
+            hideButtonImage.sprite = hideImages[0];
+        }
+
+        foreach (UnitScript unit in unitScriptList)
+        {
+            if (!unit.isDead)
             {
-                if (!unit.isDead)
-                {
-                    unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
-                }
+                unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
             }
         }
     }
