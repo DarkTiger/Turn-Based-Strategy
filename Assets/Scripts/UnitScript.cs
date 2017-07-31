@@ -213,16 +213,22 @@ public class UnitScript : MonoBehaviour
 
     public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
         if (!isInvulnerable)
         {
+            Debug.Log("attackDistance: " + attackDistance.ToString());
+
             if (attackDistance <= attacker.stats.attackRange)
             {
+                Debug.Log("Distanza");
+
                 int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
                 if (tempDamage > bonusDefense)
                 {
+                    Debug.Log("Danno");
+
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
 

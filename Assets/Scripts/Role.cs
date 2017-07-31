@@ -14,7 +14,7 @@ public class Role : MonoBehaviour
 
         if (roleIndex == 0) // Tank
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 5;
             newStats.movementRange = 2;
             newStats.health = 10;
@@ -24,7 +24,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 1) // Assassin
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 6;
             newStats.movementRange = 3;
             newStats.health = 4;
@@ -34,7 +34,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 2) // Ranged
         {
-            newStats.attackRange = 3;
+            newStats.attackRange = 3.1f;
             newStats.damage = 3;
             newStats.movementRange = 2;
             newStats.health = 5;
@@ -44,7 +44,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 3) // Healer
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 2;
             newStats.movementRange = 3;
             newStats.health = 5;
@@ -54,7 +54,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 4) // Specialist
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 4;
             newStats.movementRange = 2;
             newStats.health = 6;
@@ -64,7 +64,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 5) // Specialist 2
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 3;
             newStats.movementRange = 3;
             newStats.health = 7;
@@ -74,7 +74,7 @@ public class Role : MonoBehaviour
         }
         if (roleIndex == 6) // KING
         {
-            newStats.attackRange = 1;
+            newStats.attackRange = 1.1f;
             newStats.damage = 5;
             newStats.movementRange = 2;
             newStats.health = 13;
