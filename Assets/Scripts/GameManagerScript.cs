@@ -38,9 +38,10 @@ public class GameManagerScript : MonoBehaviour
     Text movementCountText;
     Text abilityText;
     Text attackText;
+
     GameObject winnerPanel;
     GameObject helpPanel;
-    
+    GameObject rematchPanel; 
 
 
     void Start()
@@ -53,7 +54,9 @@ public class GameManagerScript : MonoBehaviour
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
         helpPanel = GameObject.Find("HelpPanel");
+        rematchPanel = GameObject.Find("RematchPanel");
         helpPanel.SetActive(false);
+        rematchPanel.SetActive(false);
 
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
@@ -273,7 +276,7 @@ public class GameManagerScript : MonoBehaviour
 
     void TacticalMode()
     {
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.H))
         {
             tacticalModeEnabled = !tacticalModeEnabled;
 
@@ -321,9 +324,23 @@ public class GameManagerScript : MonoBehaviour
         winnerPanel.SetActive(true);
     }
 
+    /*public void OnMenuButtonClicked()
+    {
+        SceneManager.LoadScene("Main");
+    }*/
 
     public void OnMenuButtonClicked()
     {
+        rematchPanel.SetActive(true);
+    }
+
+    public void OnRematchConfirmed()
+    {
         SceneManager.LoadScene("Main");
+    }
+
+    public void OnRematchRejected()
+    {
+        rematchPanel.SetActive(false);
     }
 }
