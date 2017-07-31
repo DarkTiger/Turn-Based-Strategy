@@ -20,17 +20,17 @@ public class UnitAnimationScript : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.A))
         {
-            PlayHitAnimation(2, false);
+            PlayAttackAnimation(2, false);
         }
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            PlayHitAnimation(2, true);
+            PlayAttackAnimation(2, true);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            PlayHitAnimation(3, false);
+            PlayAttackAnimation(3, false);
         }
 
 
@@ -43,7 +43,7 @@ public class UnitAnimationScript : MonoBehaviour
     /// </summary>
     /// <param name="attackerRoleIndex">INDICE CLASSE ATTACCANTE</param>
     /// <param name="isAbility">If set to <c>true</c> E' UN'ABILITA' (true, false)</param>
-    public void PlayHitAnimation(int attackerRoleIndex, bool isAbility)
+    public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility)
     {
         animator.SetInteger("AttackerRoleIndex", attackerRoleIndex);
 
