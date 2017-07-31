@@ -343,4 +343,9 @@ public class GameManagerScript : MonoBehaviour
     {
         rematchPanel.SetActive(false);
     }
+
+    public void OnBackButtonClicked()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }
