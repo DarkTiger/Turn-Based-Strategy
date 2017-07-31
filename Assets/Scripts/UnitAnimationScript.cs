@@ -25,12 +25,12 @@ public class UnitAnimationScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            PlayAttackAnimation(2, true);
+            PlayAttackAnimation(4, true);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            PlayAttackAnimation(3, false);
+            PlayAttackAnimation(4, false);
         }
 
 
@@ -71,7 +71,7 @@ public class UnitAnimationScript : MonoBehaviour
     {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack"))
+        if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack"))
         {
             if (state.normalizedTime >= state.length)
             {
@@ -79,7 +79,7 @@ public class UnitAnimationScript : MonoBehaviour
                 animator.SetInteger("AttackerRoleIndex", -1);
             }
         }
-        else if (state.IsName("PorcupineAbility"))
+        else if (state.IsName("PorcupineAbility") || state.IsName("SkunkAbility"))
         {
             if (state.normalizedTime >= state.length)
             {
