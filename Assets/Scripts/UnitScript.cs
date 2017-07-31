@@ -13,6 +13,7 @@ public class UnitScript : MonoBehaviour
     Camera cam;
     GameManagerScript gameManagerScript;
     TileScript tileScript;
+    UnitAnimationScript unitAnimationScript;
 
     public int ownerIndex = 1;                  // Indica a quale player appartiene l'unità
     public int roleIndex = 0;                   // Indica la classe dell'unità
@@ -57,6 +58,7 @@ public class UnitScript : MonoBehaviour
         stats = GetComponent<Stats>();
         role = GetComponent<Role>();
 
+        unitAnimationScript = GetComponent<UnitAnimationScript>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -229,6 +231,8 @@ public class UnitScript : MonoBehaviour
                 {
                     Debug.Log("Danno");
 
+                    unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
+
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
 
@@ -340,7 +344,7 @@ public class UnitScript : MonoBehaviour
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
         
 
-        if (attackDistance <= 1)
+        if (attackDistance <= 1.1f)
         {
             int tempHealth = stats.health + 5;
 
@@ -357,6 +361,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
         }
     }
 
@@ -365,13 +370,14 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        if (attackDistance <= 1)
+        if (attackDistance <= 1.1f)
         {
             isStunned = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
         }
     }
 
@@ -384,6 +390,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
     }
 
     // Abilità Specialist 2
@@ -391,7 +398,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
                 
-        if (attackDistance <= 1)
+        if (attackDistance <= 1.1f)
         {            
             Vector3 temp = movementDestination;
             movementDestination = attacker.movementDestination;
@@ -404,6 +411,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
         }
     }
     
@@ -416,6 +424,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
     }
 
     // Abilità Ranged
@@ -423,7 +432,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        if (attackDistance <= 3)
+        if (attackDistance <= 3.1f)
         {
             isCrippled = true;
             // currentMoveCount = 1;
@@ -432,6 +441,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
         }
     }
 
