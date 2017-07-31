@@ -7,6 +7,9 @@ public class MenuManager : MonoBehaviour
 {
     GameObject panelMenuButtons;
     GameObject startText;
+    GameObject helpPanelMenu;
+
+    bool helpModeMenuEnabled = false;
 
 
 
@@ -14,7 +17,9 @@ public class MenuManager : MonoBehaviour
     {
         startText = GameObject.Find("PressStart");
         panelMenuButtons = GameObject.Find("PanelMenuButtons");
+        helpPanelMenu = GameObject.Find("HelpPanelMenu");
         panelMenuButtons.SetActive(false);
+        helpPanelMenu.SetActive(false);
     }
 
 
@@ -37,5 +42,12 @@ public class MenuManager : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void HelpScreenMenu()
+    {
+        helpPanelMenu.SetActive(!helpModeMenuEnabled);
+
+        helpModeMenuEnabled = !helpModeMenuEnabled;
     }
 }
