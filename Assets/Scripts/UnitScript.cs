@@ -88,7 +88,7 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
-        if ((Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift)) && !isDead && !isStunned)
+        if ((Input.GetMouseButtonDown(0) /*&& Input.GetKey(KeyCode.LeftShift)*/) && !isDead && !isStunned)
         {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
