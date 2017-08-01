@@ -7,6 +7,7 @@ public class UnitAnimationScript : MonoBehaviour
     public Animator animator;
     int attackerRoleIndex;
     bool abilityIsPersistent = false;
+    UnitScript unitScript;
 
 
 
@@ -14,26 +15,12 @@ public class UnitAnimationScript : MonoBehaviour
     {
 	    animator = transform.GetChild(6).gameObject.GetComponent<Animator>();
         attackerRoleIndex = GetComponent<UnitScript>().roleIndex;
+        unitScript = GetComponent<UnitScript>();
     }
 	
 
 	void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            PlayAttackAnimation(3, true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            PlayAttackAnimation(4, true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            PlayAttackAnimation(4, false);
-        }
-       
+    {      
         CheckAnimationsState();
     }
 
@@ -64,7 +51,7 @@ public class UnitAnimationScript : MonoBehaviour
     {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (!abilityIsPersistent)
+        if (!abilityIsPersistent || (!unitScript.isReady && !unitScript.isStunned && !unitScript.isInvulnerable))
         {
             if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack"))
             {
