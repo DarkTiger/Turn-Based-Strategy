@@ -42,5 +42,23 @@ public class UnitStatsTextScript : MonoBehaviour
         {
             defenseText.text = baseHealth.ToString();
         }
+
+        if (unitScript.stats.health < unitScript.stats.maxHealth)
+        {
+            defenseText.color = Color.red;
+        }
+        else
+        {
+            defenseText.color = Color.white;
+        }
+
+        if (unitScript.bonusDefense > 0)
+        {
+            attackText.color = Color.green;
+        }
+        else
+        {
+            attackText.color = Color.white;
+        }
     }
 }
