@@ -37,10 +37,12 @@ public class UnitAnimationScript : MonoBehaviour
         if (isAbility)
         {
             animator.SetBool("Ability", true);
+            animator.SetBool("Attack", false);
         }
         else
         {
             animator.SetBool("Attack", true);
+            animator.SetBool("Ability", false);
         }
 
         abilityIsPersistent = persistent;
@@ -58,6 +60,7 @@ public class UnitAnimationScript : MonoBehaviour
                 if (state.normalizedTime >= state.length)
                 {
                     animator.SetBool("Attack", false);
+                    animator.SetBool("Ability", false);
                     animator.SetInteger("AttackerRoleIndex", -1);
                 }
             }
@@ -66,6 +69,7 @@ public class UnitAnimationScript : MonoBehaviour
                 if (state.normalizedTime >= state.length)
                 {
                     animator.SetBool("Ability", false);
+                    animator.SetBool("Attack", false);
                     animator.SetInteger("AttackerRoleIndex", -1);
                 }
             }
