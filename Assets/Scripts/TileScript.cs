@@ -173,6 +173,10 @@ public class TileScript : MonoBehaviour
                                         {
                                             currentUnit.AbilityRetaliation(unitScript);
                                         }
+                                        else if (unitScript.roleIndex == 3 && !unitScript.isAbilityInCooldown)
+                                        {
+                                            currentUnit.AbilityCure(unitScript);
+                                        }
                                     }
                                 }
                             }                           

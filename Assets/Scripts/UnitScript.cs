@@ -15,32 +15,32 @@ public class UnitScript : MonoBehaviour
     TileScript tileScript;
     UnitAnimationScript unitAnimationScript;
 
-    public int ownerIndex = 1;                  // Indica a quale player appartiene l'unità
-    public int roleIndex = 0;                   // Indica la classe dell'unità
-    public bool isSelected = false;         // Segnala l'unità selezionata
-    public bool hasAttacked = false;        // Indica se l'unità ha già attaccato nel proprio turno
-    public bool hasMoved = false;                  // Indica se l'unità si è già mossa nel proprio turno
-    public bool isKing = false;                    // Segnala l'unità re
+    public int ownerIndex = 1;                      // Indica a quale player appartiene l'unità
+    public int roleIndex = 0;                       // Indica la classe dell'unità
+    public bool isSelected = false;                 // Segnala l'unità selezionata
+    public bool hasAttacked = false;                // Indica se l'unità ha già attaccato nel proprio turno
+    public bool hasMoved = false;                   // Indica se l'unità si è già mossa nel proprio turno
+    public bool isKing = false;                     // Segnala l'unità re
     public bool isDead = false;
     public bool isAbilityUsed = false;
     public bool isAbilityInCooldown = false;
 
     public bool isStunned = false;
     public bool isInvulnerable = false;
-    public bool isReady = false;                // Contrattacco
+    public bool isReady = false;                     // Contrattacco
     public bool isCrippled = false;
     
-    public int bonusAttack = 0;                 // Gestione dei bonus forniti dalle tiles ambientali
+    public int bonusAttack = 0;                      // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
-    SpriteRenderer spriteRenderer;          // Gestione delle sprite associate alle unità
+    SpriteRenderer spriteRenderer;                  // Gestione delle sprite associate alle unità
     public Color selectionColorP1;
     public Color selectionColorP2;
     public Color kingColor;
     public Sprite[] spritesP1;
     public Sprite[] spritesP2;
 
-    public int currentMoveCount;            // Gestione del movimento
+    public int currentMoveCount;                    // Gestione del movimento
     public Vector3 movementDestination;
     public bool unitIsMoving = false;
     Vector3 positionInPixels;
@@ -156,7 +156,7 @@ public class UnitScript : MonoBehaviour
 
         try
         {
-            if (gameManagerScript.playerIndex == ownerIndex)
+            if (gameManagerScript.playerIndex == ownerIndex && !hasAttacked && !isAbilityUsed)
             {
                 outlineScript.enabled = true;
             }
@@ -231,7 +231,7 @@ public class UnitScript : MonoBehaviour
                 {
                     Debug.Log("Danno");
 
-                    unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
+                    unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
@@ -361,7 +361,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
         }
     }
 
@@ -377,7 +377,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
         }
     }
 
@@ -390,7 +390,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
     }
 
     // Abilità Specialist 2
@@ -411,7 +411,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
         }
     }
     
@@ -424,7 +424,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
     }
 
     // Abilità Ranged
@@ -441,13 +441,13 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true);             // Gestisce l'animazione dell'abilità
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
         }
     }
 
     public void CheckCooldown()
     {
-        if (gameManagerScript.turnIndex == tempTurn + 4)
+        if (gameManagerScript.turnIndex == tempTurn + 3)
         {
             isAbilityInCooldown = false;
             tempTurn = 0;
