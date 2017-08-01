@@ -60,12 +60,12 @@ public class UnitScript : MonoBehaviour
         role = GetComponent<Role>();
 
         unitAnimationScript = GetComponent<UnitAnimationScript>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(7).GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
-        outlineScript = GetComponent<Outline>();
+        outlineScript = transform.GetChild(7).GetComponent<Outline>();
         cooldownImage = transform.GetChild(5).GetComponent<Image>();
 
         try
