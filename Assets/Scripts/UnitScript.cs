@@ -127,7 +127,7 @@ public class UnitScript : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (currentMoveCount <= 0)
             {
                 isSelected = false;
             }
