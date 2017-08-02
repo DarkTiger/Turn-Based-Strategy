@@ -82,7 +82,7 @@ public class UnitScript : MonoBehaviour
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
 
-        CheckIfCanAttack();
+        CheckIfUnitCanAttack();
         SetOrderInLayer();
     }
 
@@ -100,14 +100,11 @@ public class UnitScript : MonoBehaviour
 
                 foreach (GameObject unit in units)
                 {
-                    UnitScript unitScript = unit.GetComponent<UnitScript>();
-
                     if (gameManagerScript.playerIndex == ownerIndex)
                     {
                         if (unit != gameObject)
                         {
-                            unitScript.isSelected = false;
-                            unitScript.spriteRenderer.color = Color.white;
+                            unit.GetComponent<UnitScript>().isSelected = false;
                         }
 
                         if (currentMoveCount > 0 || !hasAttacked)
@@ -141,26 +138,50 @@ public class UnitScript : MonoBehaviour
         }
 
 
+        if (isSelected && !gameManagerScript.isGameOver)// && currentMoveCount > 0)
+        {
+            /*if (isKing)
+            {
+                spriteRenderer.color = kingColor;
+            }
+            else
+            {
+                if (ownerIndex == 1)
+                {
+                    spriteRenderer.color = selectionColorP1;
+                }
+                else
+                {
+                    spriteRenderer.color = selectionColorP2;
+                }  
+            //}*/
+            //spriteRenderer.color = selectionColor;
+          
+        }
+        else
+        {
+
+            //spriteRenderer.color = Color.white;
+        }
+
+
         try
         {
-            if ((gameManagerScript.playerIndex == ownerIndex) && !hasAttacked && !isAbilityUsed)
+            if (gameManagerScript.playerIndex == ownerIndex && !hasAttacked && !isAbilityUsed)
             {
                 outlineScript.enabled = true;
                 outlineScript.color = ownerIndex - 1;
             }
             else
             {
-                if (outlineScript.color != 2)
-                {
-                    outlineScript.enabled = false;
-                }
+                outlineScript.enabled = false;
             }
         }
         catch (System.Exception) { }
     }
 
     
-    public void CheckIfCanAttack()
+    public void CheckIfUnitCanAttack()
     {
         if (!hasAttacked && !isAbilityUsed && isSelected)
         {
@@ -168,14 +189,12 @@ public class UnitScript : MonoBehaviour
             {
                 if (unit != this && unit.ownerIndex != ownerIndex)
                 {
-                    unit.spriteRenderer.color = Color.white;
-
-                    if (!hasAttacked && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    if (!hasAttacked && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
                     {
                         unit.spriteRenderer.color = Color.red;
                     }
 
-                    if (!isAbilityUsed && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    if (!isAbilityUsed && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
                     {
                         unit.outlineScript.color = 2;
                         unit.outlineScript.enabled = true;
@@ -226,7 +245,9 @@ public class UnitScript : MonoBehaviour
 
     public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        //Debug.Log(attackDistance);
 
         if (!isInvulnerable)
         {
@@ -259,10 +280,6 @@ public class UnitScript : MonoBehaviour
                 }
                 attacker.hasAttacked = true;
                 attacker.currentMoveCount = 0;
-
-                attacker.spriteRenderer.color = Color.white;
-                spriteRenderer.color = Color.white;
-                outlineScript.enabled = false;
             }
         }
     }
@@ -461,7 +478,7 @@ public class UnitScript : MonoBehaviour
     {
         if (isSelected)
         {
-            spriteRenderer.sortingOrder = 1;
+            spriteRenderer.sortingOrder = 0;
         }
 
         else
