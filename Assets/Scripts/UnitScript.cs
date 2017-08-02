@@ -269,10 +269,19 @@ public class UnitScript : MonoBehaviour
                 attacker.hasAttacked = true;
                 attacker.currentMoveCount = 0;
 
-                attacker.spriteRenderer.color = Color.white;
-                spriteRenderer.color = Color.white;
-                outlineScript.enabled = false;
+                DeselectUnitsAfterAttack();
             }
+        }
+    }
+
+
+    void DeselectUnitsAfterAttack()
+    {
+        foreach (UnitScript unit in gameManagerScript.unitScriptList)
+        {
+            unit.spriteRenderer.color = Color.white;
+            unit.outlineScript.enabled = false;
+            unit.isSelected = false;
         }
     }
 
@@ -371,9 +380,7 @@ public class UnitScript : MonoBehaviour
                 attacker.tempTurn = gameManagerScript.turnIndex;
                 unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
-                attacker.spriteRenderer.color = Color.white;
-                spriteRenderer.color = Color.white;
-                outlineScript.enabled = false;
+                DeselectUnitsAfterAttack();
             }
         }
     }
@@ -392,9 +399,7 @@ public class UnitScript : MonoBehaviour
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
-            attacker.spriteRenderer.color = Color.white;
-            spriteRenderer.color = Color.white;
-            outlineScript.enabled = false;
+            DeselectUnitsAfterAttack();
         }
     }
 
@@ -409,9 +414,7 @@ public class UnitScript : MonoBehaviour
         attacker.tempTurn = gameManagerScript.turnIndex;
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
-        attacker.spriteRenderer.color = Color.white;
-        spriteRenderer.color = Color.white;
-        outlineScript.enabled = false;
+        DeselectUnitsAfterAttack();
     }
 
     // Abilità Specialist 2
@@ -434,9 +437,7 @@ public class UnitScript : MonoBehaviour
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
-            attacker.spriteRenderer.color = Color.white;
-            spriteRenderer.color = Color.white;
-            outlineScript.enabled = false;
+            DeselectUnitsAfterAttack();
         }
     }
     
@@ -451,9 +452,7 @@ public class UnitScript : MonoBehaviour
         attacker.tempTurn = gameManagerScript.turnIndex;
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
-        attacker.spriteRenderer.color = Color.white;
-        spriteRenderer.color = Color.white;
-        outlineScript.enabled = false;
+        DeselectUnitsAfterAttack();
     }
 
     // Abilità Ranged
@@ -472,9 +471,7 @@ public class UnitScript : MonoBehaviour
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
-            attacker.spriteRenderer.color = Color.white;
-            spriteRenderer.color = Color.white;
-            outlineScript.enabled = false;
+            DeselectUnitsAfterAttack();
         }
     }
 
