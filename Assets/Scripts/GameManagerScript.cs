@@ -299,7 +299,7 @@ public class GameManagerScript : MonoBehaviour
         {
             if (!unit.isDead)
             {
-                unit.gameObject.GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
+                unit.transform.GetChild(7).GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
             }
         }
     }
