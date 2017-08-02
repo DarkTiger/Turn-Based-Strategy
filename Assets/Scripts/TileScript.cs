@@ -90,13 +90,13 @@ public class TileScript : MonoBehaviour
         {
             if (isInRange)
             {
-                spriteRenderer.sprite = movementPreviewSprites[typeIndex];
-                //spriteRenderer.color = selectionColor;
+                //spriteRenderer.sprite = movementPreviewSprites[typeIndex];
+                spriteRenderer.color = selectionColor;
             }
             else if (!isTileTaken)
             {
-                spriteRenderer.sprite = sprites[typeIndex]; 
-                //spriteRenderer.color = Color.white;
+                //spriteRenderer.sprite = sprites[typeIndex]; 
+                spriteRenderer.color = Color.white;
             }
         }
     }

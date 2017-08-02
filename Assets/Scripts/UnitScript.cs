@@ -100,11 +100,14 @@ public class UnitScript : MonoBehaviour
 
                 foreach (GameObject unit in units)
                 {
+                    UnitScript unitScript = unit.GetComponent<UnitScript>();
+
                     if (gameManagerScript.playerIndex == ownerIndex)
                     {
                         if (unit != gameObject)
                         {
-                            unit.GetComponent<UnitScript>().isSelected = false;
+                            unitScript.isSelected = false;
+                            unitScript.spriteRenderer.color = Color.white;
                         }
 
                         if (currentMoveCount > 0 || !hasAttacked)
@@ -138,43 +141,19 @@ public class UnitScript : MonoBehaviour
         }
 
 
-        if (isSelected && !gameManagerScript.isGameOver)// && currentMoveCount > 0)
-        {
-            /*if (isKing)
-            {
-                spriteRenderer.color = kingColor;
-            }
-            else
-            {
-                if (ownerIndex == 1)
-                {
-                    spriteRenderer.color = selectionColorP1;
-                }
-                else
-                {
-                    spriteRenderer.color = selectionColorP2;
-                }  
-            //}*/
-            //spriteRenderer.color = selectionColor;
-          
-        }
-        else
-        {
-
-            //spriteRenderer.color = Color.white;
-        }
-
-
         try
         {
-            if (gameManagerScript.playerIndex == ownerIndex && !hasAttacked && !isAbilityUsed)
+            if ((gameManagerScript.playerIndex == ownerIndex) && !hasAttacked && !isAbilityUsed)
             {
                 outlineScript.enabled = true;
                 outlineScript.color = ownerIndex - 1;
             }
             else
             {
-                outlineScript.enabled = false;
+                if (outlineScript.color != 2)
+                {
+                    outlineScript.enabled = false;
+                }
             }
         }
         catch (System.Exception) { }
@@ -189,6 +168,8 @@ public class UnitScript : MonoBehaviour
             {
                 if (unit != this && unit.ownerIndex != ownerIndex)
                 {
+                    unit.spriteRenderer.color = Color.white;
+
                     if (!hasAttacked && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
                     {
                         unit.spriteRenderer.color = Color.red;
@@ -278,6 +259,10 @@ public class UnitScript : MonoBehaviour
                 }
                 attacker.hasAttacked = true;
                 attacker.currentMoveCount = 0;
+
+                attacker.spriteRenderer.color = Color.white;
+                spriteRenderer.color = Color.white;
+                outlineScript.enabled = false;
             }
         }
     }
