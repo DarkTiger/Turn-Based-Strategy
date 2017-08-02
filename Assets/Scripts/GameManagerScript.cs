@@ -42,9 +42,13 @@ public class GameManagerScript : MonoBehaviour
     public Sprite[] hideImages;
     Image hideButtonImage;
 
+    public Sprite[] tutorialImages;
+    Image tutorialScreen;
+
     GameObject winnerPanel;
     GameObject helpPanel;
     GameObject rematchPanel;
+
 
 
 
@@ -59,15 +63,16 @@ public class GameManagerScript : MonoBehaviour
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
         helpPanel = GameObject.Find("HelpPanel");
         rematchPanel = GameObject.Find("RematchPanel");
-        helpPanel.SetActive(false);
-        rematchPanel.SetActive(false);
 
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
         abilityText = GameObject.Find("CurrentAbilityText").GetComponent<Text>();
         attackText = GameObject.Find("CurrentAttackText").GetComponent<Text>();
         hideButtonImage = GameObject.Find("HideButtonImage").GetComponent<Image>();
+        tutorialScreen = GameObject.Find("TutorialScreen").GetComponent<Image>();
 
+        helpPanel.SetActive(false);
+        rematchPanel.SetActive(false);
         winnerPanel.SetActive(false);
         StartGame();
     }
@@ -305,11 +310,38 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    // Gestione tutorial
     public void HelpScreen()
     {
             helpPanel.SetActive(!helpModeEnabled);
 
             helpModeEnabled = !helpModeEnabled;
+    }
+
+    public void SetLegendImage()
+    {
+        tutorialScreen.sprite = tutorialImages[0];
+    }
+
+    public void SetRulesImage()
+    {
+        tutorialScreen.sprite = tutorialImages[1];
+    }
+
+    public void SetCommandsImage()
+    {
+
+    }
+
+    public void SetHudImage()
+    {
+
+    }
+
+    public void ExitHelpScreen()
+    {
+        helpPanel.SetActive(false);
+        helpModeEnabled = false;
     }
 
     // Finale che si attiva quando un re raggiunge la fine della scacchiera
