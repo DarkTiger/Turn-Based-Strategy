@@ -27,10 +27,10 @@ public class UnitScript : MonoBehaviour
 
     public bool isStunned = false;
     public bool isInvulnerable = false;
-    public bool isReady = false;                     // Contrattacco
+    public bool isReady = false;                    // Contrattacco
     public bool isCrippled = false;
     
-    public int bonusAttack = 0;                      // Gestione dei bonus forniti dalle tiles ambientali
+    public int bonusAttack = 0;                     // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
     SpriteRenderer spriteRenderer;                  // Gestione delle sprite associate alle unità
@@ -68,13 +68,9 @@ public class UnitScript : MonoBehaviour
         outlineScript = transform.GetChild(7).GetComponent<Outline>();
         cooldownImage = transform.GetChild(5).GetComponent<Image>();
 
-        try
-        {
-            outlineScript.color = ownerIndex - 1;
-        }
+        try {outlineScript.color = ownerIndex - 1;}
         catch (System.Exception) { };
 
-        KingSelection();
         UpdateUnitStat();
     }
 
@@ -86,6 +82,8 @@ public class UnitScript : MonoBehaviour
         CheckCooldown();
 
         positionInPixels = cam.WorldToScreenPoint(transform.position);
+
+        CheckIfCanAttack();
     }
 
 
@@ -115,7 +113,8 @@ public class UnitScript : MonoBehaviour
 
                             if (isSelected)
                             {
-                                gameManagerScript.currentSelectedUnit = GetComponent<UnitScript>();
+                                
+                                gameManagerScript.currentSelectedUnit = this; //GetComponent<UnitScript>();
                             }
                             else
                             {
@@ -128,9 +127,13 @@ public class UnitScript : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                isSelected = false;
+            }
         }
 
-        if (isSelected && !gameManagerScript.isGameOver && currentMoveCount > 0)
+        if (isSelected && !gameManagerScript.isGameOver)// && currentMoveCount > 0)
         {
             /*if (isKing)
             {
@@ -148,7 +151,7 @@ public class UnitScript : MonoBehaviour
                 }  
             //}*/
             spriteRenderer.color = selectionColor;
-
+          
         }
         else
         {
@@ -162,6 +165,7 @@ public class UnitScript : MonoBehaviour
             if (gameManagerScript.playerIndex == ownerIndex && !hasAttacked && !isAbilityUsed)
             {
                 outlineScript.enabled = true;
+                outlineScript.color = ownerIndex - 1;
             }
             else
             {
@@ -172,9 +176,31 @@ public class UnitScript : MonoBehaviour
     }
 
     
-    public void KingSelection()
+    public void CheckIfCanAttack()
     {
-        //ASSEGNATO IN MAP GENERATOR/
+        if (!hasAttacked && !isAbilityUsed && isSelected)
+        {
+            foreach (UnitScript unit in gameManagerScript.unitScriptList)
+            {
+                if (unit != this && unit.ownerIndex != ownerIndex)
+                {
+                    if (!hasAttacked && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    {
+                        unit.spriteRenderer.color = Color.red;
+                    }
+
+                    if (!isAbilityUsed && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    {
+                        unit.outlineScript.color = 2;
+                        unit.outlineScript.enabled = true;
+                    }
+                } 
+                else
+                {
+
+                }
+            }
+        }
     }
 
 
@@ -204,8 +230,8 @@ public class UnitScript : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, movementDestination);
             transform.position = Vector3.Lerp(transform.position, movementDestination, 5 / distance * Time.deltaTime);
-            unitIsMoving = true;
             circleColliderGameobject.SetActive(false);
+            unitIsMoving = true;
             ForceUnitNull();
         }
         else
@@ -222,18 +248,12 @@ public class UnitScript : MonoBehaviour
 
         if (!isInvulnerable)
         {
-            Debug.Log("attackDistance: " + attackDistance.ToString());
-
             if (attackDistance <= attacker.stats.attackRange)
             {
-                Debug.Log("Distanza");
-
                 int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
                 if (tempDamage > bonusDefense)
                 {
-                    Debug.Log("Danno");
-
                     unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                     tempDamage -= bonusDefense;
@@ -262,17 +282,11 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void UseAbility(Ability ability)
-    {
-
-    }
-
-
     void Death() // Gestione morte eroi
     {
         isDead = true;
-        spriteRenderer.enabled = false;
         enabled = false;
+        spriteRenderer.enabled = false;
         gameObject.GetComponent<Canvas>().enabled = false;
         circleColliderGameobject.SetActive(false);
 
@@ -288,12 +302,6 @@ public class UnitScript : MonoBehaviour
             }
         }
     }
-
-
-    //void Respawn()
-    //{
-
-    //}
 
 
     void OnTriggerEnter2D(Collider2D other)
@@ -330,6 +338,7 @@ public class UnitScript : MonoBehaviour
         }
     }
 
+
     void ForceUnitNull()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
@@ -344,8 +353,7 @@ public class UnitScript : MonoBehaviour
     // Abilità Healer
     public void AbilityCure(UnitScript attacker)
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
-        
+        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));     
 
         if (attackDistance <= 1.1f)
         {
@@ -411,7 +419,7 @@ public class UnitScript : MonoBehaviour
             attacker.movementDestination = temp;
 
             targetTile.currentUnit = attackerTile.currentUnit;
-            attackerTile.currentUnit = GetComponent<UnitScript>();
+            attackerTile.currentUnit = this; //GetComponent<UnitScript>();
 
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
@@ -450,6 +458,7 @@ public class UnitScript : MonoBehaviour
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
         }
     }
+
 
     public void CheckCooldown()
     {
