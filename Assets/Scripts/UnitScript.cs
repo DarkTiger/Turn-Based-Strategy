@@ -33,7 +33,7 @@ public class UnitScript : MonoBehaviour
     public int bonusAttack = 0;                     // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
-    SpriteRenderer spriteRenderer;                  // Gestione delle sprite associate alle unità
+    public SpriteRenderer spriteRenderer;           // Gestione delle sprite associate alle unità
     // public Color selectionColorP1;
     // public Color selectionColorP2;
     public Color selectionColor;
@@ -89,7 +89,7 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
-        if ((Input.GetMouseButtonDown(0) /*&& Input.GetKey(KeyCode.LeftShift)*/) && !isDead && !isStunned)
+        if ((Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/) && !isDead && !isStunned)
         {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
@@ -113,11 +113,12 @@ public class UnitScript : MonoBehaviour
 
                             if (isSelected)
                             {
-                                
-                                gameManagerScript.currentSelectedUnit = this; //GetComponent<UnitScript>();
+                                spriteRenderer.color = selectionColor;
+                                gameManagerScript.currentSelectedUnit = this;
                             }
                             else
                             {
+                                spriteRenderer.color = Color.white;
                                 gameManagerScript.currentSelectedUnit = null;
                             }
                         }
@@ -127,11 +128,15 @@ public class UnitScript : MonoBehaviour
                     }
                 }
             }
-            else if (currentMoveCount <= 0)
-            {
-                isSelected = false;
-            }
+             
         }
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
+
 
         if (isSelected && !gameManagerScript.isGameOver)// && currentMoveCount > 0)
         {
@@ -150,13 +155,13 @@ public class UnitScript : MonoBehaviour
                     spriteRenderer.color = selectionColorP2;
                 }  
             //}*/
-            spriteRenderer.color = selectionColor;
+            //spriteRenderer.color = selectionColor;
           
         }
         else
         {
 
-            spriteRenderer.color = Color.white;
+            //spriteRenderer.color = Color.white;
         }
 
 
@@ -195,10 +200,6 @@ public class UnitScript : MonoBehaviour
                         unit.outlineScript.enabled = true;
                     }
                 } 
-                else
-                {
-
-                }
             }
         }
     }
@@ -419,7 +420,7 @@ public class UnitScript : MonoBehaviour
             attacker.movementDestination = temp;
 
             targetTile.currentUnit = attackerTile.currentUnit;
-            attackerTile.currentUnit = this; //GetComponent<UnitScript>();
+            attackerTile.currentUnit = this;
 
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;

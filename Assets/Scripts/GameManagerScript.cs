@@ -256,6 +256,7 @@ public class GameManagerScript : MonoBehaviour
             unit.hasAttacked = false;
             unit.isAbilityUsed = false;
             unit.isSelected = false;
+            unit.spriteRenderer.color = Color.white;
         }
 
         foreach (TileScript tile in tileScriptList)
