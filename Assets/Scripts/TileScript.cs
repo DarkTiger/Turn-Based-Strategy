@@ -140,14 +140,13 @@ public class TileScript : MonoBehaviour
                                         {
                                             tileScriptHit.currentUnit.AbilitySwap(unitScript, tileScriptHit, GetComponent<TileScript>());
                                         }
-
                                         else if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
-                                           if (unitScript.roleIndex == 4 && !unitScript.isAbilityInCooldown)
+                                            if (unitScript.roleIndex == 4 && !unitScript.isAbilityInCooldown)
                                             {
                                                 tileScriptHit.currentUnit.AbilityStun(unitScript);
                                             }
-                                           else if (unitScript.roleIndex == 2 && !unitScript.isAbilityInCooldown)
+                                            else if (unitScript.roleIndex == 2 && !unitScript.isAbilityInCooldown)
                                             {
                                                 tileScriptHit.currentUnit.AbilityCripple(unitScript);
                                             }

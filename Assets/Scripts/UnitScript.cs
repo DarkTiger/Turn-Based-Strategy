@@ -46,7 +46,7 @@ public class UnitScript : MonoBehaviour
     public bool unitIsMoving = false;
     Vector3 positionInPixels;
 
-    GameObject circleColliderGameobject; // Gestione dei collider circolari
+    GameObject circleColliderGameobject;            // Gestione dei collider circolari
     Outline outlineScript;
 
     public int tempTurn = 0;
@@ -89,81 +89,69 @@ public class UnitScript : MonoBehaviour
 
     void Selection()
     {
-        if ((Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/) && !isDead && !isStunned)
+        if (!isDead && !isStunned)
         {
-            float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y;
-
-            if ((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 12))
+            if (Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/)
             {
-                GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
-
-                foreach (GameObject unit in units)
+                if (!unitIsMoving)
                 {
-                    if (gameManagerScript.playerIndex == ownerIndex)
+                    isSelected = false;
+                    spriteRenderer.color = Color.white;
+                }
+
+                float mouseX = Input.mousePosition.x;
+                float mouseY = Input.mousePosition.y;
+
+                if ((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 12))
+                {
+                    GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
+
+                    foreach (GameObject unit in units)
                     {
-                        if (unit != gameObject)
+                        if (gameManagerScript.playerIndex == ownerIndex)
                         {
-                            unit.GetComponent<UnitScript>().isSelected = false;
-                        }
-
-                        if (currentMoveCount > 0 || !hasAttacked)
-                        {
-                            isSelected = !isSelected;
-
-                            if (isSelected)
+                            if (unit != gameObject)
                             {
-                                spriteRenderer.color = selectionColor;
-                                gameManagerScript.currentSelectedUnit = this;
+                                unit.GetComponent<UnitScript>().isSelected = false;
                             }
-                            else
-                            {
-                                spriteRenderer.color = Color.white;
-                                gameManagerScript.currentSelectedUnit = null;
-                            }
-                        }
 
-                        circleColliderGameobject.SetActive(false);
-                        circleColliderGameobject.SetActive(true);
+                            if (currentMoveCount > 0 || !hasAttacked)
+                            {
+                                isSelected = !isSelected;
+
+                                if (isSelected)
+                                {
+                                    spriteRenderer.color = selectionColor;
+                                    gameManagerScript.currentSelectedUnit = this;
+                                }
+                                else
+                                {
+                                    spriteRenderer.color = Color.white;
+                                    gameManagerScript.currentSelectedUnit = null;
+                                }
+                            }
+
+                            circleColliderGameobject.SetActive(false);
+                            circleColliderGameobject.SetActive(true);
+                        }
                     }
                 }
             }
-             
-        }
-
-
-        if (Input.GetMouseButtonDown(0))
-        {
-
-        }
-
-
-        if (isSelected && !gameManagerScript.isGameOver)// && currentMoveCount > 0)
-        {
-            /*if (isKing)
+            /*else if (isSelected && Input.GetMouseButtonDown(0))
             {
-                spriteRenderer.color = kingColor;
-            }
-            else
-            {
-                if (ownerIndex == 1)
+                float mouseX = Input.mousePosition.x;
+                float mouseY = Input.mousePosition.y;
+
+                if (!((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 12)))
                 {
-                    spriteRenderer.color = selectionColorP1;
+                    if (currentMoveCount <= 0 && (hasAttacked || isAbilityUsed))
+                    {
+                        isSelected = false;
+                        spriteRenderer.color = Color.white;
+                    }
                 }
-                else
-                {
-                    spriteRenderer.color = selectionColorP2;
-                }  
-            //}*/
-            //spriteRenderer.color = selectionColor;
-          
+            }*/
         }
-        else
-        {
-
-            //spriteRenderer.color = Color.white;
-        }
-
 
         try
         {
@@ -172,7 +160,7 @@ public class UnitScript : MonoBehaviour
                 outlineScript.enabled = true;
                 outlineScript.color = ownerIndex - 1;
             }
-            else
+            else if (outlineScript.color != 2)
             {
                 outlineScript.enabled = false;
             }
@@ -194,7 +182,7 @@ public class UnitScript : MonoBehaviour
                         unit.spriteRenderer.color = Color.red;
                     }
 
-                    if (!isAbilityUsed && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
+                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
                     {
                         unit.outlineScript.color = 2;
                         unit.outlineScript.enabled = true;
@@ -280,6 +268,10 @@ public class UnitScript : MonoBehaviour
                 }
                 attacker.hasAttacked = true;
                 attacker.currentMoveCount = 0;
+
+                attacker.spriteRenderer.color = Color.white;
+                spriteRenderer.color = Color.white;
+                outlineScript.enabled = false;
             }
         }
     }
@@ -378,6 +370,10 @@ public class UnitScript : MonoBehaviour
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
                 unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+
+                attacker.spriteRenderer.color = Color.white;
+                spriteRenderer.color = Color.white;
+                outlineScript.enabled = false;
             }
         }
     }
@@ -395,6 +391,10 @@ public class UnitScript : MonoBehaviour
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+
+            attacker.spriteRenderer.color = Color.white;
+            spriteRenderer.color = Color.white;
+            outlineScript.enabled = false;
         }
     }
 
@@ -408,6 +408,10 @@ public class UnitScript : MonoBehaviour
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+
+        attacker.spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.white;
+        outlineScript.enabled = false;
     }
 
     // Abilità Specialist 2
@@ -429,6 +433,10 @@ public class UnitScript : MonoBehaviour
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+
+            attacker.spriteRenderer.color = Color.white;
+            spriteRenderer.color = Color.white;
+            outlineScript.enabled = false;
         }
     }
     
@@ -442,6 +450,10 @@ public class UnitScript : MonoBehaviour
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+
+        attacker.spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.white;
+        outlineScript.enabled = false;
     }
 
     // Abilità Ranged
@@ -459,6 +471,10 @@ public class UnitScript : MonoBehaviour
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+
+            attacker.spriteRenderer.color = Color.white;
+            spriteRenderer.color = Color.white;
+            outlineScript.enabled = false;
         }
     }
 
