@@ -349,22 +349,25 @@ public class UnitScript : MonoBehaviour
 
         if (attackDistance <= 1.1f)
         {
-            int tempHealth = stats.health + 5;
+            if (stats.health != stats.maxHealth)
+            {
+                int tempHealth = stats.health + 5;
 
-            if (tempHealth > stats.maxHealth)
-            {
-                stats.health = stats.maxHealth;
+                if (tempHealth > stats.maxHealth)
+                {
+                    stats.health = stats.maxHealth;
+                }
+                else
+                {
+                    stats.health += 5;
+                }
+
+                attacker.isAbilityUsed = true;
+                attacker.isAbilityInCooldown = true;
+                attacker.currentMoveCount = 0;
+                attacker.tempTurn = gameManagerScript.turnIndex;
+                unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
             }
-            else
-            {
-                stats.health += 5;
-            }
-            
-            attacker.isAbilityUsed = true;
-            attacker.isAbilityInCooldown = true;
-            attacker.currentMoveCount = 0;
-            attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
         }
     }
 
