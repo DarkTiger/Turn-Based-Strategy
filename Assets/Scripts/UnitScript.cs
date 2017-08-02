@@ -27,7 +27,7 @@ public class UnitScript : MonoBehaviour
 
     public bool isStunned = false;
     public bool isInvulnerable = false;
-    public bool isReady = false;                    // Contrattacco
+    public bool isReadyToCounterAttack = false;                    // Contrattacco
     public bool isCrippled = false;
     
     public int bonusAttack = 0;                     // Gestione dei bonus forniti dalle tiles ambientali
@@ -137,20 +137,6 @@ public class UnitScript : MonoBehaviour
                     }
                 }
             }
-            /*else if (isSelected && Input.GetMouseButtonDown(0))
-            {
-                float mouseX = Input.mousePosition.x;
-                float mouseY = Input.mousePosition.y;
-
-                if (!((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 12)))
-                {
-                    if (currentMoveCount <= 0 && (hasAttacked || isAbilityUsed))
-                    {
-                        isSelected = false;
-                        spriteRenderer.color = Color.white;
-                    }
-                }
-            }*/
         }
 
         try
@@ -184,8 +170,19 @@ public class UnitScript : MonoBehaviour
 
                     if (!isKing && !isAbilityUsed && !isAbilityInCooldown && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
                     {
-                        unit.outlineScript.color = 2;
-                        unit.outlineScript.enabled = true;
+                        if (roleIndex != 0 && roleIndex != 1 && roleIndex != 3)
+                        {
+                            unit.outlineScript.color = 2;
+                            unit.outlineScript.enabled = true;
+                        }
+                        else
+                        {
+                            if (!isReadyToCounterAttack && !isInvulnerable && stats.health < stats.maxHealth)
+                            {
+                                outlineScript.color = 2;
+                                outlineScript.enabled = true;
+                            }
+                        }
                     }
                 } 
             }
@@ -209,7 +206,7 @@ public class UnitScript : MonoBehaviour
 
             ability = role.GetUnitAbility(roleIndex);
         }
-        catch (System.Exception) { }
+        catch (System.Exception) {}
     }
 
 
@@ -235,8 +232,6 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        //Debug.Log(attackDistance);
-
         if (!isInvulnerable)
         {
             if (attackDistance <= attacker.stats.attackRange)
@@ -250,7 +245,7 @@ public class UnitScript : MonoBehaviour
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
 
-                    if (isReady)
+                    if (isReadyToCounterAttack)
                     {
                         attacker.stats.health -= 3;
 
@@ -363,6 +358,8 @@ public class UnitScript : MonoBehaviour
         {
             if (stats.health != stats.maxHealth)
             {
+                unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+
                 int tempHealth = stats.health + 5;
 
                 if (tempHealth > stats.maxHealth)
@@ -378,7 +375,6 @@ public class UnitScript : MonoBehaviour
                 attacker.isAbilityInCooldown = true;
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
-                unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
                 DeselectUnitsAfterAttack();
             }
@@ -392,12 +388,12 @@ public class UnitScript : MonoBehaviour
 
         if (attackDistance <= 1.1f)
         {
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
             isStunned = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
             DeselectUnitsAfterAttack();
         }
@@ -406,13 +402,13 @@ public class UnitScript : MonoBehaviour
     // Abilità Assassin
     public void AbilityInvisibility(UnitScript attacker)
     {
-        attacker.isInvulnerable = true;
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
+        attacker.isInvulnerable = true;
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
         DeselectUnitsAfterAttack();
     }
@@ -424,6 +420,8 @@ public class UnitScript : MonoBehaviour
                 
         if (attackDistance <= 1.1f)
         {            
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+
             Vector3 temp = movementDestination;
             movementDestination = attacker.movementDestination;
             attacker.movementDestination = temp;
@@ -435,7 +433,6 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
             DeselectUnitsAfterAttack();
         }
@@ -444,13 +441,12 @@ public class UnitScript : MonoBehaviour
     // Abilità Tank
     public void AbilityRetaliation(UnitScript attacker)
     {
-        attacker.isReady = true;
-
+        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+        attacker.isReadyToCounterAttack = true;
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
 
         DeselectUnitsAfterAttack();
     }
@@ -462,14 +458,13 @@ public class UnitScript : MonoBehaviour
 
         if (attackDistance <= 3.1f)
         {
-            isCrippled = true;
-            // currentMoveCount = 1;
+            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
+            isCrippled = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
 
             DeselectUnitsAfterAttack();
         }

@@ -243,7 +243,7 @@ public class GameManagerScript : MonoBehaviour
             else
             {
                 unit.isInvulnerable = false;
-                unit.isReady = false;
+                unit.isReadyToCounterAttack = false;
 
                 if (unit.isCrippled)
                 {

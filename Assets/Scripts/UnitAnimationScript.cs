@@ -53,7 +53,7 @@ public class UnitAnimationScript : MonoBehaviour
     {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (!abilityIsPersistent || (!unitScript.isReady && !unitScript.isStunned && !unitScript.isInvulnerable))
+        if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable))
         {
             if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack"))
             {
