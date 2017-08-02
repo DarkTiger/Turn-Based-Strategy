@@ -102,7 +102,7 @@ public class UnitScript : MonoBehaviour
                 float mouseX = Input.mousePosition.x;
                 float mouseY = Input.mousePosition.y;
 
-                if ((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 12))
+                if ((mouseX > positionInPixels.x - 24) && (mouseX < positionInPixels.x + 24) && (mouseY > positionInPixels.y - 40) && (mouseY < positionInPixels.y + 8))
                 {
                     GameObject[] units = GameObject.FindGameObjectsWithTag("UnitsP" + ownerIndex.ToString());
 
@@ -175,16 +175,20 @@ public class UnitScript : MonoBehaviour
                             unit.outlineScript.color = 2;
                             unit.outlineScript.enabled = true;
                         }
-                        else
-                        {
-                            if (!isReadyToCounterAttack && !isInvulnerable && stats.health < stats.maxHealth)
-                            {
-                                outlineScript.color = 2;
-                                outlineScript.enabled = true;
-                            }
-                        }
                     }
                 } 
+            }
+
+            if (!isKing && !isAbilityUsed && !isAbilityInCooldown)
+            {
+                if (roleIndex == 0 || roleIndex == 1 || roleIndex == 3)
+                {
+                    if (!isReadyToCounterAttack && !isInvulnerable && roleIndex != 3 || (roleIndex == 3 && stats.health < stats.maxHealth))
+                    {
+                        outlineScript.color = 2;
+                        outlineScript.enabled = true;
+                    }
+                }
             }
         }
     }
