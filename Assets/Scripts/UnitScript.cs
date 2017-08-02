@@ -58,7 +58,6 @@ public class UnitScript : MonoBehaviour
     {
         stats = GetComponent<Stats>();
         role = GetComponent<Role>();
-
         unitAnimationScript = GetComponent<UnitAnimationScript>();
         spriteRenderer = transform.GetChild(7).GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
@@ -84,6 +83,7 @@ public class UnitScript : MonoBehaviour
         positionInPixels = cam.WorldToScreenPoint(transform.position);
 
         CheckIfCanAttack();
+        SetOrderInLayer();
     }
 
 
@@ -470,5 +470,76 @@ public class UnitScript : MonoBehaviour
         }
 
         cooldownImage.enabled = isAbilityInCooldown;
+    }
+
+    void SetOrderInLayer()
+    {
+        if (isSelected)
+        {
+            spriteRenderer.sortingOrder = 1;
+        }
+
+        else
+        {
+            if (transform.position.y >= 0 && transform.position.y <= 0.625)
+            {
+                spriteRenderer.sortingOrder = -1;
+            }
+
+            if (transform.position.y >= 0.626 && transform.position.y <= 1.25)
+            {
+                spriteRenderer.sortingOrder = -2;
+            }
+
+            if (transform.position.y >= 1.26 && transform.position.y <= 1.875)
+            {
+                spriteRenderer.sortingOrder = -3;
+            }
+
+            if (transform.position.y >= 1.876 && transform.position.y <= 2.5)
+            {
+                spriteRenderer.sortingOrder = -4;
+            }
+
+            if (transform.position.y >= 2.6 && transform.position.y <= 3.125)
+            {
+                spriteRenderer.sortingOrder = -5;
+            }
+
+            if (transform.position.y >= 3.126 && transform.position.y <= 3.75)
+            {
+                spriteRenderer.sortingOrder = -6;
+            }
+
+            if (transform.position.y >= 3.76 && transform.position.y <= 4.375)
+            {
+                spriteRenderer.sortingOrder = -7;
+            }
+
+            if (transform.position.y >= 4.376 && transform.position.y <= 5)
+            {
+                spriteRenderer.sortingOrder = -8;
+            }
+
+            if (transform.position.y >= 5.1 && transform.position.y <= 5.625)
+            {
+                spriteRenderer.sortingOrder = -9;
+            }
+
+            if (transform.position.y >= 5.626 && transform.position.y <= 6.25)
+            {
+                spriteRenderer.sortingOrder = -10;
+            }
+
+            if (transform.position.y >= 6.26 && transform.position.y <= 6.875)
+            {
+                spriteRenderer.sortingOrder = -11;
+            }
+
+            if (transform.position.y >= 6.876 && transform.position.y <= 7.5)
+            {
+                spriteRenderer.sortingOrder = -12;
+            }
+        }
     }
 }

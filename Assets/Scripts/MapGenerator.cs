@@ -206,6 +206,7 @@ public class MapGenerator : MonoBehaviour
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
                 worldTiles.Add(newTile);
+                newTile.GetComponent<Renderer>().sortingOrder = -13;
 
                 if ((y % 2 != 0) || (y == 6 && x == 2))
                 {
