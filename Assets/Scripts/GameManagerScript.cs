@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 
 public class GameManagerScript : MonoBehaviour
-{ 
+{
+    TeamMenuScript teamMenuScript;
+
     public int playerIndex;                 // Indica a quale giocatore appartiene l'unità
     public int turnIndex = 1;
 
@@ -50,15 +52,15 @@ public class GameManagerScript : MonoBehaviour
     GameObject rematchPanel;
 
 
-
-
     void Start()
     {
         unitsList = new List<GameObject>();
         tilesList = new List<GameObject>();
         unitScriptList = new List<UnitScript>();
         tileScriptList = new List<TileScript>();
-                
+
+        teamMenuScript = GameObject.Find("TeamMenuPanel").GetComponent<TeamMenuScript>();
+
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
         helpPanel = GameObject.Find("HelpPanel");
@@ -80,6 +82,8 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+        AudioChange();
+
         if (mapCreated)
         {
             //Carico tutte le unità di gioco in una lista una volta per averle disponibili sempre
@@ -389,5 +393,14 @@ public class GameManagerScript : MonoBehaviour
     public void OnBackButtonClicked()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    // Gestione audio
+    public void AudioChange()
+    {
+        if (teamMenuScript.isTeamPanelDeactivated)
+        {
+            AudioMenuScript.instance.menuMusic.Stop();
+        }
     }
 }

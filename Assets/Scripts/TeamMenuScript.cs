@@ -51,6 +51,7 @@ public class TeamMenuScript : MonoBehaviour
     public Button[] p1SlotButtons;
     public Button[] p2SlotButtons;
 
+    public bool isTeamPanelDeactivated = false;
     
 
 
@@ -88,6 +89,7 @@ public class TeamMenuScript : MonoBehaviour
         btnStartGameText = btnStartGame.transform.GetChild(0).GetComponent<Text>();
         btnStartGameText.text = "PLAYER 1 READY";
 
+        isTeamPanelDeactivated = false;
         ResetP2SlotAtStart();
         OnListsChange();
     }
@@ -412,6 +414,7 @@ public class TeamMenuScript : MonoBehaviour
 
             GameObject.Find("Map").GetComponent<MapGenerator>().CreateMap(teamRolesP1Inverted, teamRolesP2Inverted);
             gameObject.SetActive(false);
+            isTeamPanelDeactivated = true;
         }
     }
 }
