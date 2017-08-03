@@ -25,11 +25,12 @@ public class UnitAnimationScript : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// PLAYA L'ANIMAZIONE DELL'ATTACCO
-    /// </summary>
-    /// <param name="attackerRoleIndex">INDICE CLASSE ATTACCANTE</param>
-    /// <param name="isAbility">If set to <c>true</c> E' UN'ABILITA' (true, false)</param>
+    public void PlayDeathAnimation()
+    {
+        animator.SetBool("OnDead", true);
+    }
+
+
     public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
     {
         animator.SetInteger("AttackerRoleIndex", attackerRoleIndex);
@@ -55,23 +56,31 @@ public class UnitAnimationScript : MonoBehaviour
 
         if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable))
         {
-            if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack"))
+            if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack") || state.IsName("KingAttack"))
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    animator.SetBool("Attack", false);
+                    /*animator.SetBool("Attack", false);
                     animator.SetBool("Ability", false);
-                    animator.SetInteger("AttackerRoleIndex", -1);
+                    animator.SetInteger("AttackerRoleIndex", -1);*/
                 }
             }
-            else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility"))
+            else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility"))
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    animator.SetBool("Ability", false);
+                    /*animator.SetBool("Ability", false);
                     animator.SetBool("Attack", false);
-                    animator.SetInteger("AttackerRoleIndex", -1);
+                    animator.SetInteger("AttackerRoleIndex", -1);*/
                 }
+            }
+        }
+
+        if (state.IsName("Death"))
+        {
+            if (state.normalizedTime >= state.length)
+            {
+                animator.SetBool("OnDead", false);
             }
         }
     }

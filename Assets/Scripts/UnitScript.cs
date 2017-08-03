@@ -264,12 +264,14 @@ public class UnitScript : MonoBehaviour
 
                         if (attacker.stats.health <= 0)
                         {
+                            unitAnimationScript.PlayDeathAnimation();
                             attacker.Death();
                         }
                     }
 
                     if (stats.health <= 0)
                     {
+                        unitAnimationScript.PlayDeathAnimation();
                         Death();
                     }
 
@@ -501,7 +503,6 @@ public class UnitScript : MonoBehaviour
         {
             spriteRenderer.sortingOrder = 0;
         }
-
         else
         {
             if (transform.position.y >= 0 && transform.position.y <= 0.625)
