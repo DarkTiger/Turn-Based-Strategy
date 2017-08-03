@@ -272,24 +272,24 @@ public class MapGenerator : MonoBehaviour
             {
                 if (i != 3)
                 {
-                    newUnit.transform.GetChild(7).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
+                    newUnit.transform.GetChild(8).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[roleIndex];
                 }
                 else
                 {
                     newUnitScript.isKing = true;
-                    newUnit.transform.GetChild(7).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[6];
+                    newUnit.transform.GetChild(8).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP1[6];
                 }
             }
             else
             {
                 if (i != 3)
                 {
-                    newUnit.transform.GetChild(7).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
+                    newUnit.transform.GetChild(8).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[roleIndex];
                 }
                 else
                 {
                     newUnitScript.isKing = true;
-                    newUnit.transform.GetChild(7).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[6];
+                    newUnit.transform.GetChild(8).GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitScript>().spritesP2[6];
                 }
             }
 

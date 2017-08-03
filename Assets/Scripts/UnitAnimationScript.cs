@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class UnitAnimationScript : MonoBehaviour 
 {
-    public Animator animator;
+    Animator stateAnimator;
+    Animator hitAnimator;
     int attackerRoleIndex;
     bool abilityIsPersistent = false;
     UnitScript unitScript;
@@ -13,7 +14,8 @@ public class UnitAnimationScript : MonoBehaviour
 
 	void Start () 
     {
-	    animator = transform.GetChild(6).gameObject.GetComponent<Animator>();
+        stateAnimator = transform.GetChild(6).gameObject.GetComponent<Animator>();
+        hitAnimator = transform.GetChild(7).gameObject.GetComponent<Animator>();
         attackerRoleIndex = GetComponent<UnitScript>().roleIndex;
         unitScript = GetComponent<UnitScript>();
     }
@@ -27,23 +29,23 @@ public class UnitAnimationScript : MonoBehaviour
 
     public void PlayDeathAnimation()
     {
-        animator.SetBool("OnDead", true);
+        hitAnimator.SetBool("OnDead", true);
     }
 
 
     public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
     {
-        animator.SetInteger("AttackerRoleIndex", attackerRoleIndex);
+        hitAnimator.SetInteger("AttackerRoleIndex", attackerRoleIndex);
 
         if (isAbility)
         {
-            animator.SetBool("Ability", true);
-            animator.SetBool("Attack", false);
+            hitAnimator.SetBool("Ability", true);
+            hitAnimator.SetBool("Attack", false);
         }
         else
         {
-            animator.SetBool("Attack", true);
-            animator.SetBool("Ability", false);
+            hitAnimator.SetBool("Attack", true);
+            hitAnimator.SetBool("Ability", false);
         }
 
         abilityIsPersistent = persistent;
@@ -52,7 +54,7 @@ public class UnitAnimationScript : MonoBehaviour
 
     void CheckAnimationsState()
     {
-        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo state = hitAnimator.GetCurrentAnimatorStateInfo(0);
 
         if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable))
         {
@@ -60,12 +62,12 @@ public class UnitAnimationScript : MonoBehaviour
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    animator.SetBool("Attack", false);
+                    hitAnimator.SetBool("Attack", false);
 
                     if (!state.IsName("KingAttack"))
                     {
-                        animator.SetBool("Ability", false);
-                        animator.SetInteger("AttackerRoleIndex", -1);
+                        hitAnimator.SetBool("Ability", false);
+                        hitAnimator.SetInteger("AttackerRoleIndex", -1);
                     }
                 }
             }
@@ -75,9 +77,9 @@ public class UnitAnimationScript : MonoBehaviour
                 {
                     if (!state.IsName("PorcupineAbility"))
                     {
-                        animator.SetBool("Ability", false);
-                        animator.SetBool("Attack", false);
-                        animator.SetInteger("AttackerRoleIndex", -1);
+                        hitAnimator.SetBool("Ability", false);
+                        hitAnimator.SetBool("Attack", false);
+                        hitAnimator.SetInteger("AttackerRoleIndex", -1);
                     }
                 }
             } 
@@ -87,7 +89,7 @@ public class UnitAnimationScript : MonoBehaviour
         {
             if (state.normalizedTime >= state.length)
             {
-                animator.SetBool("OnDead", false);
+                hitAnimator.SetBool("OnDead", false);
             }
         }
     }
