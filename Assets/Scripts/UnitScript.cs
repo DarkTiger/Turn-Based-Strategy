@@ -57,6 +57,8 @@ public class UnitScript : MonoBehaviour
     AudioClip abilitySoundEffect;
     public AudioClip[] attackSoundEffects;          // Audio attacchi
     AudioClip attackSoundEffect;
+    public AudioClip movementSoundEffect;                  // Audio movimento
+    bool isMovementAudioPlaying = false;
 
 
 
@@ -91,6 +93,7 @@ public class UnitScript : MonoBehaviour
 
         CheckIfUnitCanAttack();
         SetOrderInLayer();
+        //PlayMovementAudio();
     }
 
 
@@ -160,6 +163,15 @@ public class UnitScript : MonoBehaviour
             }
         }
         catch (System.Exception) { }
+    }
+
+    void PlayMovementAudio()
+    {
+        if (unitIsMoving && !soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = movementSoundEffect;
+            soundsAudioSource.Play();            
+        }
     }
 
     
