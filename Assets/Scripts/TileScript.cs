@@ -18,7 +18,9 @@ public class TileScript : MonoBehaviour
     public Sprite[] movementPreviewSprites; // Sprite movimento
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
-    public Color mouseOverColor;
+    public Color p1Color;
+    public Color p2Color;
+
 
     public int activationTurnIndex = -1;
     
@@ -53,11 +55,12 @@ public class TileScript : MonoBehaviour
                 unitPos.y -= 0.3f;
                 unitPos.z = 1;
 
-                if (unitPos == transform.position)
+                if (unitPos == transform.position || unit.unitIsMoving)
                 {
                     isInRange = false;
                     isTileTaken = true;
                     currentUnit = unit;
+                    spriteRenderer.color = Color.white;
                 }
             }
         }
@@ -98,6 +101,17 @@ public class TileScript : MonoBehaviour
             {
                 //spriteRenderer.sprite = sprites[typeIndex]; 
                 spriteRenderer.color = Color.white;
+            }
+            else
+            {
+                if (currentUnit.ownerIndex == 1)
+                {
+                    spriteRenderer.color = p1Color;
+                }
+                else
+                {
+                    spriteRenderer.color = p2Color;
+                }
             }
         }
     }
@@ -197,6 +211,10 @@ public class TileScript : MonoBehaviour
                     unitScript.movementDestination = movementDestinationTemp;
                     unitScript.currentMoveCount -= 1;
 
+                    //isTileTaken = false;
+                    //currentUnit = null;
+                    //spriteRenderer.color = Color.white;
+
                     break;
                 }
                 /*else if (!isInRange)
@@ -205,11 +223,6 @@ public class TileScript : MonoBehaviour
                 }*/
             }
         } 
-
-        if (!isInRange)
-        {
-            spriteRenderer.color = mouseOverColor;
-        }
     }
 
     
