@@ -153,6 +153,11 @@ public class GameManagerScript : MonoBehaviour
         {
             TacticalMode();
         }
+
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            HelpScreen();
+        }
     }
 
 
@@ -318,7 +323,7 @@ public class GameManagerScript : MonoBehaviour
         tutorialScreen.sprite = tutorialImages[1];
     }
 
-    public void SetCommandsImage()
+    public void SetControlsImage()
     {
 
     }

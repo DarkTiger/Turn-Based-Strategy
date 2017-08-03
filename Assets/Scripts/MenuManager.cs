@@ -68,7 +68,7 @@ public class MenuManager : MonoBehaviour
         menuTutorialScreen.sprite = menuTutorialImages[1];
     }
 
-    public void SetMenuCommandsImage()
+    public void SetMenuControlsImage()
     {
 
     }
