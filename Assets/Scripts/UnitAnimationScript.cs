@@ -35,17 +35,27 @@ public class UnitAnimationScript : MonoBehaviour
 
     public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
     {
-        hitAnimator.SetInteger("AttackerRoleIndex", attackerRoleIndex);
-
-        if (isAbility)
+        Animator anim;
+        if (persistent)
         {
-            hitAnimator.SetBool("Ability", true);
-            hitAnimator.SetBool("Attack", false);
+            anim = stateAnimator;
         }
         else
         {
-            hitAnimator.SetBool("Attack", true);
-            hitAnimator.SetBool("Ability", false);
+            anim = hitAnimator;
+        }
+
+        anim.SetInteger("AttackerRoleIndex", attackerRoleIndex);
+
+        if (isAbility)
+        {
+            anim.SetBool("Ability", true);
+            anim.SetBool("Attack", false);
+        }
+        else
+        {
+            anim.SetBool("Attack", true);
+            anim.SetBool("Ability", false);
         }
 
         abilityIsPersistent = persistent;
