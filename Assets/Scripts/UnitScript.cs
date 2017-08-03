@@ -165,6 +165,7 @@ public class UnitScript : MonoBehaviour
         catch (System.Exception) { }
     }
 
+
     void PlayMovementAudio()
     {
         if (unitIsMoving && !soundsAudioSource.isPlaying)
@@ -261,11 +262,13 @@ public class UnitScript : MonoBehaviour
             circleColliderGameobject.SetActive(true);
         }
     }
-
+    
 
     public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+
+        Debug.Log(attackDistance.ToString() + "  " + Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
 
         if (!isInvulnerable)
         {

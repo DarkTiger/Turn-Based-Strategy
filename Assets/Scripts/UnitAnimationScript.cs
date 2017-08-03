@@ -73,11 +73,14 @@ public class UnitAnimationScript : MonoBehaviour
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    animator.SetBool("Ability", false);
-                    animator.SetBool("Attack", false);
-                    animator.SetInteger("AttackerRoleIndex", -1);
+                    if (!state.IsName("PorcupineAbility"))
+                    {
+                        animator.SetBool("Ability", false);
+                        animator.SetBool("Attack", false);
+                        animator.SetInteger("AttackerRoleIndex", -1);
+                    }
                 }
-            }
+            } 
         }
 
         if (state.IsName("Death"))
