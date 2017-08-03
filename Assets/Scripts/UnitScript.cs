@@ -52,6 +52,12 @@ public class UnitScript : MonoBehaviour
     public int tempTurn = 0;
     Image cooldownImage;
 
+    AudioSource soundsAudioSource;
+    public AudioClip[] abilitySoundEffects;         // Audio abilità
+    AudioClip abilitySoundEffect;
+    public AudioClip[] attackSoundEffects;          // Audio attacchi
+    AudioClip attackSoundEffect;
+
 
 
     void Start()
@@ -66,6 +72,7 @@ public class UnitScript : MonoBehaviour
         circleColliderGameobject = transform.GetChild(0).gameObject;
         outlineScript = transform.GetChild(7).GetComponent<Outline>();
         cooldownImage = transform.GetChild(5).GetComponent<Image>();
+        soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
 
         try {outlineScript.color = ownerIndex - 1;}
         catch (System.Exception) { };
@@ -258,6 +265,36 @@ public class UnitScript : MonoBehaviour
                 {
                     unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
+                    if (attacker.roleIndex == 0)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[0];
+                    }
+                    else if (attacker.roleIndex == 1)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[1];
+                    }
+                    else if (attacker.roleIndex == 2)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[2];
+                    }
+                    else if (attacker.roleIndex == 3)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[3];
+                    }
+                    else if (attacker.roleIndex == 4)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[4];
+                    }
+                    else if (attacker.roleIndex == 5)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[5];
+                    }
+                    else if (attacker.roleIndex == 6)
+                    {
+                        soundsAudioSource.clip = attackSoundEffects[6];
+                    }
+                    soundsAudioSource.Play();
+
                     tempDamage -= bonusDefense;
                     stats.health -= tempDamage;
 
@@ -378,6 +415,8 @@ public class UnitScript : MonoBehaviour
             if (stats.health != stats.maxHealth)
             {
                 unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+                soundsAudioSource.clip = abilitySoundEffects[3];
+                soundsAudioSource.Play();
 
                 int tempHealth = stats.health + 5;
 
@@ -408,6 +447,9 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= 1.1f)
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+            soundsAudioSource.clip = abilitySoundEffects[4];
+            soundsAudioSource.Play();
+
             isStunned = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
@@ -422,6 +464,8 @@ public class UnitScript : MonoBehaviour
     public void AbilityInvisibility(UnitScript attacker)
     {
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+        soundsAudioSource.clip = abilitySoundEffects[1];
+        soundsAudioSource.Play();
 
         attacker.isInvulnerable = true;
         attacker.isAbilityUsed = true;
@@ -440,6 +484,8 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= 1.1f)
         {            
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+            soundsAudioSource.clip = abilitySoundEffects[5];
+            soundsAudioSource.Play();
 
             Vector3 temp = movementDestination;
             movementDestination = attacker.movementDestination;
@@ -461,6 +507,9 @@ public class UnitScript : MonoBehaviour
     public void AbilityRetaliation(UnitScript attacker)
     {
         unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+        soundsAudioSource.clip = abilitySoundEffects[0];
+        soundsAudioSource.Play();
+
         attacker.isReadyToCounterAttack = true;
         attacker.isAbilityUsed = true;
         attacker.isAbilityInCooldown = true;
@@ -478,6 +527,8 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= 3.1f)
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+            soundsAudioSource.clip = abilitySoundEffects[2];
+            soundsAudioSource.Play();
 
             isCrippled = true;
             attacker.isAbilityUsed = true;
