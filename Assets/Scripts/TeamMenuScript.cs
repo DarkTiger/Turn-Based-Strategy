@@ -52,8 +52,9 @@ public class TeamMenuScript : MonoBehaviour
     public Button[] p2SlotButtons;
 
     public bool isTeamPanelDeactivated = false;
-    
 
+    AudioSource soundsAudioSource;
+    public AudioClip startSoundEffect;
 
     void Start ()
     {
@@ -85,6 +86,7 @@ public class TeamMenuScript : MonoBehaviour
         btnSpriteSlotP2_5 = p2SlotButtons[4].transform.GetChild(0).GetComponent<Image>();
         btnSpriteSlotP2_6 = p2SlotButtons[5].transform.GetChild(0).GetComponent<Image>();
 
+        soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
         btnStartGame = GameObject.Find("StartGameButton").GetComponent<Button>();
         btnStartGameText = btnStartGame.transform.GetChild(0).GetComponent<Text>();
         btnStartGameText.text = "PLAYER 1 READY";
@@ -387,6 +389,9 @@ public class TeamMenuScript : MonoBehaviour
 
     public void OnStartGameClick()
     {
+        soundsAudioSource.clip = startSoundEffect;
+        soundsAudioSource.Play();
+
         if (currentPlayer == 1)
         {
             currentPlayer = 2;

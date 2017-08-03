@@ -15,6 +15,10 @@ public class MenuManager : MonoBehaviour
     public Sprite[] menuTutorialImages;
     Image menuTutorialScreen;
 
+    AudioSource soundsAudioSource;
+    public AudioClip[] menuSoundEffects;
+    AudioClip menuSoundEffect;
+
 
 
     void Start()
@@ -23,9 +27,11 @@ public class MenuManager : MonoBehaviour
         panelMenuButtons = GameObject.Find("PanelMenuButtons");
         helpPanelMenu = GameObject.Find("HelpPanelMenu");
         menuTutorialScreen = GameObject.Find("MenuTutorialScreen").GetComponent<Image>();
+        soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
 
         panelMenuButtons.SetActive(false);
         helpPanelMenu.SetActive(false);
+
     }
 
 
@@ -34,6 +40,9 @@ public class MenuManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
+            soundsAudioSource.clip = menuSoundEffects[0];
+            soundsAudioSource.Play();
+
             startText.SetActive(false);
             panelMenuButtons.SetActive(true);
         }
