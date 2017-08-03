@@ -52,6 +52,7 @@ public class GameManagerScript : MonoBehaviour
     GameObject rematchPanel;
 
 
+
     void Start()
     {
         unitsList = new List<GameObject>();
@@ -76,6 +77,7 @@ public class GameManagerScript : MonoBehaviour
         helpPanel.SetActive(false);
         rematchPanel.SetActive(false);
         winnerPanel.SetActive(false);
+
         StartGame();
     }
 
@@ -398,9 +400,16 @@ public class GameManagerScript : MonoBehaviour
     // Gestione audio
     public void AudioChange()
     {
-        if (teamMenuScript.isTeamPanelDeactivated)
+        try
         {
-            AudioMenuScript.instance.menuMusic.Stop();
+            if (teamMenuScript.isTeamPanelDeactivated)
+            {
+                AudioMenuScript.instance.menuMusic.Stop();
+            }    
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log("DEVI PARTIRE DAL MAIN MENU!!!");   
         }
     }
 }

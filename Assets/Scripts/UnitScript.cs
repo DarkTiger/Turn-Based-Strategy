@@ -180,10 +180,13 @@ public class UnitScript : MonoBehaviour
                 }
                 else if (unit != this && unit.ownerIndex == ownerIndex)
                 {
-                    if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth)
+                    if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth || roleIndex == 5)
                     {
-                        unit.outlineScript.color = 2;
-                        unit.outlineScript.enabled = true;
+                        if (!isAbilityUsed && !isAbilityInCooldown && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
+                        {
+                            unit.outlineScript.color = 2;
+                            unit.outlineScript.enabled = true;
+                        }
                     }
                 }
             }
@@ -290,6 +293,7 @@ public class UnitScript : MonoBehaviour
         foreach (UnitScript unit in gameManagerScript.unitScriptList)
         {
             unit.spriteRenderer.color = Color.white;
+            unit.outlineScript.color = ownerIndex-1;
             unit.outlineScript.enabled = false;
             unit.isSelected = false;
         }

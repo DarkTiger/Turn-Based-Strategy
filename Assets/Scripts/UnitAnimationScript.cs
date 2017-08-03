@@ -60,18 +60,22 @@ public class UnitAnimationScript : MonoBehaviour
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    /*animator.SetBool("Attack", false);
-                    animator.SetBool("Ability", false);
-                    animator.SetInteger("AttackerRoleIndex", -1);*/
+                    animator.SetBool("Attack", false);
+
+                    if (!state.IsName("KingAttack"))
+                    {
+                        animator.SetBool("Ability", false);
+                        animator.SetInteger("AttackerRoleIndex", -1);
+                    }
                 }
             }
             else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility"))
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    /*animator.SetBool("Ability", false);
+                    animator.SetBool("Ability", false);
                     animator.SetBool("Attack", false);
-                    animator.SetInteger("AttackerRoleIndex", -1);*/
+                    animator.SetInteger("AttackerRoleIndex", -1);
                 }
             }
         }
