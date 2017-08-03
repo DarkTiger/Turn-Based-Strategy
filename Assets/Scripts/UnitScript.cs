@@ -47,7 +47,7 @@ public class UnitScript : MonoBehaviour
     Vector3 positionInPixels;
 
     GameObject circleColliderGameobject;            // Gestione dei collider circolari
-    Outline outlineScript;
+    public Outline outlineScript;
 
     public int tempTurn = 0;
     Image cooldownImage;
@@ -97,6 +97,7 @@ public class UnitScript : MonoBehaviour
                 {
                     isSelected = false;
                     spriteRenderer.color = Color.white;
+                    outlineScript.color = ownerIndex -1;
                 }
 
                 float mouseX = Input.mousePosition.x;
@@ -144,7 +145,7 @@ public class UnitScript : MonoBehaviour
             if (gameManagerScript.playerIndex == ownerIndex && !hasAttacked && !isAbilityUsed)
             {
                 outlineScript.enabled = true;
-                outlineScript.color = ownerIndex - 1;
+                //outlineScript.color = ownerIndex - 1;
             }
             else if (outlineScript.color != 2)
             {
@@ -176,7 +177,15 @@ public class UnitScript : MonoBehaviour
                             unit.outlineScript.enabled = true;
                         }
                     }
-                } 
+                }
+                else if (unit != this && unit.ownerIndex == ownerIndex)
+                {
+                    if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth)
+                    {
+                        unit.outlineScript.color = 2;
+                        unit.outlineScript.enabled = true;
+                    }
+                }
             }
 
             if (!isKing && !isAbilityUsed && !isAbilityInCooldown)
@@ -196,7 +205,7 @@ public class UnitScript : MonoBehaviour
 
     public void UpdateUnitStat()
     {
-        try  //RISOLTA QUESTA PALLA
+        try
         {
             Stats newStats;
             newStats = role.GetUnitRole(roleIndex);

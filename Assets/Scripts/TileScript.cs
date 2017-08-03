@@ -18,6 +18,7 @@ public class TileScript : MonoBehaviour
     public Sprite[] movementPreviewSprites; // Sprite movimento
     SpriteRenderer spriteRenderer;
     public Color selectionColor;
+    public Color mouseOverColor;
 
     public int activationTurnIndex = -1;
     
@@ -204,7 +205,13 @@ public class TileScript : MonoBehaviour
                 }*/
             }
         } 
+
+        if (!isInRange)
+        {
+            spriteRenderer.color = mouseOverColor;
+        }
     }
+
     
     void SetTileBonus()
     {
@@ -246,6 +253,7 @@ public class TileScript : MonoBehaviour
         }
     }
 
+
     void SetGameOver()
     {
         if (currentUnit != null && !gameManager.isGameOver)
@@ -259,17 +267,4 @@ public class TileScript : MonoBehaviour
             }
         }
     }
-
-    /* Abilità Specialist 2
-    public void AbilityBlock(UnitScript attacker, TileScript tile)
-    {r
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
-
-        if (attackDistance <= 1)
-        {
-            tile.isTileTaken = true;
-        }
-        attacker.hasAttacked = true;
-        attacker.currentMoveCount = 0;
-    }*/
 }

@@ -105,7 +105,6 @@ public class GameManagerScript : MonoBehaviour
         turnIndexText.text = "TURN PLAYER: " + playerIndex;
 
 
-
         if (currentSelectedUnit != null)
         {
             movementCountText.text = "MOVES: " + currentSelectedUnit.currentMoveCount.ToString();
@@ -223,17 +222,6 @@ public class GameManagerScript : MonoBehaviour
     }
 
 
-    void OnTurnChanged()
-    {
-
-    }
-
-
-    void UpdateTime()
-    {
-
-    }
-
     //Gestione turni: switch dell'indice del player attivo
     public void OnTurnButtonClick()
     {
@@ -262,6 +250,7 @@ public class GameManagerScript : MonoBehaviour
             unit.isAbilityUsed = false;
             unit.isSelected = false;
             unit.spriteRenderer.color = Color.white;
+            unit.outlineScript.color = unit.ownerIndex - 1;
         }
 
         foreach (TileScript tile in tileScriptList)
