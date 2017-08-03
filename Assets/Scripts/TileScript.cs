@@ -55,7 +55,7 @@ public class TileScript : MonoBehaviour
                 unitPos.y -= 0.3f;
                 unitPos.z = 1;
 
-                if (unitPos == transform.position || unit.unitIsMoving)
+                if (unitPos == transform.position || (currentUnit != null && currentUnit.unitIsMoving))
                 {
                     isInRange = false;
                     isTileTaken = true;
@@ -102,15 +102,22 @@ public class TileScript : MonoBehaviour
                 //spriteRenderer.sprite = sprites[typeIndex]; 
                 spriteRenderer.color = Color.white;
             }
-            else
+            else if (isTileTaken)
             {
-                if (currentUnit.ownerIndex == 1)
+                if (currentUnit != null)
                 {
-                    spriteRenderer.color = p1Color;
+                    if (currentUnit.ownerIndex == 1)
+                    {
+                        spriteRenderer.color = p1Color;
+                    }
+                    else
+                    {
+                        spriteRenderer.color = p2Color;
+                    }
                 }
                 else
                 {
-                    spriteRenderer.color = p2Color;
+                    spriteRenderer.color = Color.white;
                 }
             }
         }
@@ -211,9 +218,9 @@ public class TileScript : MonoBehaviour
                     unitScript.movementDestination = movementDestinationTemp;
                     unitScript.currentMoveCount -= 1;
 
-                    //isTileTaken = false;
-                    //currentUnit = null;
-                    //spriteRenderer.color = Color.white;
+                    isTileTaken = false;
+                    currentUnit = null;
+                    spriteRenderer.color = Color.white;
 
                     break;
                 }
