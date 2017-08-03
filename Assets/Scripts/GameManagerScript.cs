@@ -316,6 +316,7 @@ public class GameManagerScript : MonoBehaviour
             helpPanel.SetActive(!helpModeEnabled);
 
             helpModeEnabled = !helpModeEnabled;
+            tutorialScreen.sprite = tutorialImages[0];
     }
 
     public void SetLegendImage()

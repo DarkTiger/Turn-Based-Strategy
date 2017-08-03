@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class MenuManager : MonoBehaviour
 
     bool helpModeMenuEnabled = false;
 
+    public Sprite[] menuTutorialImages;
+    Image menuTutorialScreen;
+
 
 
     void Start()
@@ -18,6 +22,8 @@ public class MenuManager : MonoBehaviour
         startText = GameObject.Find("PressStart");
         panelMenuButtons = GameObject.Find("PanelMenuButtons");
         helpPanelMenu = GameObject.Find("HelpPanelMenu");
+        menuTutorialScreen = GameObject.Find("MenuTutorialScreen").GetComponent<Image>();
+
         panelMenuButtons.SetActive(false);
         helpPanelMenu.SetActive(false);
     }
@@ -49,5 +55,32 @@ public class MenuManager : MonoBehaviour
         helpPanelMenu.SetActive(!helpModeMenuEnabled);
 
         helpModeMenuEnabled = !helpModeMenuEnabled;
+        menuTutorialScreen.sprite = menuTutorialImages[0];
+    }
+
+    public void SetMenuLegendImage()
+    {
+        menuTutorialScreen.sprite = menuTutorialImages[0];
+    }
+
+    public void SetMenuRulesImage()
+    {
+        menuTutorialScreen.sprite = menuTutorialImages[1];
+    }
+
+    public void SetMenuCommandsImage()
+    {
+
+    }
+
+    public void SetMenuHudImage()
+    {
+
+    }
+
+    public void ExitMenuHelpScreen()
+    {
+        helpPanelMenu.SetActive(false);
+        helpModeMenuEnabled = false;
     }
 }
