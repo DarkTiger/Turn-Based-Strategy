@@ -133,16 +133,16 @@ public class GameManagerScript : MonoBehaviour
                 attackText.color = Color.green;
             }
 
-            attackText.text = "ATTACKED: " + currentSelectedUnit.hasAttacked.ToString();
+            attackText.text = "ATK" /*+ currentSelectedUnit.hasAttacked.ToString()*/;
 
             if (currentSelectedUnit.ability != null)
             {
-                abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
+                abilityText.text = "ABILITY " + currentSelectedUnit.ability.title;
             }
             else
             {
                 abilityText.color = Color.white;
-                abilityText.text = "ABILITY: (NOPE)";
+                abilityText.text = "ABILITY";
             }
         }
         else
@@ -150,9 +150,9 @@ public class GameManagerScript : MonoBehaviour
             movementCountText.color = Color.white;
             movementCountText.text = "MOVES: 0";
             abilityText.color = Color.white;
-            abilityText.text = "ABILITY: (NOPE)";
+            abilityText.text = "ABILITY";
             attackText.color = Color.white;
-            attackText.text = "ATTACKED: false";
+            attackText.text = "ATK";
         }
 
         if (Input.GetKeyUp(KeyCode.H))
