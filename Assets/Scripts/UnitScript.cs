@@ -184,12 +184,12 @@ public class UnitScript : MonoBehaviour
             {
                 if (unit != this && unit.ownerIndex != ownerIndex)
                 {
-                    if (!hasAttacked && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
+                    if (!hasAttacked && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
                     {
                         unit.spriteRenderer.color = Color.red;
                     }
 
-                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
+                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
                     {
                         if (roleIndex != 0 && roleIndex != 1 && roleIndex != 3)
                         {
@@ -202,7 +202,7 @@ public class UnitScript : MonoBehaviour
                 {
                     if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth || roleIndex == 5)
                     {
-                        if (!isAbilityUsed && !isAbilityInCooldown && Mathf.Ceil(Vector2.Distance(transform.position, unit.transform.position)) <= stats.attackRange)
+                        if (!isAbilityUsed && !isAbilityInCooldown && (Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange))
                         {
                             unit.outlineScript.color = 2;
                             unit.outlineScript.enabled = true;
@@ -266,14 +266,14 @@ public class UnitScript : MonoBehaviour
 
     public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
-        if (attacker.roleIndex == 2)
-        {
-            Debug.Log(Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
-        }
+        /*if (attacker.roleIndex == 2)
+        {*/
+        Debug.Log(Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
+        /*}*/
 
-        /*if (!isInvulnerable)
+        if (!isInvulnerable)
         {
             if (attackDistance <= attacker.stats.attackRange)
             {
@@ -339,7 +339,7 @@ public class UnitScript : MonoBehaviour
 
                 DeselectUnitsAfterAttack();
             }
-        }*/
+        }
     }
 
 
@@ -426,7 +426,7 @@ public class UnitScript : MonoBehaviour
     // Abilità Healer
     public void AbilityCure(UnitScript attacker)
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));     
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);     
 
         if (attackDistance <= 1.1f)
         {
@@ -460,7 +460,7 @@ public class UnitScript : MonoBehaviour
     // Abilità Specialist
     public void AbilityStun(UnitScript attacker)
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
         if (attackDistance <= 1.1f)
         {
@@ -497,7 +497,7 @@ public class UnitScript : MonoBehaviour
     // Abilità Specialist 2
     public void AbilitySwap(UnitScript attacker, TileScript targetTile, TileScript attackerTile)
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
                 
         if (attackDistance <= 1.1f)
         {            
@@ -540,7 +540,7 @@ public class UnitScript : MonoBehaviour
     // Abilità Ranged
     public void AbilityCripple(UnitScript attacker)
     {
-        float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
+        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
         if (attackDistance <= 3.1f)
         {
