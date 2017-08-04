@@ -96,7 +96,7 @@ public class Role : MonoBehaviour
         if (roleIndex == 0) // Tank
         {
             ability.classIndex = roleIndex;
-            ability.title = "Counter Attack";
+            ability.title = "COUNTER";
             ability.desc = "";
 
             return ability;
@@ -104,7 +104,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 1) // Assassin
         {
             ability.classIndex = roleIndex;
-            ability.title = "Invisibility";
+            ability.title = "STEALTH";
             ability.desc = "";
 
             return ability;
@@ -112,7 +112,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 2) // Ranged
         {
             ability.classIndex = roleIndex;
-            ability.title = "Cripple";
+            ability.title = "CRIPPLE";
             ability.desc = "";
 
             return ability;
@@ -120,7 +120,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 3) // Healer
         {
             ability.classIndex = roleIndex;
-            ability.title = "Heal";
+            ability.title = "HEAL";
             ability.desc = "";
 
             return ability;
@@ -128,7 +128,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 4) // Specialist
         {
             ability.classIndex = roleIndex;
-            ability.title = "Stun";
+            ability.title = "STUN";
             ability.desc = "";
 
             return ability;
@@ -136,7 +136,7 @@ public class Role : MonoBehaviour
         else if (roleIndex == 5) // Specialist 2
         {
             ability.classIndex = roleIndex;
-            ability.title = "Swap";
+            ability.title = "SWAP";
             ability.desc = "";
 
             return ability;

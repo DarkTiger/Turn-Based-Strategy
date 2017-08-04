@@ -98,17 +98,18 @@ public class GameManagerScript : MonoBehaviour
             OnTurnButtonClick();
         }
 
+        turnIndexText.text = "TURN PLAYER " + playerIndex;
+
         if (playerIndex == 1)
         {
-            Color blueColor = new Color(0, 0.75f, 1, 1);
-            turnIndexText.color = blueColor;
+            //Color blueColor = new Color(0, 0.75f, 1, 1);
+            turnIndexText.color = Color.blue;
         }
         else
         {
-            turnIndexText.color = Color.red;
+            Color darkRedColor = new Color(0.54f, 0, 0, 1);
+            turnIndexText.color = darkRedColor;
         }
-
-        turnIndexText.text = "TURN PLAYER: " + playerIndex;
 
 
         if (currentSelectedUnit != null)
@@ -117,32 +118,42 @@ public class GameManagerScript : MonoBehaviour
 
             if (currentSelectedUnit.isAbilityInCooldown)
             {
-                abilityText.color = Color.yellow;
+                abilityText.color = Color.black;
             }
             else
             {
-                abilityText.color = Color.green;
+                abilityText.color = Color.yellow;
             }
 
             if (currentSelectedUnit.hasAttacked)
             {
-                attackText.color = Color.yellow;
+                attackText.color = Color.black;
             }
             else
             {
-                attackText.color = Color.green;
+                Color darkRedColor = new Color(0.54f, 0, 0, 1);
+                attackText.color = darkRedColor;
             }
 
             attackText.text = "ATK" /*+ currentSelectedUnit.hasAttacked.ToString()*/;
 
             if (currentSelectedUnit.ability != null)
             {
-                abilityText.text = "ABILITY " + currentSelectedUnit.ability.title;
+                abilityText.text = "ABILITY: " + currentSelectedUnit.ability.title;
             }
             else
             {
                 abilityText.color = Color.white;
                 abilityText.text = "ABILITY";
+            }
+
+            if (currentSelectedUnit.currentMoveCount > 0)
+            {
+                movementCountText.color = Color.white;
+            }
+            else
+            {
+                movementCountText.color = Color.black;
             }
         }
         else
