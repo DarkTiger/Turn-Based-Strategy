@@ -47,6 +47,9 @@ public class GameManagerScript : MonoBehaviour
     public Sprite[] tutorialImages;
     Image tutorialScreen;
 
+    public Sprite[] iconPanelImages;
+    Image iconPanelImage;
+
     GameObject winnerPanel;
     GameObject helpPanel;
     GameObject rematchPanel;
@@ -73,6 +76,7 @@ public class GameManagerScript : MonoBehaviour
         attackText = GameObject.Find("CurrentAttackText").GetComponent<Text>();
         hideButtonImage = GameObject.Find("HideButtonImage").GetComponent<Image>();
         tutorialScreen = GameObject.Find("TutorialScreen").GetComponent<Image>();
+        iconPanelImage = GameObject.Find("IconPanel").GetComponent<Image>();
 
         helpPanel.SetActive(false);
         rematchPanel.SetActive(false);
@@ -85,6 +89,7 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         AudioChange();
+        UpdateMiniature();
 
         if (mapCreated)
         {
@@ -421,6 +426,26 @@ public class GameManagerScript : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.Log("DEVI PARTIRE DAL MAIN MENU!!!");   
+        }
+    }
+
+    // Cambiamento miniatura in alto a sinistra
+    public void UpdateMiniature()
+    {
+        if (currentSelectedUnit != null && currentSelectedUnit.isSelected)
+        {
+            if (!currentSelectedUnit.isKing || currentSelectedUnit.ownerIndex == 1)
+            {
+                iconPanelImage.sprite = iconPanelImages[currentSelectedUnit.roleIndex];
+            }
+            else
+            {
+                iconPanelImage.sprite = iconPanelImages[7];
+            }
+        }
+        else
+        {
+            iconPanelImage.sprite = iconPanelImages[8];
         }
     }
 }
