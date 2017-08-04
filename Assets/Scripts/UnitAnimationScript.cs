@@ -106,4 +106,11 @@ public class UnitAnimationScript : MonoBehaviour
             }
         }
     }
+
+
+    public void DisableStateAnimation()
+    {
+        hitAnimator.SetBool("Ability", false);
+        stateAnimator.SetBool("Ability", false);
+    }
 }

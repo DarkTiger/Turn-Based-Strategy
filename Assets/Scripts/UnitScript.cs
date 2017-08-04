@@ -13,7 +13,7 @@ public class UnitScript : MonoBehaviour
     Camera cam;
     GameManagerScript gameManagerScript;
     TileScript tileScript;
-    UnitAnimationScript unitAnimationScript;
+    public UnitAnimationScript unitAnimationScript;
 
     public int ownerIndex = 1;                      // Indica a quale player appartiene l'unità
     public int roleIndex = 0;                       // Indica la classe dell'unità
@@ -29,7 +29,7 @@ public class UnitScript : MonoBehaviour
     public bool isInvulnerable = false;
     public bool isReadyToCounterAttack = false;                    // Contrattacco
     public bool isCrippled = false;
-    
+
     public int bonusAttack = 0;                     // Gestione dei bonus forniti dalle tiles ambientali
     public int bonusDefense = 0;
 
@@ -50,6 +50,10 @@ public class UnitScript : MonoBehaviour
     public Outline outlineScript;
 
     public int tempTurn = 0;
+    public int tempTurnCounterAbility = 0;
+    public int tempTurnStunAbility = 0;
+    public int tempTurnCrippleAbility = 0;
+    public int tempTurnInvisibilityAbility = 0;
     Image cooldownImage;
 
     AudioSource soundsAudioSource;
@@ -77,7 +81,7 @@ public class UnitScript : MonoBehaviour
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
 
         try {outlineScript.color = ownerIndex - 1;}
-        catch (System.Exception) { };
+        catch (System.Exception) {};
 
         UpdateUnitStat();
     }
@@ -374,6 +378,8 @@ public class UnitScript : MonoBehaviour
                 gameManagerScript.EndGamePlayer1();
             }
         }
+
+        unitAnimationScript.DisableStateAnimation();
     }
 
 
@@ -473,6 +479,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            tempTurnStunAbility = gameManagerScript.turnIndex;
 
             DeselectUnitsAfterAttack();
         }
@@ -490,6 +497,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
+        tempTurnInvisibilityAbility = gameManagerScript.turnIndex;
 
         DeselectUnitsAfterAttack();
     }
@@ -533,6 +541,7 @@ public class UnitScript : MonoBehaviour
         attacker.isAbilityInCooldown = true;
         attacker.currentMoveCount = 0;
         attacker.tempTurn = gameManagerScript.turnIndex;
+        tempTurnCounterAbility = gameManagerScript.turnIndex;
 
         DeselectUnitsAfterAttack();
     }
@@ -553,6 +562,7 @@ public class UnitScript : MonoBehaviour
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
+            tempTurnCrippleAbility = gameManagerScript.turnIndex;
 
             DeselectUnitsAfterAttack();
         }
@@ -565,6 +575,22 @@ public class UnitScript : MonoBehaviour
         {
             isAbilityInCooldown = false;
             tempTurn = 0;
+
+            if (roleIndex == 0 || roleIndex == 1)
+            {
+                unitAnimationScript.DisableStateAnimation();
+            }
+        }
+
+
+        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 3) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 3) ||
+         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 3) || (gameManagerScript.turnIndex == tempTurnStunAbility + 3))
+        {
+            unitAnimationScript.DisableStateAnimation();
+            tempTurnCounterAbility = 0;
+            tempTurnCrippleAbility = 0;
+            tempTurnInvisibilityAbility = 0;
+            tempTurnStunAbility = 0;
         }
 
         cooldownImage.enabled = isAbilityInCooldown;
