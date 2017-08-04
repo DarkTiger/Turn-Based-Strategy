@@ -152,7 +152,7 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex)
                                         {
-                                            tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit);
+                                            StartCoroutine(tileScriptHit.currentUnit.GetDamage(unitScript, tileScriptHit));
                                             break;
                                         }
                                     }
@@ -160,24 +160,24 @@ public class TileScript : MonoBehaviour
                                     {
                                         if (unitScript.roleIndex == 5 && !unitScript.isAbilityInCooldown)
                                         {
-                                            tileScriptHit.currentUnit.AbilitySwap(unitScript, tileScriptHit, GetComponent<TileScript>());
+                                            StartCoroutine(tileScriptHit.currentUnit.AbilitySwap(unitScript, tileScriptHit, GetComponent<TileScript>()));
                                         }
                                         else if (tileScriptHit.currentUnit.ownerIndex != unitScript.ownerIndex) // Avversario
                                         {
                                             if (unitScript.roleIndex == 4 && !unitScript.isAbilityInCooldown)
                                             {
-                                                tileScriptHit.currentUnit.AbilityStun(unitScript);
+                                                StartCoroutine(tileScriptHit.currentUnit.AbilityStun(unitScript));
                                             }
                                             else if (unitScript.roleIndex == 2 && !unitScript.isAbilityInCooldown)
                                             {
-                                                tileScriptHit.currentUnit.AbilityCripple(unitScript);
+                                                StartCoroutine(tileScriptHit.currentUnit.AbilityCripple(unitScript));
                                             }
                                         }
                                         else if (tileScriptHit.currentUnit.ownerIndex == unitScript.ownerIndex) // Alleato
                                         {                                            
                                             if (unitScript.roleIndex == 3 && !unitScript.isAbilityInCooldown)
                                             {
-                                                tileScriptHit.currentUnit.AbilityCure(unitScript);
+                                                StartCoroutine(tileScriptHit.currentUnit.AbilityCure(unitScript));
                                             }
                                         }
                                     }
@@ -188,15 +188,15 @@ public class TileScript : MonoBehaviour
                                     {                                        
                                         if (unitScript.roleIndex == 1 && !unitScript.isAbilityInCooldown)
                                         {                                            
-                                            currentUnit.AbilityInvisibility(unitScript);
+                                            StartCoroutine(currentUnit.AbilityInvisibility(unitScript));
                                         }
                                         else if (unitScript.roleIndex == 0 && !unitScript.isAbilityInCooldown)
                                         {
-                                            currentUnit.AbilityRetaliation(unitScript);
+                                            StartCoroutine(currentUnit.AbilityRetaliation(unitScript));
                                         }
                                         else if (unitScript.roleIndex == 3 && !unitScript.isAbilityInCooldown)
                                         {
-                                            currentUnit.AbilityCure(unitScript);
+                                            StartCoroutine(currentUnit.AbilityCure(unitScript));
                                         }
                                     }
                                 }

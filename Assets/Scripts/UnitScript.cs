@@ -282,12 +282,10 @@ public class UnitScript : MonoBehaviour
     }
     
 
-    public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
+    public IEnumerator GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
         string distance = attackDistance.ToString();
-
-        Debug.Log(distance);
 
         if (!isInvulnerable)
         {
@@ -298,7 +296,7 @@ public class UnitScript : MonoBehaviour
 
                 if (tempDamage > bonusDefense)
                 {
-                    unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false);             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
+                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                     if (attacker.roleIndex == 0)
                     {
@@ -443,7 +441,7 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Healer
-    public void AbilityCure(UnitScript attacker)
+    public IEnumerator AbilityCure(UnitScript attacker)
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);     
 
@@ -451,7 +449,7 @@ public class UnitScript : MonoBehaviour
         {
             if (stats.health != stats.maxHealth)
             {
-                unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
                 soundsAudioSource.clip = abilitySoundEffects[3];
                 soundsAudioSource.Play();
 
@@ -477,13 +475,13 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Specialist
-    public void AbilityStun(UnitScript attacker)
+    public IEnumerator AbilityStun(UnitScript attacker)
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
         if (attackDistance <= attacker.stats.attackRange)
         {
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[4];
             soundsAudioSource.Play();
 
@@ -499,9 +497,9 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Assassin
-    public void AbilityInvisibility(UnitScript attacker)
+    public IEnumerator AbilityInvisibility(UnitScript attacker)
     {
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
         soundsAudioSource.clip = abilitySoundEffects[1];
         soundsAudioSource.Play();
 
@@ -516,13 +514,13 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Specialist 2
-    public void AbilitySwap(UnitScript attacker, TileScript targetTile, TileScript attackerTile)
+    public IEnumerator AbilitySwap(UnitScript attacker, TileScript targetTile, TileScript attackerTile)
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
                 
         if (attackDistance <= attacker.stats.attackRange)
         {            
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[5];
             soundsAudioSource.Play();
 
@@ -543,9 +541,9 @@ public class UnitScript : MonoBehaviour
     }
     
     // Abilità Tank
-    public void AbilityRetaliation(UnitScript attacker)
+    public IEnumerator AbilityRetaliation(UnitScript attacker)
     {
-        unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
+        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
         soundsAudioSource.clip = abilitySoundEffects[0];
         soundsAudioSource.Play();
 
@@ -560,7 +558,7 @@ public class UnitScript : MonoBehaviour
     }
 
     // Abilità Ranged
-    public void AbilityCripple(UnitScript attacker)
+    public IEnumerator AbilityCripple(UnitScript attacker)
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
         string distance = attackDistance.ToString();
@@ -568,7 +566,7 @@ public class UnitScript : MonoBehaviour
         if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") && 
             !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
         {
-            unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[2];
             soundsAudioSource.Play();
 

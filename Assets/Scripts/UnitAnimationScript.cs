@@ -36,9 +36,9 @@ public class UnitAnimationScript : MonoBehaviour
     }
 
 
-    public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
+
+    public IEnumerator PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
     {
-        
         if (persistent)
         {
             anim = stateAnimator;
@@ -62,6 +62,8 @@ public class UnitAnimationScript : MonoBehaviour
         }
 
         abilityIsPersistent = persistent;
+
+        yield return new WaitForSeconds(1f);
     }
 
 
