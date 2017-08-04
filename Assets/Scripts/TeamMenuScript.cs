@@ -9,7 +9,7 @@ public class TeamMenuScript : MonoBehaviour
     List<int> teamRolesP1 = new List<int> {-1, -1, -1, -1, -1, -1, -1};
     List<int> teamRolesP2 = new List<int> { -1, -1, -1, -1, -1, -1, -1 };
 
-    int roleDuplicationLimit = 10;
+    int roleDuplicationLimit = 2;
     int currentPlayer = 1;
     
     Text btnTextSlotP1_1;

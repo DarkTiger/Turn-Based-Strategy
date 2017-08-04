@@ -268,9 +268,12 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Mathf.Ceil(Vector2.Distance(transform.position, attacker.gameObject.transform.position));
 
-        Debug.Log(attackDistance.ToString() + "  " + Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
+        if (attacker.roleIndex == 2)
+        {
+            Debug.Log(Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
+        }
 
-        if (!isInvulnerable)
+        /*if (!isInvulnerable)
         {
             if (attackDistance <= attacker.stats.attackRange)
             {
@@ -336,7 +339,7 @@ public class UnitScript : MonoBehaviour
 
                 DeselectUnitsAfterAttack();
             }
-        }
+        }*/
     }
 
 
