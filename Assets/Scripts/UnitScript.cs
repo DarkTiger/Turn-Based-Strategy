@@ -447,7 +447,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);     
 
-        if (attackDistance <= stats.attackRange)
+        if (attackDistance <= attacker.stats.attackRange)
         {
             if (stats.health != stats.maxHealth)
             {
@@ -481,7 +481,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
-        if (attackDistance <= stats.attackRange)
+        if (attackDistance <= attacker.stats.attackRange)
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[4];
@@ -520,7 +520,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
                 
-        if (attackDistance <= stats.attackRange)
+        if (attackDistance <= attacker.stats.attackRange)
         {            
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[5];
@@ -565,8 +565,8 @@ public class UnitScript : MonoBehaviour
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
         string distance = attackDistance.ToString();
 
-        if (attackDistance <= stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
-            distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317"))))
+        if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") && 
+            !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[2];
