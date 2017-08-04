@@ -9,7 +9,7 @@ public class UnitAnimationScript : MonoBehaviour
     int attackerRoleIndex;
     bool abilityIsPersistent = false;
     UnitScript unitScript;
-
+    Animator anim = null;
 
 
 	void Start () 
@@ -23,7 +23,10 @@ public class UnitAnimationScript : MonoBehaviour
 
 	void Update()
     {      
-        CheckAnimationsState();
+        if (anim != stateAnimator)
+        {
+            CheckAnimationsState();
+        }
     }
 
 
@@ -35,7 +38,7 @@ public class UnitAnimationScript : MonoBehaviour
 
     public void PlayAttackAnimation(int attackerRoleIndex, bool isAbility, bool persistent)
     {
-        Animator anim;
+        
         if (persistent)
         {
             anim = stateAnimator;
