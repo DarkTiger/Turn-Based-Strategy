@@ -71,7 +71,7 @@ public class UnitAnimationScript : MonoBehaviour
 
         if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable))
         {
-            if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack") || state.IsName("KingAttack"))
+            if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack") || state.IsName("KingAttack") || state.IsName("MoleAttack") || state.IsName("TigerAttack") || state.IsName("BearAttack"))
             {
                 if (state.normalizedTime >= state.length)
                 {
@@ -84,7 +84,7 @@ public class UnitAnimationScript : MonoBehaviour
                     }
                 }
             }
-            else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility"))
+            else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility") || state.IsName("MoleAbility"))
             {
                 if (state.normalizedTime >= state.length)
                 {
