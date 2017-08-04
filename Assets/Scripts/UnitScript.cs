@@ -179,7 +179,7 @@ public class UnitScript : MonoBehaviour
         }
     }
 
-    
+
     public void CheckIfUnitCanAttack()
     {
         if (!hasAttacked && !isAbilityUsed && isSelected)
@@ -191,13 +191,17 @@ public class UnitScript : MonoBehaviour
 
                 if (unit != this && unit.ownerIndex != ownerIndex)
                 {
-                    if (!hasAttacked && (attackDistance <= stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
-                        distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317")))))
+                    if (!hasAttacked && (attackDistance <= stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
+                        !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317"))))
                     {
-                        unit.spriteRenderer.color = Color.red;
+                        if (unit.roleIndex != 1 || !unit.isInvulnerable)
+                        {
+                            unit.spriteRenderer.color = Color.red;
+                        }
                     }
 
-                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && attackDistance <= stats.attackRange)
+                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && attackDistance <= stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
+                        !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
                     {
                         if (roleIndex != 0 && roleIndex != 1 && roleIndex != 3)
                         {
@@ -210,7 +214,8 @@ public class UnitScript : MonoBehaviour
                 {
                     if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth || roleIndex == 5)
                     {
-                        if (!isAbilityUsed && !isAbilityInCooldown && (attackDistance <= stats.attackRange))
+                        if (!isAbilityUsed && !isAbilityInCooldown && (attackDistance <= stats.attackRange) && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
+                        !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
                         {
                             unit.outlineScript.color = 2;
                             unit.outlineScript.enabled = true;
@@ -266,6 +271,11 @@ public class UnitScript : MonoBehaviour
         }
         else
         {
+            if (unitIsMoving)
+            {
+                CheckIfUnitCanAttack();
+            }
+
             unitIsMoving = false;        
             circleColliderGameobject.SetActive(true);
         }
@@ -277,15 +287,12 @@ public class UnitScript : MonoBehaviour
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
         string distance = attackDistance.ToString();
 
-        /*if (attacker.roleIndex == 2)
-        {*/
-        Debug.Log(Vector2.Distance(transform.position, attacker.gameObject.transform.position).ToString());
-        /*}*/
+        Debug.Log(distance);
 
         if (!isInvulnerable)
         {
-            if (attackDistance <= attacker.stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
-            distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317"))))
+            if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") && 
+               !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
             {
                 int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
@@ -440,7 +447,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);     
 
-        if (attackDistance <= 1.1f)
+        if (attackDistance <= stats.attackRange)
         {
             if (stats.health != stats.maxHealth)
             {
@@ -474,7 +481,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
-        if (attackDistance <= 1.1f)
+        if (attackDistance <= stats.attackRange)
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[4];
@@ -513,7 +520,7 @@ public class UnitScript : MonoBehaviour
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
                 
-        if (attackDistance <= 1.1f)
+        if (attackDistance <= stats.attackRange)
         {            
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[5];
@@ -558,7 +565,7 @@ public class UnitScript : MonoBehaviour
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
         string distance = attackDistance.ToString();
 
-        if (attackDistance <= 3.01f || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
+        if (attackDistance <= stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
             distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317"))))
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
