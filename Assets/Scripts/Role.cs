@@ -34,7 +34,7 @@ public class Role : MonoBehaviour
         }
         else if (roleIndex == 2) // Ranged
         {
-            newStats.attackRange = 3.1f;
+            newStats.attackRange = 3.01f;
             newStats.damage = 3;
             newStats.movementRange = 2;
             newStats.health = 5;

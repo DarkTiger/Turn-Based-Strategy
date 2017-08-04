@@ -186,14 +186,18 @@ public class UnitScript : MonoBehaviour
         {
             foreach (UnitScript unit in gameManagerScript.unitScriptList)
             {
+                float attackDistance = Vector2.Distance(transform.position, unit.transform.position);
+                string distance = attackDistance.ToString();
+
                 if (unit != this && unit.ownerIndex != ownerIndex)
                 {
-                    if (!hasAttacked && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    if (!hasAttacked && (attackDistance <= stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
+                        distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317")))))
                     {
                         unit.spriteRenderer.color = Color.red;
                     }
 
-                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange)
+                    if (!isKing && !isAbilityUsed && !isAbilityInCooldown && attackDistance <= stats.attackRange)
                     {
                         if (roleIndex != 0 && roleIndex != 1 && roleIndex != 3)
                         {
@@ -206,7 +210,7 @@ public class UnitScript : MonoBehaviour
                 {
                     if (roleIndex == 3 && unit.stats.health < unit.stats.maxHealth || roleIndex == 5)
                     {
-                        if (!isAbilityUsed && !isAbilityInCooldown && (Vector2.Distance(transform.position, unit.transform.position) <= stats.attackRange))
+                        if (!isAbilityUsed && !isAbilityInCooldown && (attackDistance <= stats.attackRange))
                         {
                             unit.outlineScript.color = 2;
                             unit.outlineScript.enabled = true;
@@ -271,6 +275,7 @@ public class UnitScript : MonoBehaviour
     public void GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+        string distance = attackDistance.ToString();
 
         /*if (attacker.roleIndex == 2)
         {*/
@@ -279,7 +284,8 @@ public class UnitScript : MonoBehaviour
 
         if (!isInvulnerable)
         {
-            if (attackDistance <= attacker.stats.attackRange)
+            if (attackDistance <= attacker.stats.attackRange || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
+            distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317"))))
             {
                 int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
@@ -550,8 +556,10 @@ public class UnitScript : MonoBehaviour
     public void AbilityCripple(UnitScript attacker)
     {
         float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+        string distance = attackDistance.ToString();
 
-        if (attackDistance <= 3.1f)
+        if (attackDistance <= 3.01f || (roleIndex == 2 && (distance.Contains("2.5709") || distance.Contains("2.9681") || 
+            distance.Contains("2.8906") || distance.Contains("2.8653") || distance.Contains("2.5317"))))
         {
             unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false);             // Gestisce l'animazione dell'abilità
             soundsAudioSource.clip = abilitySoundEffects[2];
@@ -583,8 +591,8 @@ public class UnitScript : MonoBehaviour
         }
 
 
-        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 3) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 3) ||
-         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 3) || (gameManagerScript.turnIndex == tempTurnStunAbility + 3))
+        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 2) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 2) ||
+         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2))
         {
             unitAnimationScript.DisableStateAnimation();
             tempTurnCounterAbility = 0;
@@ -595,6 +603,7 @@ public class UnitScript : MonoBehaviour
 
         cooldownImage.enabled = isAbilityInCooldown;
     }
+
 
     void SetOrderInLayer()
     {
