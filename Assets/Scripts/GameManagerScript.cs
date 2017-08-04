@@ -50,6 +50,9 @@ public class GameManagerScript : MonoBehaviour
     public Sprite[] iconPanelImages;
     Image iconPanelImage;
 
+    public Sprite[] tilePanelImages;
+    Image tilePanelImage;
+
     GameObject winnerPanel;
     GameObject helpPanel;
     GameObject rematchPanel;
@@ -77,6 +80,7 @@ public class GameManagerScript : MonoBehaviour
         hideButtonImage = GameObject.Find("HideButtonImage").GetComponent<Image>();
         tutorialScreen = GameObject.Find("TutorialScreen").GetComponent<Image>();
         iconPanelImage = GameObject.Find("IconPanel").GetComponent<Image>();
+        tilePanelImage = GameObject.Find("TilePanel").GetComponent<Image>();
 
         helpPanel.SetActive(false);
         rematchPanel.SetActive(false);
@@ -437,15 +441,18 @@ public class GameManagerScript : MonoBehaviour
             if (!currentSelectedUnit.isKing || currentSelectedUnit.ownerIndex == 1)
             {
                 iconPanelImage.sprite = iconPanelImages[currentSelectedUnit.roleIndex];
+                // tilePanelImage.sprite = tilePanelImages[currentSelectedUnit.roleIndex];
             }
             else
             {
                 iconPanelImage.sprite = iconPanelImages[7];
+                // tilePanelImage.sprite = tilePanelImages[7];
             }
         }
         else
         {
             iconPanelImage.sprite = iconPanelImages[8];
+            // tilePanelImage.sprite = tilePanelImages[7];
         }
     }
 }
