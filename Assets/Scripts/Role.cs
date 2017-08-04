@@ -15,10 +15,10 @@ public class Role : MonoBehaviour
         if (roleIndex == 0) // Tank
         {
             newStats.attackRange = 1.1f;
-            newStats.damage = 5;
+            newStats.damage = 4;
             newStats.movementRange = 2;
-            newStats.health = 10;
-            newStats.maxHealth = 10;
+            newStats.health = 8;
+            newStats.maxHealth = 8;
 
             return newStats;
         }
