@@ -239,7 +239,8 @@ public class TileScript : MonoBehaviour
         {           
             if (typeIndex == 0 && currentUnit.roleIndex == 0) // Tank
             {
-                currentUnit.bonusDefense = 3;
+                currentUnit.bonusAttack = 1;
+                currentUnit.bonusDefense = 2;
                 
             }
             else if (typeIndex == 1 && currentUnit.roleIndex == 1) // Assassin
@@ -249,7 +250,8 @@ public class TileScript : MonoBehaviour
             }
             else if (typeIndex == 2 && currentUnit.roleIndex == 2) // Ranged
             {
-                currentUnit.bonusAttack = 3;
+                currentUnit.bonusAttack = 2;
+                currentUnit.bonusDefense = 1;
             }
             else if (typeIndex == 3 && currentUnit.roleIndex == 3) // Healer
             {
