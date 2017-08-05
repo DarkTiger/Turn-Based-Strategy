@@ -27,7 +27,7 @@ public class UnitStatsTextScript : MonoBehaviour
 
         if (bonusAttack > 0)
         {
-            attackText.text = "(" + bonusAttack + ")\n" + baseDamage;
+            attackText.text = /*"(" + bonusAttack + ")\n" +*/ (bonusAttack + baseDamage).ToString();
         }
         else
         {
@@ -52,7 +52,7 @@ public class UnitStatsTextScript : MonoBehaviour
             defenseText.color = Color.white;
         }
 
-        if (unitScript.bonusDefense > 0)
+        if (unitScript.bonusAttack > 0)
         {
             attackText.color = Color.green;
         }
