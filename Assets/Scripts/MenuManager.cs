@@ -51,7 +51,13 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Main");
+        soundsAudioSource.clip = menuSoundEffects[0];
+        soundsAudioSource.Play();
+
+        //if (!soundsAudioSource.isPlaying)
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 
     public void QuitApplication()

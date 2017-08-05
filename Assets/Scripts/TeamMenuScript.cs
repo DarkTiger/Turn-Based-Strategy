@@ -55,6 +55,7 @@ public class TeamMenuScript : MonoBehaviour
 
     AudioSource soundsAudioSource;
     public AudioClip startSoundEffect;
+    public AudioClip battleMusic;
 
     void Start ()
     {
@@ -419,6 +420,9 @@ public class TeamMenuScript : MonoBehaviour
 
             GameObject.Find("Map").GetComponent<MapGenerator>().CreateMap(teamRolesP1Inverted, teamRolesP2Inverted);
             gameObject.SetActive(false);
+            AudioMenuScript.instance.menuMusic.Stop();
+            AudioMenuScript.instance.menuMusic.clip = battleMusic;
+            AudioMenuScript.instance.menuMusic.Play();
             isTeamPanelDeactivated = true;
         }
     }

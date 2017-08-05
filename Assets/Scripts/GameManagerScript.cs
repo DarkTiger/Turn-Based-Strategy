@@ -57,6 +57,10 @@ public class GameManagerScript : MonoBehaviour
     GameObject helpPanel;
     GameObject rematchPanel;
 
+    public AudioClip menuBasicMusic;
+    public AudioClip battleMusic;
+    public AudioClip victoryMusic;
+
 
 
     void Start()
@@ -92,7 +96,6 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-        AudioChange();
         UpdateMiniature();
 
         if (mapCreated)
@@ -370,6 +373,9 @@ public class GameManagerScript : MonoBehaviour
     {
         isGameOver = true;
 
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = victoryMusic;
+        AudioMenuScript.instance.menuMusic.Play();
         winnerText.text = "PLAYER "  + playerIndex.ToString() + " WINS!";
         winnerPanel.SetActive(true);
     }
@@ -379,6 +385,9 @@ public class GameManagerScript : MonoBehaviour
     {
         isGameOver = true;
 
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = victoryMusic;
+        AudioMenuScript.instance.menuMusic.Play();
         winnerText.text = "PLAYER 1 WINS!";
         winnerPanel.SetActive(true);
     }
@@ -388,6 +397,9 @@ public class GameManagerScript : MonoBehaviour
     {
         isGameOver = true;
 
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = victoryMusic;
+        AudioMenuScript.instance.menuMusic.Play();
         winnerText.text = "PLAYER 2 WINS!";
         winnerPanel.SetActive(true);
     }
@@ -405,6 +417,9 @@ public class GameManagerScript : MonoBehaviour
     public void OnRematchConfirmed()
     {
         SceneManager.LoadScene("Main");
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;
+        AudioMenuScript.instance.menuMusic.Play();
     }
 
     public void OnRematchRejected()
@@ -415,22 +430,9 @@ public class GameManagerScript : MonoBehaviour
     public void OnBackButtonClicked()
     {
         SceneManager.LoadScene("Main Menu");
-    }
-
-    // Gestione audio
-    public void AudioChange()
-    {
-        try
-        {
-            if (teamMenuScript.isTeamPanelDeactivated)
-            {
-                AudioMenuScript.instance.menuMusic.Stop();
-            }    
-        }
-        catch (System.Exception ex)
-        {
-            Debug.Log("DEVI PARTIRE DAL MAIN MENU!!!");   
-        }
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;
+        AudioMenuScript.instance.menuMusic.Play();
     }
 
     // Cambiamento miniatura in alto a sinistra
