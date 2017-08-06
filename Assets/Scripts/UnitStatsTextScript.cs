@@ -6,15 +6,19 @@ using UnityEngine.UI;
 public class UnitStatsTextScript : MonoBehaviour
 {
     Text attackText;
+    Text healthText;
     Text defenseText;
+    Image defensePanel;
     UnitScript unitScript;
 
     
     void Start()
     {
         unitScript = GetComponent<UnitScript>();
-        attackText = transform.GetChild(3).GetComponent<Text>();
-        defenseText = transform.GetChild(4).GetComponent<Text>();
+        attackText = transform.GetChild(4).GetComponent<Text>();
+        healthText = transform.GetChild(5).GetComponent<Text>();
+        defenseText = transform.GetChild(6).GetComponent<Text>();
+        defensePanel = transform.GetChild(3).GetComponent<Image>();
     }
 
 
@@ -34,22 +38,27 @@ public class UnitStatsTextScript : MonoBehaviour
             attackText.text = baseDamage.ToString();
         }
 
+        healthText.text = baseHealth.ToString();
+
+
         if (bonusDefense > 0)
         {
-            defenseText.text = "(" + bonusDefense + ")\n" + baseHealth;
+            defenseText.text = bonusDefense.ToString();
+            defensePanel.enabled = true;
         }
         else
         {
-            defenseText.text = baseHealth.ToString();
+            defenseText.text = "";
+            defensePanel.enabled = false;
         }
 
         if (unitScript.stats.health < unitScript.stats.maxHealth)
         {
-            defenseText.color = Color.red;
+            healthText.color = Color.red;
         }
         else
         {
-            defenseText.color = Color.white;
+            healthText.color = Color.white;
         }
 
         if (unitScript.bonusAttack > 0)

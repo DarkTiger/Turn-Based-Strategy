@@ -14,8 +14,8 @@ public class UnitAnimationScript : MonoBehaviour
 
 	void Start () 
     {
-        stateAnimator = transform.GetChild(6).gameObject.GetComponent<Animator>();
-        hitAnimator = transform.GetChild(7).gameObject.GetComponent<Animator>();
+        stateAnimator = transform.GetChild(8).gameObject.GetComponent<Animator>();
+        hitAnimator = transform.GetChild(9).gameObject.GetComponent<Animator>();
         attackerRoleIndex = GetComponent<UnitScript>().roleIndex;
         unitScript = GetComponent<UnitScript>();
     }
