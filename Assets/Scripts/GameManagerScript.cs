@@ -504,18 +504,18 @@ public class GameManagerScript : MonoBehaviour
             if (!currentSelectedUnit.isKing || currentSelectedUnit.ownerIndex == 1)
             {
                 iconPanelImage.sprite = iconPanelImages[currentSelectedUnit.roleIndex];
-                // tilePanelImage.sprite = tilePanelImages[currentSelectedUnit.roleIndex];
+                tilePanelImage.sprite = tilePanelImages[currentSelectedUnit.roleIndex];
             }
             else
             {
                 iconPanelImage.sprite = iconPanelImages[7];
-                // tilePanelImage.sprite = tilePanelImages[7];
+                tilePanelImage.sprite = tilePanelImages[6];
             }
         }
         else
         {
             iconPanelImage.sprite = iconPanelImages[8];
-            // tilePanelImage.sprite = tilePanelImages[7];
+            tilePanelImage.sprite = tilePanelImages[6];
         }
     }
 }
