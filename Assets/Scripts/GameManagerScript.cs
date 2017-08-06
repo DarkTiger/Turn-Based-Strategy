@@ -386,6 +386,7 @@ public class GameManagerScript : MonoBehaviour
         {
             soundsAudioSource.clip = gameSounds[0];
             soundsAudioSource.Play();
+            tutorialScreen.sprite = tutorialImages[2];
         }
     }
 
