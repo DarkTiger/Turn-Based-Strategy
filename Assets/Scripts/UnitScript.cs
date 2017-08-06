@@ -661,12 +661,12 @@ public class UnitScript : MonoBehaviour
 
     void SetOrderInLayer()
     {
-        if (isSelected)
+        /*if (isSelected)
         {
             spriteRenderer.sortingOrder = 0;
         }
         else
-        {
+        {*/
             if (transform.position.y >= 0 && transform.position.y <= 0.625)
             {
                 spriteRenderer.sortingOrder = -1;
@@ -726,6 +726,6 @@ public class UnitScript : MonoBehaviour
             {
                 spriteRenderer.sortingOrder = -12;
             }
-        }
+        //}
     }
 }
