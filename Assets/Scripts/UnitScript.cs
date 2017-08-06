@@ -71,13 +71,13 @@ public class UnitScript : MonoBehaviour
         stats = GetComponent<Stats>();
         role = GetComponent<Role>();
         unitAnimationScript = GetComponent<UnitAnimationScript>();
-        spriteRenderer = transform.GetChild(8).GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(9).GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
-        outlineScript = transform.GetChild(8).GetComponent<Outline>();
-        cooldownImage = transform.GetChild(5).GetComponent<Image>();
+        outlineScript = transform.GetChild(9).GetComponent<Outline>();
+        cooldownImage = transform.GetChild(6).GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
 
         try {outlineScript.color = ownerIndex - 1;}
@@ -284,75 +284,78 @@ public class UnitScript : MonoBehaviour
 
     public IEnumerator GetDamage(UnitScript attacker, TileScript tile) // Gestione dell'attacco
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
-        string distance = attackDistance.ToString();
-
-        if (!isInvulnerable)
+        if (!attacker.hasAttacked)
         {
-            if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") && 
-               !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
+            float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+            string distance = attackDistance.ToString();
+
+            if (!isInvulnerable)
             {
-                int tempDamage = attacker.stats.damage + attacker.bonusAttack;
-
-                if (tempDamage > bonusDefense)
+                if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
+                   !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
                 {
-                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
+                    int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
-                    if (attacker.roleIndex == 0)
+                    if (tempDamage > bonusDefense)
                     {
-                        soundsAudioSource.clip = attackSoundEffects[0];
-                    }
-                    else if (attacker.roleIndex == 1)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[1];
-                    }
-                    else if (attacker.roleIndex == 2)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[2];
-                    }
-                    else if (attacker.roleIndex == 3)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[3];
-                    }
-                    else if (attacker.roleIndex == 4)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[4];
-                    }
-                    else if (attacker.roleIndex == 5)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[5];
-                    }
-                    else if (attacker.roleIndex == 6)
-                    {
-                        soundsAudioSource.clip = attackSoundEffects[6];
-                    }
-                    soundsAudioSource.Play();
+                        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
-                    tempDamage -= bonusDefense;
-                    stats.health -= tempDamage;
+                        if (attacker.roleIndex == 0)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[0];
+                        }
+                        else if (attacker.roleIndex == 1)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[1];
+                        }
+                        else if (attacker.roleIndex == 2)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[2];
+                        }
+                        else if (attacker.roleIndex == 3)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[3];
+                        }
+                        else if (attacker.roleIndex == 4)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[4];
+                        }
+                        else if (attacker.roleIndex == 5)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[5];
+                        }
+                        else if (attacker.roleIndex == 6)
+                        {
+                            soundsAudioSource.clip = attackSoundEffects[6];
+                        }
+                        soundsAudioSource.Play();
 
-                    if (isReadyToCounterAttack)
-                    {
-                        attacker.stats.health -= 3;
+                        tempDamage -= bonusDefense;
+                        stats.health -= tempDamage;
 
-                        if (attacker.stats.health <= 0)
+                        if (isReadyToCounterAttack)
+                        {
+                            attacker.stats.health -= 3;
+
+                            if (attacker.stats.health <= 0)
+                            {
+                                unitAnimationScript.PlayDeathAnimation();
+                                attacker.Death();
+                            }
+                        }
+
+                        if (stats.health <= 0)
                         {
                             unitAnimationScript.PlayDeathAnimation();
-                            attacker.Death();
+                            Death();
                         }
-                    }
 
-                    if (stats.health <= 0)
-                    {
-                        unitAnimationScript.PlayDeathAnimation();
-                        Death();
                     }
+                    attacker.hasAttacked = true;
+                    attacker.currentMoveCount = 0;
 
+                    DeselectUnitsAfterAttack();
                 }
-                attacker.hasAttacked = true;
-                attacker.currentMoveCount = 0;
-
-                DeselectUnitsAfterAttack();
             }
         }
     }
@@ -443,33 +446,36 @@ public class UnitScript : MonoBehaviour
     // Abilità Healer
     public IEnumerator AbilityCure(UnitScript attacker)
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);     
-
-        if (attackDistance <= attacker.stats.attackRange)
+        if (!attacker.isAbilityUsed)
         {
-            if (stats.health != stats.maxHealth)
+            float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+
+            if (attackDistance <= attacker.stats.attackRange)
             {
-                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
-                soundsAudioSource.clip = abilitySoundEffects[3];
-                soundsAudioSource.Play();
-
-                int tempHealth = stats.health + 5;
-
-                if (tempHealth > stats.maxHealth)
+                if (stats.health != stats.maxHealth)
                 {
-                    stats.health = stats.maxHealth;
-                }
-                else
-                {
-                    stats.health += 5;
-                }
+                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
+                    soundsAudioSource.clip = abilitySoundEffects[3];
+                    soundsAudioSource.Play();
 
-                attacker.isAbilityUsed = true;
-                attacker.isAbilityInCooldown = true;
-                attacker.currentMoveCount = 0;
-                attacker.tempTurn = gameManagerScript.turnIndex;
+                    int tempHealth = stats.health + 5;
 
-                DeselectUnitsAfterAttack();
+                    if (tempHealth > stats.maxHealth)
+                    {
+                        stats.health = stats.maxHealth;
+                    }
+                    else
+                    {
+                        stats.health += 5;
+                    }
+
+                    attacker.isAbilityUsed = true;
+                    attacker.isAbilityInCooldown = true;
+                    attacker.currentMoveCount = 0;
+                    attacker.tempTurn = gameManagerScript.turnIndex;
+
+                    DeselectUnitsAfterAttack();
+                }
             }
         }
     }
@@ -477,40 +483,46 @@ public class UnitScript : MonoBehaviour
     // Abilità Specialist
     public IEnumerator AbilityStun(UnitScript attacker)
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
-
-        if (attackDistance <= attacker.stats.attackRange)
+        if (!attacker.isAbilityUsed)
         {
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-            soundsAudioSource.clip = abilitySoundEffects[4];
-            soundsAudioSource.Play();
+            float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
-            isStunned = true;
-            attacker.isAbilityUsed = true;
-            attacker.isAbilityInCooldown = true;
-            attacker.currentMoveCount = 0;
-            attacker.tempTurn = gameManagerScript.turnIndex;
-            tempTurnStunAbility = gameManagerScript.turnIndex;
+            if (attackDistance <= attacker.stats.attackRange)
+            {
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+                soundsAudioSource.clip = abilitySoundEffects[4];
+                soundsAudioSource.Play();
 
-            DeselectUnitsAfterAttack();
+                isStunned = true;
+                attacker.isAbilityUsed = true;
+                attacker.isAbilityInCooldown = true;
+                attacker.currentMoveCount = 0;
+                attacker.tempTurn = gameManagerScript.turnIndex;
+                tempTurnStunAbility = gameManagerScript.turnIndex;
+
+                DeselectUnitsAfterAttack();
+            }
         }
     }
 
     // Abilità Assassin
     public IEnumerator AbilityInvisibility(UnitScript attacker)
     {
-        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-        soundsAudioSource.clip = abilitySoundEffects[1];
-        soundsAudioSource.Play();
+        if (!attacker.isAbilityUsed)
+        {
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+            soundsAudioSource.clip = abilitySoundEffects[1];
+            soundsAudioSource.Play();
 
-        attacker.isInvulnerable = true;
-        attacker.isAbilityUsed = true;
-        attacker.isAbilityInCooldown = true;
-        attacker.currentMoveCount = 0;
-        attacker.tempTurn = gameManagerScript.turnIndex;
-        tempTurnInvisibilityAbility = gameManagerScript.turnIndex;
+            attacker.isInvulnerable = true;
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
+            attacker.currentMoveCount = 0;
+            attacker.tempTurn = gameManagerScript.turnIndex;
+            tempTurnInvisibilityAbility = gameManagerScript.turnIndex;
 
-        DeselectUnitsAfterAttack();
+            DeselectUnitsAfterAttack();
+        }
     }
 
     // Abilità Specialist 2
@@ -546,41 +558,47 @@ public class UnitScript : MonoBehaviour
     // Abilità Tank
     public IEnumerator AbilityRetaliation(UnitScript attacker)
     {
-        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-        soundsAudioSource.clip = abilitySoundEffects[0];
-        soundsAudioSource.Play();
+        if (!attacker.isAbilityUsed)
+        {
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+            soundsAudioSource.clip = abilitySoundEffects[0];
+            soundsAudioSource.Play();
 
-        attacker.isReadyToCounterAttack = true;
-        attacker.isAbilityUsed = true;
-        attacker.isAbilityInCooldown = true;
-        attacker.currentMoveCount = 0;
-        attacker.tempTurn = gameManagerScript.turnIndex;
-        tempTurnCounterAbility = gameManagerScript.turnIndex;
+            attacker.isReadyToCounterAttack = true;
+            attacker.isAbilityUsed = true;
+            attacker.isAbilityInCooldown = true;
+            attacker.currentMoveCount = 0;
+            attacker.tempTurn = gameManagerScript.turnIndex;
+            tempTurnCounterAbility = gameManagerScript.turnIndex;
 
-        DeselectUnitsAfterAttack();
+            DeselectUnitsAfterAttack();
+        }
     }
 
     // Abilità Ranged
     public IEnumerator AbilityCripple(UnitScript attacker)
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
-        string distance = attackDistance.ToString();
-
-        if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") && 
-            !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
+        if (!attacker.isAbilityUsed)
         {
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
-            soundsAudioSource.clip = abilitySoundEffects[2];
-            soundsAudioSource.Play();
+            float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
+            string distance = attackDistance.ToString();
 
-            isCrippled = true;
-            attacker.isAbilityUsed = true;
-            attacker.isAbilityInCooldown = true;
-            attacker.currentMoveCount = 0;
-            attacker.tempTurn = gameManagerScript.turnIndex;
-            tempTurnCrippleAbility = gameManagerScript.turnIndex;
+            if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
+                !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
+            {
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
+                soundsAudioSource.clip = abilitySoundEffects[2];
+                soundsAudioSource.Play();
 
-            DeselectUnitsAfterAttack();
+                isCrippled = true;
+                attacker.isAbilityUsed = true;
+                attacker.isAbilityInCooldown = true;
+                attacker.currentMoveCount = 0;
+                attacker.tempTurn = gameManagerScript.turnIndex;
+                tempTurnCrippleAbility = gameManagerScript.turnIndex;
+
+                DeselectUnitsAfterAttack();
+            }
         }
     }
 
