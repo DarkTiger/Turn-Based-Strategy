@@ -259,11 +259,11 @@ public class GameManagerScript : MonoBehaviour
     //Gestione turni: switch dell'indice del player attivo
     public void OnTurnButtonClick()
     {
-        if (!soundsAudioSource.isPlaying)
+        /*if (!soundsAudioSource.isPlaying)
         {
             soundsAudioSource.clip = gameSounds[1];
             soundsAudioSource.Play();
-        }
+        }*/
 
         foreach (UnitScript unit in unitScriptList)
         {

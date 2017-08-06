@@ -62,9 +62,8 @@ public class UnitScript : MonoBehaviour
     AudioClip abilitySoundEffect;
     public AudioClip[] attackSoundEffects;          // Audio attacchi
     AudioClip attackSoundEffect;
-    public AudioClip movementSoundEffect;                  // Audio movimento
-    public AudioClip selectionSoundEffect;                  // Audio selezione
-    bool isMovementAudioPlaying = false;
+    /*public AudioClip movementSoundEffect;                  // Audio movimento
+    public AudioClip selectionSoundEffect;                  // Audio selezione*/
 
     public float shakeDuration = 1;
     public float shakeStrenght = 0.2f;
@@ -113,11 +112,11 @@ public class UnitScript : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/)
             {
-                if (!soundsAudioSource.isPlaying)
+                /*if (!soundsAudioSource.isPlaying)
                 {
                     soundsAudioSource.clip = selectionSoundEffect;
                     soundsAudioSource.Play();
-                }
+                }*/
 
                 if (!unitIsMoving)
                 {
@@ -184,11 +183,11 @@ public class UnitScript : MonoBehaviour
 
     void PlayMovementAudio()
     {
-        if (unitIsMoving && !soundsAudioSource.isPlaying)
+        /*if (unitIsMoving && !soundsAudioSource.isPlaying)
         {
             soundsAudioSource.clip = movementSoundEffect;
             soundsAudioSource.Play();            
-        }
+        }*/
     }
 
 
@@ -312,6 +311,7 @@ public class UnitScript : MonoBehaviour
                     {
                         if (!soundsAudioSource.isPlaying)
                         {
+                            soundsAudioSource.Stop();
                             if (attacker.roleIndex == 0)
                             {
                                 soundsAudioSource.clip = attackSoundEffects[0];
@@ -474,6 +474,7 @@ public class UnitScript : MonoBehaviour
                 {
                     if (!soundsAudioSource.isPlaying)
                     {
+                        soundsAudioSource.Stop();
                         soundsAudioSource.clip = abilitySoundEffects[3];
                         soundsAudioSource.Play();
                     }
@@ -515,6 +516,7 @@ public class UnitScript : MonoBehaviour
             {
                 if (!soundsAudioSource.isPlaying)
                 {
+                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[4];
                     soundsAudioSource.Play();
                 }
@@ -542,6 +544,7 @@ public class UnitScript : MonoBehaviour
         {
             if (!soundsAudioSource.isPlaying)
             {
+                soundsAudioSource.Stop();
                 soundsAudioSource.clip = abilitySoundEffects[1];
                 soundsAudioSource.Play();
             }
@@ -572,6 +575,7 @@ public class UnitScript : MonoBehaviour
             {
                 if (!soundsAudioSource.isPlaying)
                 {
+                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[5];
                     soundsAudioSource.Play();
                 }
@@ -604,6 +608,7 @@ public class UnitScript : MonoBehaviour
         {
             if (!soundsAudioSource.isPlaying)
             {
+                soundsAudioSource.Stop();
                 soundsAudioSource.clip = abilitySoundEffects[0];
                 soundsAudioSource.Play();
             }
@@ -636,6 +641,7 @@ public class UnitScript : MonoBehaviour
             {
                 if (!soundsAudioSource.isPlaying)
                 {
+                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[2];
                     soundsAudioSource.Play();
                 }
