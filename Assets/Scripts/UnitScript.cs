@@ -516,27 +516,30 @@ public class UnitScript : MonoBehaviour
     // Abilità Specialist 2
     public IEnumerator AbilitySwap(UnitScript attacker, TileScript targetTile, TileScript attackerTile)
     {
-        float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
-                
-        if (attackDistance <= attacker.stats.attackRange)
-        {            
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
-            soundsAudioSource.clip = abilitySoundEffects[5];
-            soundsAudioSource.Play();
+        if (!attacker.isAbilityUsed)
+        {
+            float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
 
-            Vector3 temp = movementDestination;
-            movementDestination = attacker.movementDestination;
-            attacker.movementDestination = temp;
+            if (attackDistance <= attacker.stats.attackRange)
+            {
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
+                soundsAudioSource.clip = abilitySoundEffects[5];
+                soundsAudioSource.Play();
 
-            targetTile.currentUnit = attackerTile.currentUnit;
-            attackerTile.currentUnit = this;
+                Vector3 temp = movementDestination;
+                movementDestination = attacker.movementDestination;
+                attacker.movementDestination = temp;
 
-            attacker.isAbilityUsed = true;
-            attacker.isAbilityInCooldown = true;
-            attacker.currentMoveCount = 0;
-            attacker.tempTurn = gameManagerScript.turnIndex;
+                targetTile.currentUnit = attackerTile.currentUnit;
+                attackerTile.currentUnit = this;
 
-            DeselectUnitsAfterAttack();
+                attacker.isAbilityUsed = true;
+                attacker.isAbilityInCooldown = true;
+                attacker.currentMoveCount = 0;
+                attacker.tempTurn = gameManagerScript.turnIndex;
+
+                DeselectUnitsAfterAttack();
+            }
         }
     }
     
