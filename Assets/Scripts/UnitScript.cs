@@ -97,7 +97,7 @@ public class UnitScript : MonoBehaviour
 
         CheckIfUnitCanAttack();
         SetOrderInLayer();
-        //PlayMovementAudio();
+        PlayMovementAudio();
     }
 
 
