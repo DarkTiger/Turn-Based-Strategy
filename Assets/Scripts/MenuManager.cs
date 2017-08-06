@@ -62,13 +62,17 @@ public class MenuManager : MonoBehaviour
 
     public void QuitApplication()
     {
+        soundsAudioSource.clip = menuSoundEffects[1];
+        soundsAudioSource.Play();
         Application.Quit();
     }
 
     public void HelpScreenMenu()
     {
-        helpPanelMenu.SetActive(!helpModeMenuEnabled);
+        soundsAudioSource.clip = menuSoundEffects[0];
+        soundsAudioSource.Play();
 
+        helpPanelMenu.SetActive(!helpModeMenuEnabled);
         helpModeMenuEnabled = !helpModeMenuEnabled;
         menuTutorialScreen.sprite = menuTutorialImages[0];
     }
@@ -95,6 +99,8 @@ public class MenuManager : MonoBehaviour
 
     public void ExitMenuHelpScreen()
     {
+        soundsAudioSource.clip = menuSoundEffects[1];
+        soundsAudioSource.Play();
         helpPanelMenu.SetActive(false);
         helpModeMenuEnabled = false;
     }
