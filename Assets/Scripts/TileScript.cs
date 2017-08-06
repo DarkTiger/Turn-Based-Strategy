@@ -20,10 +20,8 @@ public class TileScript : MonoBehaviour
     public Color selectionColor;
     public Color p1Color;
     public Color p2Color;
-
-
     public int activationTurnIndex = -1;
-    
+    //public SpriteRenderer bannerSpriteRenderer;
     
 
 
@@ -31,7 +29,8 @@ public class TileScript : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();        
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        //bannerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
 
@@ -94,17 +93,28 @@ public class TileScript : MonoBehaviour
         {
             if (isInRange)
             {
-                spriteRenderer.sprite = movementPreviewSprites[typeIndex];
-                //spriteRenderer.color = selectionColor;
+                //spriteRenderer.sprite = movementPreviewSprites[typeIndex];
+                spriteRenderer.color = selectionColor;
             }
             else if (!isTileTaken)
             {
-                spriteRenderer.sprite = sprites[typeIndex]; 
-                //spriteRenderer.color = Color.white;
+                //spriteRenderer.sprite = sprites[typeIndex]; 
+                if (gameObject.tag == "P1BaseTile")
+                {
+                    spriteRenderer.color = p1Color;
+                }
+                else if (gameObject.tag == "P2BaseTile")
+                {
+                    spriteRenderer.color = p2Color;
+                }
+                else
+                {
+                    spriteRenderer.color = Color.white;
+                }
             }
-            /*else if (isTileTaken)
+            else if (isTileTaken)
             {
-                if (currentUnit != null)
+                if (currentUnit != null && currentUnit.isKing)
                 {
                     if (currentUnit.ownerIndex == 1)
                     {
@@ -119,7 +129,7 @@ public class TileScript : MonoBehaviour
                 {
                     spriteRenderer.color = Color.white;
                 }
-            }*/
+            }
         }
     }
 

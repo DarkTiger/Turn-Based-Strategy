@@ -12,12 +12,12 @@ public class MapGenerator : MonoBehaviour
     public int worldSizeY = 0;
     public GameObject tile;
     public GameObject unit;
-    public List<GameObject> worldTiles;
-  
+    public Sprite[] bannerSprites;
+
+
 
     void Start()
     {
-        worldTiles = new List<GameObject>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
     }
 
@@ -205,7 +205,6 @@ public class MapGenerator : MonoBehaviour
                 GameObject newTile = Instantiate(tile, new Vector3(xTemp, y / 1.6f, 1), tile.transform.rotation);
                 newTile.GetComponent<TileScript>().typeIndex = Random.Range(0, 6);
                 newTile.transform.parent = GameObject.Find("Tiles").transform;
-                worldTiles.Add(newTile);
                 newTile.GetComponent<Renderer>().sortingOrder = -13;
 
                 if ((y % 2 != 0) || (y == 6 && x == 2))
@@ -213,6 +212,7 @@ public class MapGenerator : MonoBehaviour
                     if (x == worldSizeX - 1)
                     {
                         newTile.tag = "P2BaseTile";
+                        newTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bannerSprites[1];
                     }
 
                     if ((y == 6 && x == 2) || (x == 0 && y != 6))
@@ -230,6 +230,7 @@ public class MapGenerator : MonoBehaviour
                     if (x == 0)
                     {
                         newTile.tag = "P1BaseTile";
+                        newTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bannerSprites[0];
                     }                   
 
                     if (x == worldSizeX - 1)
