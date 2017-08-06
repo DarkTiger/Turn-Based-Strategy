@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Outline = cakeslice.Outline;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class UnitScript : MonoBehaviour
@@ -65,6 +66,10 @@ public class UnitScript : MonoBehaviour
     public AudioClip selectionSoundEffect;                  // Audio selezione
     bool isMovementAudioPlaying = false;
 
+    public float shakeDuration = 1;
+    public float shakeStrenght = 0.2f;
+    public int shakeVibrato = 15;
+
 
 
     void Start()
@@ -80,9 +85,9 @@ public class UnitScript : MonoBehaviour
         outlineScript = transform.GetChild(10).GetComponent<Outline>();
         cooldownImage = transform.GetChild(7).GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
-
+                
         try {outlineScript.color = ownerIndex - 1;}
-        catch (System.Exception) {};
+        catch (System.Exception) {}; 
 
         UpdateUnitStat();
     }
@@ -339,6 +344,8 @@ public class UnitScript : MonoBehaviour
                             soundsAudioSource.Play();
                         }
 
+                        attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);                        
+
                         yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                         tempDamage -= bonusDefense;
@@ -471,6 +478,8 @@ public class UnitScript : MonoBehaviour
                         soundsAudioSource.Play();
                     }
 
+                    attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+
                     yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
                     int tempHealth = stats.health + 5;
@@ -510,6 +519,8 @@ public class UnitScript : MonoBehaviour
                     soundsAudioSource.Play();
                 }
 
+                attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
                 isStunned = true;
@@ -534,6 +545,8 @@ public class UnitScript : MonoBehaviour
                 soundsAudioSource.clip = abilitySoundEffects[1];
                 soundsAudioSource.Play();
             }
+
+            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
 
             yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
@@ -562,6 +575,8 @@ public class UnitScript : MonoBehaviour
                     soundsAudioSource.clip = abilitySoundEffects[5];
                     soundsAudioSource.Play();
                 }
+
+                attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
 
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
@@ -593,6 +608,8 @@ public class UnitScript : MonoBehaviour
                 soundsAudioSource.Play();
             }
 
+            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+
             yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
             attacker.isReadyToCounterAttack = true;
@@ -622,6 +639,8 @@ public class UnitScript : MonoBehaviour
                     soundsAudioSource.clip = abilitySoundEffects[2];
                     soundsAudioSource.Play();
                 }
+
+                attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
 
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
