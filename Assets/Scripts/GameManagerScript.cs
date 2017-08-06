@@ -61,7 +61,8 @@ public class GameManagerScript : MonoBehaviour
     public AudioClip battleMusic;
     public AudioClip victoryMusic;
 
-
+    AudioSource soundsAudioSource;
+    public AudioClip[] gameSounds;
 
     void Start()
     {
@@ -71,12 +72,11 @@ public class GameManagerScript : MonoBehaviour
         tileScriptList = new List<TileScript>();
 
         teamMenuScript = GameObject.Find("TeamMenuPanel").GetComponent<TeamMenuScript>();
-
         winnerPanel = GameObject.Find("WinnerPanel");
         winnerText = GameObject.Find("WinnerText").GetComponent<Text>();
         helpPanel = GameObject.Find("HelpPanel");
         rematchPanel = GameObject.Find("RematchPanel");
-
+        soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
         turnIndexText = GameObject.Find("TurnIndexText").GetComponent<Text>();
         movementCountText = GameObject.Find("CurrentMovementText").GetComponent<Text>();
         abilityText = GameObject.Find("CurrentAbilityText").GetComponent<Text>();
@@ -259,6 +259,12 @@ public class GameManagerScript : MonoBehaviour
     //Gestione turni: switch dell'indice del player attivo
     public void OnTurnButtonClick()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[1];
+            soundsAudioSource.Play();
+        }
+
         foreach (UnitScript unit in unitScriptList)
         {
             unit.currentMoveCount = unit.stats.movementRange;
@@ -313,6 +319,12 @@ public class GameManagerScript : MonoBehaviour
 
     public void TacticalMode()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
+
         tacticalModeEnabled = !tacticalModeEnabled;
 
         if (tacticalModeEnabled)
@@ -328,7 +340,7 @@ public class GameManagerScript : MonoBehaviour
         {
             if (!unit.isDead)
             {
-                unit.transform.GetChild(8).GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
+                unit.transform.GetChild(10).GetComponent<SpriteRenderer>().enabled = !tacticalModeEnabled;
             }
         }
     }
@@ -336,34 +348,63 @@ public class GameManagerScript : MonoBehaviour
     // Gestione tutorial
     public void HelpScreen()
     {
-            helpPanel.SetActive(!helpModeEnabled);
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
 
-            helpModeEnabled = !helpModeEnabled;
-            tutorialScreen.sprite = tutorialImages[0];
+        helpPanel.SetActive(!helpModeEnabled);
+
+        helpModeEnabled = !helpModeEnabled;
+        tutorialScreen.sprite = tutorialImages[0];
     }
 
     public void SetLegendImage()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         tutorialScreen.sprite = tutorialImages[0];
     }
 
     public void SetRulesImage()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         tutorialScreen.sprite = tutorialImages[1];
     }
 
     public void SetControlsImage()
     {
-
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
     }
 
     public void SetHudImage()
     {
-
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
     }
 
     public void ExitHelpScreen()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         helpPanel.SetActive(false);
         helpModeEnabled = false;
     }
@@ -411,11 +452,21 @@ public class GameManagerScript : MonoBehaviour
 
     public void OnMenuButtonClicked()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         rematchPanel.SetActive(true);
     }
 
     public void OnRematchConfirmed()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         SceneManager.LoadScene("Main");
         AudioMenuScript.instance.menuMusic.Stop();
         AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;
@@ -424,11 +475,21 @@ public class GameManagerScript : MonoBehaviour
 
     public void OnRematchRejected()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         rematchPanel.SetActive(false);
     }
 
     public void OnBackButtonClicked()
     {
+        if (!soundsAudioSource.isPlaying)
+        {
+            soundsAudioSource.clip = gameSounds[0];
+            soundsAudioSource.Play();
+        }
         SceneManager.LoadScene("Main Menu");
         AudioMenuScript.instance.menuMusic.Stop();
         AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;

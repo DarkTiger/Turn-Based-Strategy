@@ -62,6 +62,7 @@ public class UnitScript : MonoBehaviour
     public AudioClip[] attackSoundEffects;          // Audio attacchi
     AudioClip attackSoundEffect;
     public AudioClip movementSoundEffect;                  // Audio movimento
+    public AudioClip selectionSoundEffect;                  // Audio selezione
     bool isMovementAudioPlaying = false;
 
 
@@ -107,6 +108,12 @@ public class UnitScript : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/)
             {
+                if (!soundsAudioSource.isPlaying)
+                {
+                    soundsAudioSource.clip = selectionSoundEffect;
+                    soundsAudioSource.Play();
+                }
+
                 if (!unitIsMoving)
                 {
                     isSelected = false;

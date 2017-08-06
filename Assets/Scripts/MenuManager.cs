@@ -16,8 +16,8 @@ public class MenuManager : MonoBehaviour
     Image menuTutorialScreen;
 
     AudioSource soundsAudioSource;
-    public AudioClip[] menuSoundEffects;
-    AudioClip menuSoundEffect;
+    // public AudioClip[] menuSoundEffects;
+    public AudioClip menuSoundEffect;
 
 
 
@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            soundsAudioSource.clip = menuSoundEffects[0];
+            soundsAudioSource.clip = menuSoundEffect;
             soundsAudioSource.Play();
 
             startText.SetActive(false);
@@ -51,7 +51,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        soundsAudioSource.clip = menuSoundEffects[0];
+        soundsAudioSource.clip = menuSoundEffect;
         soundsAudioSource.Play();
 
         //if (!soundsAudioSource.isPlaying)
@@ -62,14 +62,14 @@ public class MenuManager : MonoBehaviour
 
     public void QuitApplication()
     {
-        soundsAudioSource.clip = menuSoundEffects[1];
+        soundsAudioSource.clip = menuSoundEffect;
         soundsAudioSource.Play();
         Application.Quit();
     }
 
     public void HelpScreenMenu()
     {
-        soundsAudioSource.clip = menuSoundEffects[0];
+        soundsAudioSource.clip = menuSoundEffect;
         soundsAudioSource.Play();
 
         helpPanelMenu.SetActive(!helpModeMenuEnabled);
@@ -79,27 +79,33 @@ public class MenuManager : MonoBehaviour
 
     public void SetMenuLegendImage()
     {
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
         menuTutorialScreen.sprite = menuTutorialImages[0];
     }
 
     public void SetMenuRulesImage()
     {
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
         menuTutorialScreen.sprite = menuTutorialImages[1];
     }
 
     public void SetMenuControlsImage()
     {
-
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
     }
 
     public void SetMenuHudImage()
     {
-
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
     }
 
     public void ExitMenuHelpScreen()
     {
-        soundsAudioSource.clip = menuSoundEffects[1];
+        soundsAudioSource.clip = menuSoundEffect;
         soundsAudioSource.Play();
         helpPanelMenu.SetActive(false);
         helpModeMenuEnabled = false;
