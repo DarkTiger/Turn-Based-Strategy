@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b90ce7bf3c4e8b74bb2c9fc523996936
+guid: 002b42cf9b3fd954d9e30de638ca4668
 timeCreated: 1501773312
 licenseType: Free
 TrueTypeFontImporter:
@@ -12,7 +12,8 @@ TrueTypeFontImporter:
   fontName: Immortal
   fontNames:
   - Immortal
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b90ce7bf3c4e8b74bb2c9fc523996936, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
