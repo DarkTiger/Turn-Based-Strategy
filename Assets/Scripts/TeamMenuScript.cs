@@ -420,9 +420,15 @@ public class TeamMenuScript : MonoBehaviour
 
             GameObject.Find("Map").GetComponent<MapGenerator>().CreateMap(teamRolesP1Inverted, teamRolesP2Inverted);
             gameObject.SetActive(false);
-            AudioMenuScript.instance.menuMusic.Stop();
-            AudioMenuScript.instance.menuMusic.clip = battleMusic;
-            AudioMenuScript.instance.menuMusic.Play();
+
+            try
+            {
+                AudioMenuScript.instance.menuMusic.Stop();
+                AudioMenuScript.instance.menuMusic.clip = battleMusic;
+                AudioMenuScript.instance.menuMusic.Play();
+            }
+            catch (System.Exception) {};
+                        
             isTeamPanelDeactivated = true;
         }
     }
