@@ -71,13 +71,13 @@ public class UnitScript : MonoBehaviour
         stats = GetComponent<Stats>();
         role = GetComponent<Role>();
         unitAnimationScript = GetComponent<UnitAnimationScript>();
-        spriteRenderer = transform.GetChild(9).GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(8).GetComponent<SpriteRenderer>();
         movementDestination = transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         circleColliderGameobject = transform.GetChild(0).gameObject;
-        outlineScript = transform.GetChild(9).GetComponent<Outline>();
-        cooldownImage = transform.GetChild(6).GetComponent<Image>();
+        outlineScript = transform.GetChild(8).GetComponent<Outline>();
+        cooldownImage = transform.GetChild(5).GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
 
         try {outlineScript.color = ownerIndex - 1;}
