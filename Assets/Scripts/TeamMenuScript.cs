@@ -72,7 +72,7 @@ public class TeamMenuScript : MonoBehaviour
         btnSpriteSlotP1_4 = p1SlotButtons[3].transform.GetChild(0).GetComponent<Image>();
         btnSpriteSlotP1_5 = p1SlotButtons[4].transform.GetChild(0).GetComponent<Image>();
         btnSpriteSlotP1_6 = p1SlotButtons[5].transform.GetChild(0).GetComponent<Image>();
-
+                
         btnTextSlotP2_1 = p2SlotButtons[0].transform.GetChild(1).GetComponent<Text>();
         btnTextSlotP2_2 = p2SlotButtons[1].transform.GetChild(1).GetComponent<Text>();
         btnTextSlotP2_3 = p2SlotButtons[2].transform.GetChild(1).GetComponent<Text>();
@@ -118,7 +118,6 @@ public class TeamMenuScript : MonoBehaviour
 
     public void OnRoleButtonClicked(int roleIndex)
     {
-        
         for (int i = 0; i < teamRolesP1.Count; i++)
         {
             if (currentPlayer == 1)
