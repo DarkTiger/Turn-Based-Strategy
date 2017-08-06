@@ -298,8 +298,6 @@ public class UnitScript : MonoBehaviour
 
                     if (tempDamage > bonusDefense)
                     {
-                        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
-
                         if (!soundsAudioSource.isPlaying)
                         {
                             if (attacker.roleIndex == 0)
@@ -333,6 +331,8 @@ public class UnitScript : MonoBehaviour
 
                             soundsAudioSource.Play();
                         }
+
+                        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                         tempDamage -= bonusDefense;
                         stats.health -= tempDamage;
@@ -458,13 +458,13 @@ public class UnitScript : MonoBehaviour
             {
                 if (stats.health != stats.maxHealth)
                 {
-                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
-
                     if (!soundsAudioSource.isPlaying)
                     {
                         soundsAudioSource.clip = abilitySoundEffects[3];
                         soundsAudioSource.Play();
                     }
+
+                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
                     int tempHealth = stats.health + 5;
 
@@ -497,13 +497,13 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
-                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-
                 if (!soundsAudioSource.isPlaying)
                 {
                     soundsAudioSource.clip = abilitySoundEffects[4];
                     soundsAudioSource.Play();
                 }
+
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
                 isStunned = true;
                 attacker.isAbilityUsed = true;
@@ -522,13 +522,13 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-
             if (!soundsAudioSource.isPlaying)
             {
                 soundsAudioSource.clip = abilitySoundEffects[1];
                 soundsAudioSource.Play();
             }
+
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
             attacker.isInvulnerable = true;
             attacker.isAbilityUsed = true;
@@ -550,13 +550,13 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
-                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
-
                 if (!soundsAudioSource.isPlaying)
                 {
                     soundsAudioSource.clip = abilitySoundEffects[5];
                     soundsAudioSource.Play();
                 }
+
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
                 Vector3 temp = movementDestination;
                 movementDestination = attacker.movementDestination;
@@ -580,12 +580,13 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
             if (!soundsAudioSource.isPlaying)
             {
                 soundsAudioSource.clip = abilitySoundEffects[0];
                 soundsAudioSource.Play();
             }
+
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
             attacker.isReadyToCounterAttack = true;
             attacker.isAbilityUsed = true;
@@ -609,12 +610,13 @@ public class UnitScript : MonoBehaviour
             if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
                 !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
             {
-                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
                 if (!soundsAudioSource.isPlaying)
                 {
                     soundsAudioSource.clip = abilitySoundEffects[2];
                     soundsAudioSource.Play();
                 }
+
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
                 isCrippled = true;
                 attacker.isAbilityUsed = true;
