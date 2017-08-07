@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitAnimationScript : MonoBehaviour 
 {
-    Animator stateAnimator;
+    public Animator stateAnimator;
     Animator hitAnimator;
     int attackerRoleIndex;
     bool abilityIsPersistent = false;
@@ -116,6 +116,8 @@ public class UnitAnimationScript : MonoBehaviour
     public void DisableStateAnimation()
     {
         //hitAnimator.SetBool("Ability", false);
+
         stateAnimator.SetBool("Ability", false);
-    }
+        stateAnimator.SetInteger("AttackerRoleIndex", -1);
+    } 
 }

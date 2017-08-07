@@ -527,6 +527,12 @@ public class UnitScript : MonoBehaviour
             {
                 attacker.isAbilityUsed = true;
 
+                isStunned = true;
+                attacker.isAbilityInCooldown = true;
+                attacker.currentMoveCount = 0;
+                attacker.tempTurn = gameManagerScript.turnIndex;
+                tempTurnStunAbility = gameManagerScript.turnIndex;
+
                 soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
@@ -537,12 +543,6 @@ public class UnitScript : MonoBehaviour
                 attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
                 transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
-
-                isStunned = true;
-                attacker.isAbilityInCooldown = true;
-                attacker.currentMoveCount = 0;
-                attacker.tempTurn = gameManagerScript.turnIndex;
-                tempTurnStunAbility = gameManagerScript.turnIndex;
 
                 DeselectUnitsAfterAttack();
             }
@@ -691,23 +691,20 @@ public class UnitScript : MonoBehaviour
             }*/
         }
 
-
-        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 2 && roleIndex == 0) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 2 && roleIndex == 2) ||
-            (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2 && roleIndex == 1) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2 && roleIndex == 4))
+         
+        if (!unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("None"))
         {
-            unitAnimationScript.DisableStateAnimation();
-
-            if (roleIndex == 2)
+            if ((gameManagerScript.turnIndex == (tempTurnCounterAbility + 2) && gameManagerScript.turnIndex > tempTurnCounterAbility) || (gameManagerScript.turnIndex == (tempTurnCrippleAbility + 2) && gameManagerScript.turnIndex > tempTurnCrippleAbility) ||
+            (gameManagerScript.turnIndex == (tempTurnInvisibilityAbility + 2) && gameManagerScript.turnIndex > tempTurnInvisibilityAbility) || (gameManagerScript.turnIndex == (tempTurnStunAbility + 2) && gameManagerScript.turnIndex > tempTurnStunAbility))
             {
-                Debug.Log("disable");
-            } 
+                unitAnimationScript.DisableStateAnimation();
 
-            tempTurnCounterAbility = 0;
-            tempTurnCrippleAbility = 0;
-            tempTurnInvisibilityAbility = 0;
-            tempTurnStunAbility = 0;
+                tempTurnCounterAbility = 0;
+                tempTurnCrippleAbility = 0;
+                tempTurnInvisibilityAbility = 0;
+                tempTurnStunAbility = 0;
+            }
         }
-
         cooldownImage.enabled = isAbilityInCooldown;
     }
 
