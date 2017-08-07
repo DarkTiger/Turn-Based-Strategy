@@ -99,6 +99,7 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         UpdateMiniature();
+        Restart();
 
         if (mapCreated)
         {
@@ -446,6 +447,20 @@ public class GameManagerScript : MonoBehaviour
         AudioMenuScript.instance.menuMusic.Play();
         winnerText.text = "PLAYER 2 WINS!";
         winnerPanel.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        if (isGameOver)
+        {
+            if (Input.anyKey || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                SceneManager.LoadScene("Main");
+                AudioMenuScript.instance.menuMusic.Stop();
+                AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;
+                AudioMenuScript.instance.menuMusic.Play();
+            }
+        }
     }
 
     /*public void OnMenuButtonClicked()
