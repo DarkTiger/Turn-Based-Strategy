@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class UnitStatsTextScript : MonoBehaviour
 {
@@ -69,5 +71,12 @@ public class UnitStatsTextScript : MonoBehaviour
         {
             attackText.color = Color.white;
         }
+    }
+
+
+    public void DoShakeDefenseBonus()
+    {
+        defensePanel.gameObject.transform.DOShakePosition(0.5f, 0.25f, 10, 90f, false, true);   
+        defenseText.gameObject.transform.DOShakePosition(0.5f, 0.25f, 10, 90f, false, true);   
     }
 }

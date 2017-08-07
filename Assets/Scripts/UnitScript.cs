@@ -15,6 +15,7 @@ public class UnitScript : MonoBehaviour
     GameManagerScript gameManagerScript;
     TileScript tileScript;
     public UnitAnimationScript unitAnimationScript;
+    UnitStatsTextScript unitStatsTextScript;
 
     public int ownerIndex = 1;                      // Indica a quale player appartiene l'unità
     public int roleIndex = 0;                       // Indica la classe dell'unità
@@ -83,7 +84,7 @@ public class UnitScript : MonoBehaviour
         outlineScript = transform.GetChild(10).GetComponent<Outline>();
         cooldownImage = transform.GetChild(7).GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
-        
+        unitStatsTextScript = gameObject.GetComponent<UnitStatsTextScript>();
                 
         try {outlineScript.color = ownerIndex - 1;}
         catch (System.Exception) {}; 
@@ -304,7 +305,7 @@ public class UnitScript : MonoBehaviour
             if (!isInvulnerable)
             {
                 if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
-                   !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
+                    !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
                 {
                     int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
@@ -347,14 +348,20 @@ public class UnitScript : MonoBehaviour
 
                         attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);                        
 
+
                         yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                         tempDamage -= bonusDefense;
                         stats.health -= tempDamage;
 
+                        if (tempDamage > 0)
+                        {
+                            transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
+                        }
+
                         if (isReadyToCounterAttack)
                         {
-                            attacker.stats.health -= 3;
+                            attacker.stats.health -= 3; 
 
                             if (attacker.stats.health <= 0)
                             {
@@ -368,8 +375,10 @@ public class UnitScript : MonoBehaviour
                             unitAnimationScript.PlayDeathAnimation();
                             Death();
                         }
-
                     }
+
+                    unitStatsTextScript.DoShakeDefenseBonus();
+
                     attacker.hasAttacked = true;
                     attacker.currentMoveCount = 0;
 
