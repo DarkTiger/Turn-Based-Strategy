@@ -113,7 +113,6 @@ public class UnitScript : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/)
             {              
-
                 if (!unitIsMoving)
                 {
                     isSelected = false;
@@ -347,8 +346,6 @@ public class UnitScript : MonoBehaviour
                         }
 
                         attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);                        
-
-
                         yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
 
                         tempDamage -= bonusDefense;
@@ -624,7 +621,6 @@ public class UnitScript : MonoBehaviour
             }
 
             attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
             yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
             attacker.isReadyToCounterAttack = true;
@@ -657,7 +653,6 @@ public class UnitScript : MonoBehaviour
                 }
 
                 attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
 
                 isCrippled = true;
@@ -680,17 +675,18 @@ public class UnitScript : MonoBehaviour
             isAbilityInCooldown = false;
             tempTurn = 0;
 
-            if (roleIndex == 0 || roleIndex == 1)
+            /*if (roleIndex == 0 || roleIndex == 1)
             {
                 unitAnimationScript.DisableStateAnimation();
-            }
+            }*/
         }
 
 
-        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 2) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 2) ||
-         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2))
+        if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 2 && roleIndex == 0) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 2 && roleIndex == 2) ||
+         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2 && roleIndex == 1) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2 && roleIndex == 4))
         {
             unitAnimationScript.DisableStateAnimation();
+
             tempTurnCounterAbility = 0;
             tempTurnCrippleAbility = 0;
             tempTurnInvisibilityAbility = 0;

@@ -81,8 +81,8 @@ public class UnitAnimationScript : MonoBehaviour
 
                     if (!state.IsName("KingAttack"))
                     {
-                        hitAnimator.SetBool("Ability", false);
-                        hitAnimator.SetInteger("AttackerRoleIndex", -1);
+                        //hitAnimator.SetBool("Ability", false);
+                        //hitAnimator.SetInteger("AttackerRoleIndex", -1);
                     }
                 }
             }
@@ -93,8 +93,8 @@ public class UnitAnimationScript : MonoBehaviour
                     if (!state.IsName("PorcupineAbility"))
                     {
                         hitAnimator.SetBool("Ability", false);
-                        hitAnimator.SetBool("Attack", false);
-                        hitAnimator.SetInteger("AttackerRoleIndex", -1);
+                        //hitAnimator.SetBool("Attack", false);
+                        //hitAnimator.SetInteger("AttackerRoleIndex", -1);
                     }
                 }
             } 
