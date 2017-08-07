@@ -71,31 +71,34 @@ public class UnitAnimationScript : MonoBehaviour
     {
         AnimatorStateInfo state = hitAnimator.GetCurrentAnimatorStateInfo(0);
 
-        if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable))
+        if (!abilityIsPersistent || (!unitScript.isReadyToCounterAttack && !unitScript.isStunned && !unitScript.isInvulnerable && !unitScript.isCrippled))
         {
             if (state.IsName("PorcupineAttack") || state.IsName("RabbitAttack") || state.IsName("SkunkAttack") || state.IsName("KingAttack") || state.IsName("MoleAttack") || state.IsName("TigerAttack") || state.IsName("BearAttack"))
             {
                 if (state.normalizedTime >= state.length)
                 {
                     hitAnimator.SetBool("Attack", false);
+                    hitAnimator.SetInteger("AttackerRoleIndex", -1);
 
-                    if (!state.IsName("KingAttack"))
+                    /*if (!state.IsName("KingAttack"))
                     {
                         //hitAnimator.SetBool("Ability", false);
                         //hitAnimator.SetInteger("AttackerRoleIndex", -1);
-                    }
+                    }*/
                 }
             }
-            else if (state.IsName("PorcupineAbility") || state.IsName("RabbitAbility") || state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility") || state.IsName("MoleAbility"))
+            else if (/*state.IsName("PorcupineAbility") ||*/ state.IsName("RabbitAbility") /*|| state.IsName("SkunkAbility") || state.IsName("TigerAbility") || state.IsName("BearAbility")*/ || state.IsName("MoleAbility"))
             {
                 if (state.normalizedTime >= state.length)
                 {
-                    if (!state.IsName("PorcupineAbility"))
-                    {
+                    //if (!state.IsName("PorcupineAbility"))
+                    //{
                         hitAnimator.SetBool("Ability", false);
+                        hitAnimator.SetInteger("AttackerRoleIndex", -1);
+
                         //hitAnimator.SetBool("Attack", false);
                         //hitAnimator.SetInteger("AttackerRoleIndex", -1);
-                    }
+                    //}
                 }
             } 
         }
@@ -112,7 +115,7 @@ public class UnitAnimationScript : MonoBehaviour
 
     public void DisableStateAnimation()
     {
-        hitAnimator.SetBool("Ability", false);
+        //hitAnimator.SetBool("Ability", false);
         stateAnimator.SetBool("Ability", false);
     }
 }
