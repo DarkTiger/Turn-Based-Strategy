@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     GameObject helpPanelMenu;
 
     bool helpModeMenuEnabled = false;
+    bool isMenuDisplayed = false;
 
     public Sprite[] menuTutorialImages;
     Image menuTutorialScreen;
@@ -38,13 +39,17 @@ public class MenuManager : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (!isMenuDisplayed)
         {
-            soundsAudioSource.clip = menuSoundEffect;
-            soundsAudioSource.Play();
+            if (Input.anyKey || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                soundsAudioSource.clip = menuSoundEffect;
+                soundsAudioSource.Play();
 
-            startText.SetActive(false);
-            panelMenuButtons.SetActive(true);
+                startText.SetActive(false);
+                panelMenuButtons.SetActive(true);
+                isMenuDisplayed = true;
+            }
         }
 	}
 
