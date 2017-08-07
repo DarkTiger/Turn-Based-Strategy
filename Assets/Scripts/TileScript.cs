@@ -22,6 +22,9 @@ public class TileScript : MonoBehaviour
     public Color p2Color;
     public int activationTurnIndex = -1;
     //public SpriteRenderer bannerSpriteRenderer;
+
+    AudioSource soundsAudioSource;
+    public AudioClip movementSoundEffect;
     
 
 
@@ -30,6 +33,7 @@ public class TileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[typeIndex];
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
         //bannerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
@@ -219,6 +223,12 @@ public class TileScript : MonoBehaviour
                     foreach (TileScript tile in gameManager.tileScriptList)
                     {
                         tile.isInRange = false;
+                    }
+
+                    if (!soundsAudioSource.isPlaying)
+                    {
+                        soundsAudioSource.clip = movementSoundEffect;
+                        soundsAudioSource.Play();
                     }
 
                     Vector3 movementDestinationTemp = transform.position;

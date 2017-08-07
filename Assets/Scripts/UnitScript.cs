@@ -182,14 +182,14 @@ public class UnitScript : MonoBehaviour
     }
 
 
-    void PlayMovementAudio()
+    /*void PlayMovementAudio()
     {
         if (unitIsMoving && !soundsAudioSource.isPlaying)
         {
             soundsAudioSource.clip = attackAndMovementSoundEffects[6];
             soundsAudioSource.Play();            
         }
-    }
+    }*/
 
 
     public void CheckIfUnitCanAttack()
@@ -479,9 +479,10 @@ public class UnitScript : MonoBehaviour
             {
                 if (stats.health != stats.maxHealth)
                 {
+
+                    soundsAudioSource.Stop();
                     if (!soundsAudioSource.isPlaying)
                     {
-                        soundsAudioSource.Stop();
                         soundsAudioSource.clip = abilitySoundEffects[3];
                         soundsAudioSource.Play();
                     }
@@ -521,9 +522,9 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
+                soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
-                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[4];
                     soundsAudioSource.Play();
                 }
@@ -549,9 +550,9 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
+            soundsAudioSource.Stop();
             if (!soundsAudioSource.isPlaying)
             {
-                soundsAudioSource.Stop();
                 soundsAudioSource.clip = abilitySoundEffects[1];
                 soundsAudioSource.Play();
             }
@@ -580,9 +581,9 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
+                soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
-                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[5];
                     soundsAudioSource.Play();
                 }
@@ -613,9 +614,9 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
+            soundsAudioSource.Stop();
             if (!soundsAudioSource.isPlaying)
             {
-                soundsAudioSource.Stop();
                 soundsAudioSource.clip = abilitySoundEffects[0];
                 soundsAudioSource.Play();
             }
@@ -645,9 +646,9 @@ public class UnitScript : MonoBehaviour
             if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
                 !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
             {
+                soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
-                    soundsAudioSource.Stop();
                     soundsAudioSource.clip = abilitySoundEffects[2];
                     soundsAudioSource.Play();
                 }
