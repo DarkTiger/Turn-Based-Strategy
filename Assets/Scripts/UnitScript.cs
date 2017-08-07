@@ -702,7 +702,41 @@ public class UnitScript : MonoBehaviour
          
         if (!unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("None"))
         {
-            if ((gameManagerScript.turnIndex == (tempTurnCounterAbility + 2) && gameManagerScript.turnIndex > tempTurnCounterAbility) || (gameManagerScript.turnIndex == (tempTurnCrippleAbility + 2) && gameManagerScript.turnIndex > tempTurnCrippleAbility) ||
+            if (unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("PorcupineAbility"))
+            {
+                if (gameManagerScript.turnIndex >= (tempTurnCrippleAbility + 2))
+                {
+                    unitAnimationScript.DisableStateAnimation();
+                    tempTurnCrippleAbility = 0;
+                }
+            }
+            else if (unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("SkunkAbility"))
+            {
+                if (gameManagerScript.turnIndex >= (tempTurnStunAbility + 2))
+                {
+                    unitAnimationScript.DisableStateAnimation();
+                    tempTurnStunAbility = 0;
+                }
+            }
+            else if (unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("TigerAbility"))
+            {
+                if (gameManagerScript.turnIndex >= (tempTurnInvisibilityAbility + 2))
+                {
+                    unitAnimationScript.DisableStateAnimation();
+                    tempTurnInvisibilityAbility = 0;
+                }
+            }
+            else if (unitAnimationScript.stateAnimator.GetCurrentAnimatorStateInfo(0).IsName("BearAbility"))
+            {
+                if (gameManagerScript.turnIndex >= (tempTurnCounterAbility + 2))
+                {
+                    unitAnimationScript.DisableStateAnimation();
+                    tempTurnCounterAbility = 0;
+                }
+            }
+
+
+            /*if ((gameManagerScript.turnIndex == (tempTurnCounterAbility + 2) && gameManagerScript.turnIndex > tempTurnCounterAbility) || (gameManagerScript.turnIndex == (tempTurnCrippleAbility + 2) && gameManagerScript.turnIndex > tempTurnCrippleAbility) ||
             (gameManagerScript.turnIndex == (tempTurnInvisibilityAbility + 2) && gameManagerScript.turnIndex > tempTurnInvisibilityAbility) || (gameManagerScript.turnIndex == (tempTurnStunAbility + 2) && gameManagerScript.turnIndex > tempTurnStunAbility))
             {
                 unitAnimationScript.DisableStateAnimation();
@@ -711,7 +745,7 @@ public class UnitScript : MonoBehaviour
                 tempTurnCrippleAbility = 0;
                 tempTurnInvisibilityAbility = 0;
                 tempTurnStunAbility = 0;
-            }
+            }*/
         }
         cooldownImage.enabled = isAbilityInCooldown;
     }
