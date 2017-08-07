@@ -53,6 +53,9 @@ public class GameManagerScript : MonoBehaviour
     public Sprite[] tilePanelImages;
     Image tilePanelImage;
 
+    public Sprite[] victoryImages;
+    Image victoryImage;
+
     GameObject winnerPanel;
     GameObject helpPanel;
     GameObject rematchPanel;
@@ -87,6 +90,7 @@ public class GameManagerScript : MonoBehaviour
         tutorialScreen = GameObject.Find("TutorialScreen").GetComponent<Image>();
         iconPanelImage = GameObject.Find("IconPanel").GetComponent<Image>();
         tilePanelImage = GameObject.Find("TilePanel").GetComponent<Image>();
+        victoryImage = GameObject.Find("WinnerPanel").GetComponent<Image>();
 
         helpPanel.SetActive(false);
         rematchPanel.SetActive(false);
@@ -435,6 +439,7 @@ public class GameManagerScript : MonoBehaviour
         AudioMenuScript.instance.menuMusic.Stop();
         AudioMenuScript.instance.menuMusic.clip = victoryMusic;
         AudioMenuScript.instance.menuMusic.Play();
+        victoryImage.sprite = victoryImages[0];
         winnerText.text = "PLAYER 1 WINS!";
         winnerPanel.SetActive(true);
     }
@@ -447,6 +452,7 @@ public class GameManagerScript : MonoBehaviour
         AudioMenuScript.instance.menuMusic.Stop();
         AudioMenuScript.instance.menuMusic.clip = victoryMusic;
         AudioMenuScript.instance.menuMusic.Play();
+        victoryImage.sprite = victoryImages[1];
         winnerText.text = "PLAYER 2 WINS!";
         winnerPanel.SetActive(true);
     }

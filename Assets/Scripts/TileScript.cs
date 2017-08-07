@@ -103,7 +103,7 @@ public class TileScript : MonoBehaviour
             else if (!isTileTaken)
             {
                 //spriteRenderer.sprite = sprites[typeIndex]; 
-                if (gameObject.tag == "P1BaseTile")
+                /*if (gameObject.tag == "P1BaseTile")
                 {
                     spriteRenderer.color = p1Color;
                 }
@@ -111,7 +111,7 @@ public class TileScript : MonoBehaviour
                 {
                     spriteRenderer.color = p2Color;
                 }
-                else
+                else*/
                 {
                     spriteRenderer.color = Color.white;
                 }
