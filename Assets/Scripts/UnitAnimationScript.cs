@@ -63,7 +63,7 @@ public class UnitAnimationScript : MonoBehaviour
 
         abilityIsPersistent = persistent;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
     }
 
 

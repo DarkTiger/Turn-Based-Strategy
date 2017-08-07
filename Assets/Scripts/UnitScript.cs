@@ -306,6 +306,8 @@ public class UnitScript : MonoBehaviour
                 if (attackDistance <= attacker.stats.attackRange && (!distance.Contains("2.5709") && !distance.Contains("2.9681") &&
                     !distance.Contains("2.8906") && !distance.Contains("2.8653") && !distance.Contains("2.5317")))
                 {
+                    attacker.hasAttacked = true;
+
                     int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
                     if (tempDamage > bonusDefense)
@@ -479,6 +481,7 @@ public class UnitScript : MonoBehaviour
             {
                 if (stats.health != stats.maxHealth)
                 {
+                    attacker.isAbilityUsed = true;
 
                     soundsAudioSource.Stop();
                     if (!soundsAudioSource.isPlaying)
@@ -488,8 +491,9 @@ public class UnitScript : MonoBehaviour
                     }
 
                     attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
                     yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
+
+                    transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
                     int tempHealth = stats.health + 5;
 
@@ -502,7 +506,6 @@ public class UnitScript : MonoBehaviour
                         stats.health += 5;
                     }
 
-                    attacker.isAbilityUsed = true;
                     attacker.isAbilityInCooldown = true;
                     attacker.currentMoveCount = 0;
                     attacker.tempTurn = gameManagerScript.turnIndex;
@@ -522,6 +525,8 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
+                attacker.isAbilityUsed = true;
+
                 soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
@@ -530,11 +535,10 @@ public class UnitScript : MonoBehaviour
                 }
 
                 attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+                transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
                 isStunned = true;
-                attacker.isAbilityUsed = true;
                 attacker.isAbilityInCooldown = true;
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
@@ -557,16 +561,16 @@ public class UnitScript : MonoBehaviour
                 soundsAudioSource.Play();
             }
 
-            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-
             attacker.isInvulnerable = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
             tempTurnInvisibilityAbility = gameManagerScript.turnIndex;
+
+            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+            //transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
             DeselectUnitsAfterAttack();
         }
@@ -581,6 +585,8 @@ public class UnitScript : MonoBehaviour
 
             if (attackDistance <= attacker.stats.attackRange)
             {
+                attacker.isAbilityUsed = true;
+
                 soundsAudioSource.Stop();
                 if (!soundsAudioSource.isPlaying)
                 {
@@ -589,8 +595,8 @@ public class UnitScript : MonoBehaviour
                 }
 
                 attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, false));             // Gestisce l'animazione dell'abilità
+                transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
                 Vector3 temp = movementDestination;
                 movementDestination = attacker.movementDestination;
@@ -599,7 +605,6 @@ public class UnitScript : MonoBehaviour
                 targetTile.currentUnit = attackerTile.currentUnit;
                 attackerTile.currentUnit = this;
 
-                attacker.isAbilityUsed = true;
                 attacker.isAbilityInCooldown = true;
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
@@ -614,6 +619,8 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
+            attacker.isAbilityUsed = true;
+
             soundsAudioSource.Stop();
             if (!soundsAudioSource.isPlaying)
             {
@@ -640,6 +647,8 @@ public class UnitScript : MonoBehaviour
     {
         if (!attacker.isAbilityUsed)
         {
+            attacker.isAbilityUsed = true;
+
             float attackDistance = Vector2.Distance(transform.position, attacker.gameObject.transform.position);
             string distance = attackDistance.ToString();
 
@@ -655,9 +664,9 @@ public class UnitScript : MonoBehaviour
 
                 attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
                 yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+                transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
                 isCrippled = true;
-                attacker.isAbilityUsed = true;
                 attacker.isAbilityInCooldown = true;
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
@@ -684,9 +693,14 @@ public class UnitScript : MonoBehaviour
 
 
         if ((gameManagerScript.turnIndex == tempTurnCounterAbility + 2 && roleIndex == 0) || (gameManagerScript.turnIndex == tempTurnCrippleAbility + 2 && roleIndex == 2) ||
-         (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2 && roleIndex == 1) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2 && roleIndex == 4))
+            (gameManagerScript.turnIndex == tempTurnInvisibilityAbility + 2 && roleIndex == 1) || (gameManagerScript.turnIndex == tempTurnStunAbility + 2 && roleIndex == 4))
         {
             unitAnimationScript.DisableStateAnimation();
+
+            if (roleIndex == 2)
+            {
+                Debug.Log("disable");
+            } 
 
             tempTurnCounterAbility = 0;
             tempTurnCrippleAbility = 0;
