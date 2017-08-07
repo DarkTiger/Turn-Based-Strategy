@@ -300,6 +300,7 @@ public class GameManagerScript : MonoBehaviour
         {
             tile.isInRange = false;
             tile.isTileTaken = false;
+            tile.spriteRenderer.color = Color.white;
         }
 
         if (!isGameOver)
@@ -500,6 +501,14 @@ public class GameManagerScript : MonoBehaviour
             soundsAudioSource.Play();
         }
         rematchPanel.SetActive(false);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+        AudioMenuScript.instance.menuMusic.Stop();
+        AudioMenuScript.instance.menuMusic.clip = menuBasicMusic;
+        AudioMenuScript.instance.menuMusic.Play();
     }
 
     public void OnBackButtonClicked()

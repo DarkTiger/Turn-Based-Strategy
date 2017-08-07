@@ -16,7 +16,7 @@ public class TileScript : MonoBehaviour
     
     public Sprite[] sprites;            // Gestione sprite
     public Sprite[] movementPreviewSprites; // Sprite movimento
-    SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public Color selectionColor;
     public Color p1Color;
     public Color p2Color;
