@@ -112,9 +112,9 @@ public class TileScript : MonoBehaviour
                     spriteRenderer.color = p2Color;
                 }
                 else*/
-                {
+                //{
                     spriteRenderer.color = Color.white;
-                }
+                //}
             }
             else if (isTileTaken)
             {
@@ -140,7 +140,7 @@ public class TileScript : MonoBehaviour
 
     void OnMouseOver()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || (Input.GetMouseButtonDown(0) /*&& Input.GetKey(KeyCode.A)*/)) && !gameManager.isGameOver)
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !gameManager.isGameOver)
         {
             isSelected = true;
             
