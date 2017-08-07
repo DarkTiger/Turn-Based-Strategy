@@ -398,7 +398,7 @@ public class TeamMenuScript : MonoBehaviour
             btnStartGameText.text = "START GAME!";
             btnStartGame.interactable = false;
 
-            currentPlayerText.text = "CHOOSE YOUR TEAM:\n(Player 2)";
+            currentPlayerText.text = "CHOOSE YOUR TEAM\nPlayer 2";
 
             for (int i = 0; i < roleTypesButtons.Length; i++)
             {
