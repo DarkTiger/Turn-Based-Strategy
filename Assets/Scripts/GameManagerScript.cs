@@ -429,6 +429,15 @@ public class GameManagerScript : MonoBehaviour
         AudioMenuScript.instance.menuMusic.Play();
         winnerText.text = "PLAYER "  + playerIndex.ToString() + " WINS!";
         winnerPanel.SetActive(true);
+        if (playerIndex == 1)
+        {
+            victoryImage.sprite = victoryImages[0];
+        }
+        else
+        {
+            victoryImage.sprite = victoryImages[1];
+        }
+
     }
 
     // Finale che si attiva quando muore il re del player 2
