@@ -102,7 +102,7 @@ public class UnitScript : MonoBehaviour
 
         CheckIfUnitCanAttack();
         SetOrderInLayer();
-        PlayMovementAudio();
+        // PlayMovementAudio();
     }
 
 
@@ -111,12 +111,7 @@ public class UnitScript : MonoBehaviour
         if (!isDead && !isStunned)
         {
             if (Input.GetMouseButtonUp(0) /*&& Input.GetKey(KeyCode.LeftShift)*/)
-            {
-                /*if (!soundsAudioSource.isPlaying)
-                {
-                    soundsAudioSource.clip = selectionSoundEffect;
-                    soundsAudioSource.Play();
-                }*/
+            {              
 
                 if (!unitIsMoving)
                 {
@@ -144,9 +139,15 @@ public class UnitScript : MonoBehaviour
                             if (currentMoveCount > 0 || !hasAttacked)
                             {
                                 isSelected = !isSelected;
-
+                                                                
                                 if (isSelected)
                                 {
+                                    /*if (!soundsAudioSource.isPlaying)
+                                    {
+                                        soundsAudioSource.clip = attackAndMovementSoundEffects[7];
+                                        soundsAudioSource.Play();
+                                    }*/
+
                                     spriteRenderer.color = selectionColor;
                                     gameManagerScript.currentSelectedUnit = this;
                                 }
