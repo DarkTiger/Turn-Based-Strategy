@@ -578,7 +578,6 @@ public class UnitScript : MonoBehaviour
 
             attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
             yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-            //transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
             DeselectUnitsAfterAttack();
         }
@@ -636,15 +635,15 @@ public class UnitScript : MonoBehaviour
                 soundsAudioSource.Play();
             }
 
-            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-
             attacker.isReadyToCounterAttack = true;
             attacker.isAbilityUsed = true;
             attacker.isAbilityInCooldown = true;
             attacker.currentMoveCount = 0;
             attacker.tempTurn = gameManagerScript.turnIndex;
             tempTurnCounterAbility = gameManagerScript.turnIndex;
+
+            attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+            yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
 
             DeselectUnitsAfterAttack();
         }
@@ -670,15 +669,15 @@ public class UnitScript : MonoBehaviour
                     soundsAudioSource.Play();
                 }
 
-                attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
-                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
-                transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
-
                 isCrippled = true;
                 attacker.isAbilityInCooldown = true;
                 attacker.currentMoveCount = 0;
                 attacker.tempTurn = gameManagerScript.turnIndex;
                 tempTurnCrippleAbility = gameManagerScript.turnIndex;
+
+                attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);
+                yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, true, true));             // Gestisce l'animazione dell'abilità
+                transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
 
                 DeselectUnitsAfterAttack();
             }
