@@ -425,6 +425,9 @@ public class UnitScript : MonoBehaviour
             }
         }
 
+        soundsAudioSource.clip = attackAndMovementSoundEffects[9];
+        soundsAudioSource.Play();
+
         unitAnimationScript.DisableStateAnimation();
     }
 
