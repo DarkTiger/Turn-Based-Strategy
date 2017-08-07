@@ -213,6 +213,7 @@ public class MapGenerator : MonoBehaviour
                     {
                         newTile.tag = "P2BaseTile";
                         newTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bannerSprites[1];
+                        newTile.GetComponent<TileScript>().typeIndex = 5;
                     }
 
                     if ((y == 6 && x == 2) || (x == 0 && y != 6))
@@ -231,6 +232,7 @@ public class MapGenerator : MonoBehaviour
                     {
                         newTile.tag = "P1BaseTile";
                         newTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bannerSprites[0];
+                        newTile.GetComponent<TileScript>().typeIndex = 5;
                     }                   
 
                     if (x == worldSizeX - 1)
