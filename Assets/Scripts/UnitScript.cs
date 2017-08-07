@@ -60,10 +60,9 @@ public class UnitScript : MonoBehaviour
     AudioSource soundsAudioSource;
     public AudioClip[] abilitySoundEffects;         // Audio abilità
     AudioClip abilitySoundEffect;
-    public AudioClip[] attackSoundEffects;          // Audio attacchi
+    public AudioClip[] attackAndMovementSoundEffects;          // Audio attacchi
     AudioClip attackSoundEffect;
-    /*public AudioClip movementSoundEffect;                  // Audio movimento
-    public AudioClip selectionSoundEffect;                  // Audio selezione*/
+    public AudioClip[] menuSoundEffects;                  // Audio movimento  // Audio selezione
 
     public float shakeDuration = 1;
     public float shakeStrenght = 0.2f;
@@ -84,6 +83,7 @@ public class UnitScript : MonoBehaviour
         outlineScript = transform.GetChild(10).GetComponent<Outline>();
         cooldownImage = transform.GetChild(7).GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
+        
                 
         try {outlineScript.color = ownerIndex - 1;}
         catch (System.Exception) {}; 
@@ -183,11 +183,11 @@ public class UnitScript : MonoBehaviour
 
     void PlayMovementAudio()
     {
-        /*if (unitIsMoving && !soundsAudioSource.isPlaying)
+        if (unitIsMoving && !soundsAudioSource.isPlaying)
         {
-            soundsAudioSource.clip = movementSoundEffect;
+            soundsAudioSource.clip = attackAndMovementSoundEffects[6];
             soundsAudioSource.Play();            
-        }*/
+        }
     }
 
 
@@ -314,31 +314,31 @@ public class UnitScript : MonoBehaviour
                             soundsAudioSource.Stop();
                             if (attacker.roleIndex == 0)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[0];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[0];
                             }
                             else if (attacker.roleIndex == 1)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[1];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[1];
                             }
                             else if (attacker.roleIndex == 2)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[2];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[2];
                             }
                             else if (attacker.roleIndex == 3)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[3];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[3];
                             }
                             else if (attacker.roleIndex == 4)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[4];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[4];
                             }
                             else if (attacker.roleIndex == 5)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[5];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[5];
                             }
                             else if (attacker.roleIndex == 6)
                             {
-                                soundsAudioSource.clip = attackSoundEffects[6];
+                                soundsAudioSource.clip = attackAndMovementSoundEffects[6];
                             }
 
                             soundsAudioSource.Play();
