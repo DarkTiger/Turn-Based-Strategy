@@ -294,7 +294,7 @@ public class TeamMenuScript : MonoBehaviour
             case 3: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[3]; break;
             case 4: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[4]; break;
             case 5: slotText.text = ""; slotText.color = Color.green; slotSprite.sprite = roleSprites[5]; break;
-            case -1: slotText.text = "NOT ASSIGNED"; slotText.color = Color.red; slotSprite.sprite = roleSprites[6]; break;
+            case -1: slotText.text = "NOT ASSIGNED"; slotText.color = Color.white; slotSprite.sprite = roleSprites[6]; break;
         }
     }
 
@@ -373,17 +373,17 @@ public class TeamMenuScript : MonoBehaviour
     void ResetP2SlotAtStart()
     {
         btnTextSlotP2_1.text = "NOT ASSIGNED";
-        btnTextSlotP2_1.color = Color.red;
+        btnTextSlotP2_1.color = Color.white;
         btnTextSlotP2_2.text = "NOT ASSIGNED";
-        btnTextSlotP2_2.color = Color.red;
+        btnTextSlotP2_2.color = Color.white;
         btnTextSlotP2_3.text = "NOT ASSIGNED";
-        btnTextSlotP2_3.color = Color.red;
+        btnTextSlotP2_3.color = Color.white;
         btnTextSlotP2_4.text = "NOT ASSIGNED";
-        btnTextSlotP2_4.color = Color.red;
+        btnTextSlotP2_4.color = Color.white;
         btnTextSlotP2_5.text = "NOT ASSIGNED";
-        btnTextSlotP2_5.color = Color.red;
+        btnTextSlotP2_5.color = Color.white;
         btnTextSlotP2_6.text = "NOT ASSIGNED";
-        btnTextSlotP2_6.color = Color.red;
+        btnTextSlotP2_6.color = Color.white;
     }
 
 
