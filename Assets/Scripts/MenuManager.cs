@@ -19,6 +19,8 @@ public class MenuManager : MonoBehaviour
     AudioSource soundsAudioSource;
     // public AudioClip[] menuSoundEffects;
     public AudioClip menuSoundEffect;
+    GameObject creditsPanel;
+    bool isCreditsActive = false;
 
 
 
@@ -29,12 +31,12 @@ public class MenuManager : MonoBehaviour
         helpPanelMenu = GameObject.Find("HelpPanelMenu");
         menuTutorialScreen = GameObject.Find("MenuTutorialScreen").GetComponent<Image>();
         soundsAudioSource = GameObject.Find("SoundsAudioSource").GetComponent<AudioSource>();
+        creditsPanel = GameObject.Find("CreditsPanel");
 
         panelMenuButtons.SetActive(false);
         helpPanelMenu.SetActive(false);
-
+        creditsPanel.SetActive(false);
     }
-
 
 
     void Update ()
@@ -116,5 +118,19 @@ public class MenuManager : MonoBehaviour
         soundsAudioSource.Play();
         helpPanelMenu.SetActive(false);
         helpModeMenuEnabled = false;
+    }
+
+    public void OnCreditsClick()
+    {
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
+        creditsPanel.SetActive(true);
+    }
+
+    public void OnCreditsExit()
+    {
+        soundsAudioSource.clip = menuSoundEffect;
+        soundsAudioSource.Play();
+        creditsPanel.SetActive(false);
     }
 }
