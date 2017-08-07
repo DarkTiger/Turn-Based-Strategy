@@ -118,6 +118,6 @@ public class UnitAnimationScript : MonoBehaviour
         //hitAnimator.SetBool("Ability", false);
 
         stateAnimator.SetBool("Ability", false);
-        stateAnimator.SetInteger("AttackerRoleIndex", -1);
+        //stateAnimator.SetInteger("AttackerRoleIndex", -1);
     } 
 }

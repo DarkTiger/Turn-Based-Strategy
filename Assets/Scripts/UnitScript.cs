@@ -131,14 +131,14 @@ public class UnitScript : MonoBehaviour
                     {
                         if (gameManagerScript.playerIndex == ownerIndex)
                         {
-                            if (unit != gameObject)
+                            /*if (unit != gameObject)
                             {
                                 unit.GetComponent<UnitScript>().isSelected = false;
-                            }
+                            }*/
 
                             if (currentMoveCount > 0 || !hasAttacked)
                             {
-                                isSelected = !isSelected;
+                                isSelected = true; //!isSelected;
                                                                 
                                 if (isSelected)
                                 {
@@ -147,7 +147,7 @@ public class UnitScript : MonoBehaviour
                                         soundsAudioSource.clip = attackAndMovementSoundEffects[7];
                                         soundsAudioSource.Play();
                                     }*/
-
+                                      
                                     spriteRenderer.color = selectionColor;
                                     gameManagerScript.currentSelectedUnit = this;
                                 }
