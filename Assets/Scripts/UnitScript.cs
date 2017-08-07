@@ -310,6 +310,9 @@ public class UnitScript : MonoBehaviour
 
                     int tempDamage = attacker.stats.damage + attacker.bonusAttack;
 
+                    attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);                        
+                    yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));
+
                     if (tempDamage > bonusDefense)
                     {
                         if (!soundsAudioSource.isPlaying)
@@ -347,15 +350,12 @@ public class UnitScript : MonoBehaviour
                             soundsAudioSource.Play();
                         }
 
-                        attacker.gameObject.transform.DOShakePosition(shakeDuration, shakeStrenght, shakeVibrato, 90, false, true);                        
-                        yield return StartCoroutine(unitAnimationScript.PlayAttackAnimation(attacker.roleIndex, false, false));             // Gestisce l'animazione di attacco semplice in base alla classe dell'attacker
-
                         tempDamage -= bonusDefense;
                         stats.health -= tempDamage;
 
                         if (tempDamage > 0)
                         {
-                            transform.DOShakePosition(shakeDuration/2f, shakeStrenght/1.5f, shakeVibrato/1, 90, false, true);
+                            transform.DOShakePosition(shakeDuration / 2f, shakeStrenght / 1.5f, shakeVibrato / 1, 90, false, true);
                         }
 
                         if (isReadyToCounterAttack)
@@ -374,6 +374,11 @@ public class UnitScript : MonoBehaviour
                             unitAnimationScript.PlayDeathAnimation();
                             Death();
                         }
+                    }
+                    else
+                    {
+                        soundsAudioSource.clip = attackAndMovementSoundEffects[8];
+                        soundsAudioSource.Play();
                     }
 
                     unitStatsTextScript.DoShakeDefenseBonus();
