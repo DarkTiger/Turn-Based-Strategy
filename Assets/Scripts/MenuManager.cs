@@ -107,6 +107,7 @@ public class MenuManager : MonoBehaviour
     {
         soundsAudioSource.clip = menuSoundEffect;
         soundsAudioSource.Play();
+        menuTutorialScreen.sprite = menuTutorialImages[3];
     }
 
     public void ExitMenuHelpScreen()
